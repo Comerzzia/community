@@ -1,5 +1,4 @@
-# community
-Comerzzia Community Edition
+# Comerzzia Community Edition
 
 es una aplicación pensada para el pequeño comercio. Se trata de un software libre y totalmente gratuito. 
 
