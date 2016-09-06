@@ -1,0 +1,87 @@
+procedure cabecera;
+begin
+   informe.imprimelinea(informe.damenodoxml('cabecera/empresa/descripcion'));
+	 informe.imprimelinea(informe.damenodoxml('cabecera/empresa/domicilio'));	
+	 informe.imprimelinea(informe.damenodoxml('cabecera/empresa/poblacion'));	
+	 informe.imprimelinea(informe.damenodoxml('cabecera/empresa/telefono1'));	
+	 informe.imprimelinea(informe.damenodoxml('cabecera/empresa/nombre_comercial'));
+	 informe.imprimelinea('');
+end;
+
+procedure infoTransaccion;
+begin
+   if informe.damenodoxml('pagos/operacionTEF/tipotransaccion') = 'v' then
+   begin
+      informe.imprimelinea('Operacion: VENTA');
+      if informe.damenodoxml('pagos/operacionTEF/tipolectura') = '2' then
+      begin
+         informe.imprimelinea('Req. ARC: ' + informe.damenodoxml('pagos/operacionTEF/requestcode'));
+      end;
+   end
+   else if informe.damenodoxml('pagos/operacionTEF/tipotransaccion') = 'd' then
+      informe.imprimelinea('Operacion: DEVOLUCION')
+   else 
+      informe.imprimelinea('Operacion: ' + informe.damenodoxml('pagos/operacionTEF/tipotransaccion'));
+
+   if informe.damenodoxml('pagos/operacionTEF/tipolectura') = '2' then
+   begin    
+      informe.imprimelinea('Identificacion  AID: ' + informe.damenodoxml('pagos/operacionTEF/aid'));
+      informe.imprimelinea('P23: ' + informe.damenodoxml('pagos/operacionTEF/p23'));  
+      if informe.damenodoxml('pagos/operacionTEF/applicationlabel') <> '' then    
+         informe.imprimelinea('AL:' + informe.damenodoxml('pagos/operacionTEF/applicationlabel'));
+      if informe.damenodoxml('pagos/operacionTEF/nombrecliente') <> '' then 
+         informe.imprimelinea('Titular: ' + informe.damenodoxml('pagos/operacionTEF/nombrecliente'));
+   end;
+   
+   informe.imprimelinea('Tarjeta: ' + informe.damenodoxml('pagos/operacionTEF/pan'));
+   informe.imprimelinea('Fecha: ' + formateafechahoratef(informe.damenodoxml('pagos/operacionTEF/fechatransaccion')));
+   informe.imprimelinea('Importe: ' + informe.damenodoxml('pagos/operacionTEF/importe') + ' EUR') ;
+   informe.imprimelinea('');
+   informe.imprimelinea('Num.Aut.:' + informe.damenodoxml('pagos/operacionTEF/numautorizacion'));
+   informe.imprimelinea('FUC: ' + informe.damenodoxml('pagos/operacionTEF/fuc') + ' Terminal: ' + informe.damenodoxml('pagos/operacionTEF/terminal'));      
+   informe.imprimelinea('PinPad: ' + informe.damenodoxml('pagos/operacionTEF/terminalid'));
+   if informe.damenodoxml('pagos/operacionTEF/nombreentidad') <> '' then
+      informe.imprimelinea(informe.damenodoxml('pagos/operacionTEF/nombreentidad'));      
+   informe.imprimelinea('');
+end;
+
+procedure firma;
+begin
+   if informe.damenodoxml('pagos/operacionTEF/verificaciontitular') = 'P' then
+      informe.imprimelinea('OPERACION CON PIN, FIRMA NO NECESARIA')
+   else
+   begin
+      informe.imprimelinea('Firma cliente: ');
+      informe.imprimelinea('----------------------------------------');
+      informe.imprimelinea('|                                      |');
+      informe.imprimelinea('|                                      |');
+      informe.imprimelinea('|                                      |');
+      informe.imprimelinea('----------------------------------------');   
+   end;
+end;
+
+procedure pie;
+begin
+   informe.imprimelinea('Ticket:' + informe.damenodoxml('pagos/operacionTEF/id_ticket'));
+      
+   if informe.TipoCopia = 'CLIENTE' then
+      informe.imprimelinea('       Copia para cliente')
+   else if informe.TipoCopia = 'EMPRESA' then
+   begin
+      informe.imprimelinea('Centro: ' + informe.damenodoxml('pagos/operacionTEF/codigocentro'));
+      informe.imprimelinea('Caja: ' + informe.damenodoxml('pagos/operacionTEF/codigotienda'));
+      informe.imprimelinea('Cajero: ' + informe.damenodoxml('pagos/operacionTEF/codigocajera'));
+      informe.imprimelinea('       Copia para el establecimiento');         
+   end
+   else
+      informe.imprimelinea('       ES COPIA');   
+end;
+
+begin
+   cabecera;
+   infoTransaccion;
+   firma;
+   pie;
+   informe.imprimir;
+   cortarpapel;
+end.

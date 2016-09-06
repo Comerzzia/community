@@ -1,0 +1,230 @@
+@CHARSET "UTF-8";
+/*GENERICOS*/
+BODY {background-color: white;color: #0058c1;font-family: Tahoma, Arial, Helvetica, sans-serif;font-size: 11px;margin: 0;border: 0;padding: 0}
+td,tr,th,p,a,div{font-size: 11px}
+th {vertical-align: top;padding-left: 1px;padding-right: 1px}
+a:link, a:visited{color: #0058c1;text-decoration: none}
+a:hover{color: #0058c1;text-decoration: underline}
+
+/*ESPECIFICOS*/
+.container{width:99%;height:100%}
+
+/*cabecera de la aplicacion*/
+.cabecera {width:100%;height: 40px}
+.tdLogo{width:18.9%}
+.controlCabecera{background-color:#eef2f7!important;font-weight:bold;margin-bottom:5px !important;height:25px}
+.controlCabecera td{vertical-align:middle}
+.nombreEmpresa{margin-left:1px !important;margin-right:0 !important}
+.nombreEmpresa .textoCabecera{font-weight:bold;position:relative;top:-4px}
+.menuCabecera{padding-right:5px;width:450px;padding-left:0}
+.accionesCabecera{float:right;width:450px;margin-left:0 !important}
+.iconoCabeceraPrincipal{float:left;margin:0 5px 0 2px}
+.iconoCabecera{margin-left:10px;margin-right:3px}
+.textoCabeceraPrincipal{position:relative;top:2px}
+.textoCabecera{}
+
+/*CUERPO DE LA APLICACION*/
+#cuerpo{width:100%;height:100%;position:relative;top:-8}
+
+/*MENU LATERAL*/
+#menuLateral {width:18.9%}
+.panelMenuLateral{border:1px solid #0058c1;border-top:none}
+*:first-child+html .panelMenuLateral div{width:100%}
+*html .panelMenuLateral div{width:100%}
+.botonMenuLateral{background-image:url(../images/tablas/gradiente_menu.gif);background-repeat:repeat-x;border-top:1px solid #0058c1;color:#004488;font-size:12px;padding:5px}
+.seleccionado{background-image:url(../images/tablas/gradiente_inv.gif);background-repeat:repeat-x;border-bottom:1px solid #0058c1}
+a.botonSeleccionado,a.botonSeleccionado:link,a.botonSeleccionado:visited{font-weight:bold}
+.panelMenuLateral .desplegado{height:100%;overflow:auto}
+.panelDesplegado{background:#eef2f7}
+.tablaOpciones{width:99%}
+.tablaOpciones img{float:left;margin-right:4px}
+.tablaOpciones a{display:table}
+.separadorMenu{height:4px;background: url(../images/menu/separador_menu.gif) repeat-x; width:90%}
+
+/*PARTE PRINCIPAL DE LA APLICACION*/
+.cuadroPestanas,.cuadroPrincipal{height:100%;width:100%}
+
+/*cabecera de la parte principal*/
+.fondoPrincipal{background:url(../images/tablas/gradiente.gif)}
+
+/*contenido de la parte principal*/
+.cuerpoCentral{height:100%;width:100%}
+
+/*mensajes de error y aviso*/
+.mensaje{font-weight:bold}
+.mensaje img{float:left;height:32px}
+.mensaje span{float:left;padding-top:10px}
+.error{background-image:url(../images/tablas/gradiente_error.gif)!important;color:#FFF}
+.aviso{background-image:url(../images/tablas/gradiente_aviso.gif)!important}
+.info{background-image:url(../images/tablas/gradiente_info.gif)!important;color:#FFF}
+.estandar{background-image:url(../images/tablas/gradiente_estandar.gif)!important;color: #0d3a01}
+#frmDatos{margin-bottom:0;margin-top:0}
+
+/*pestañas*/
+.tablaPestanas{border:none}
+.etiquetaPestaña{min-width:90px;cursor:pointer}
+.etiquetaPestaña div{height:22px}
+*:first-child+html .etiquetaPestaña div{width:90px}
+*html .etiquetaPestaña div{width:90px}
+.etiquetaPestaña div font{font-size:11px;color:#0058c1;font-family:Tahoma, Arial,helvetica;border:0px solid;text-decoration:none;position:relative;top:4px}
+.pestañas{margin-bottom:3px}
+
+/*titulos*/
+.grande {font-size: 12px}
+.titulo {font-weight: bold;vertical-align: middle}
+.segundoColor{color:#FFF}
+.ventanaModal{margin:5px}
+.cuadroPestanas .cuadro{margin-left:1px;margin-right:1px}
+
+/*boton*/
+.boton, input[type="button"] {-moz-border-radius-bottomleft:2.5px;-moz-border-radius-bottomright:2.5px;-moz-border-radius-topleft:2.5px;-moz-border-radius-topright:2.5px;background:url(../images/menu/boton_centro.gif) #FFFFFF repeat-x scroll right top;border:1px solid #999999;cursor:pointer}
+
+/*estilos para presentacion de tablas*/
+.fondoSecundario{background-color:#EEF2F7}
+.fondoSecundario .accion a{color:#0058c1 !important}
+.tablaResultados {padding: 2px;border-spacing:0}
+.cabeceraResultados {background-color:#A1B5CE;padding:4px 2px 4px 3px;text-align:left;font-family: Tahoma, Arial, Helvetica, sans-serif;font-weight: bold;border-bottom: 1px solid #8c969c !important;border-top:1px solid #8c969c !important;vertical-align: bottom}
+.cabeceraResultados a{border-top:none}
+a.cabeceraResultados:link, a.cabeceraResultados:visited,a.cabeceraResultados:hover{font-weight: bold;font-family: Tahoma, Arial, Helvetica, sans-serif}
+.index {border: #6699cc 1px solid;font-size: 8pt;font-family: MS Sans Serif;cursor: pointer}
+
+/*filas de dos colores*/
+.fila{background:url(../images/tablas/gradiente_tabla.gif) repeat-x scroll 0 100%;height:21px}
+.fila td{border-bottom:solid 1px #CCC}
+.fila td td{border-bottom:none}
+.fila span{padding-left:5px}
+.par{background-color:#FFF}
+.impar{background-color:#FFF}
+.fila .accion{width:16px;padding:0 1px;margin:0 1px}
+.inactivo{color:#9f9f9f;background:url(../images/tablas/gradiente_tabla_inactivo.gif) repeat-x scroll 0 100%}
+.inactivo a{color:#9f9f9f} 
+/*paginacion*/
+.paginacion {padding: 4px 2px 3px 2px}
+.paginacion img {margin-top: 4px;vertical-align: -20%}
+
+/*acciones*/
+.accion a{padding-left:2px}
+.accion img{float:left;margin-right:5px}
+
+/*mas acciones*/
+.cuadroMasAcciones{position:absolute;right:40px;padding-left:2px}
+.cuadroMasAcciones img{float:none}
+.masAcciones {background-color:#F5F5F5;border:1px solid #CACFD3;position:relative;top:4px}
+.cuadroMasAccionesEstados{position:absolute}
+.cuadroMasAccionesEstados .masAccionesEstados {background-color:#F5F5F5;border:1px solid #CACFD3;position:relative;top:0px;left:0px}
+.cuadroMasAccionesEstados .masAccionesEstados .accion{width:120px}
+.fondoPrincipal .masAcciones{left:40px;top:18px}
+.masAcciones .accion a{color:#0058c1 !important}
+.cuadroBusquedaDesplegable{margin-bottom:5px;width:100%}
+.masAcciones{z-index:10}
+
+/*Cambio de menú de aplicaciones*/
+.cuadroAplicaciones{position:absolute;}
+.cuadroAplicaciones .masAcciones {background-color:#F5F5F5;border:1px solid #CACFD3;position:relative;top:0px;left:0px;}
+.cuadroAplicaciones .masAcciones .accion{width:120px;}
+
+/*pie de la parte principal*/
+.usuario,.entidad{padding:3px;padding-left:5px}
+.fondoPie{background:url(../images/tablas/gradiente_inv.gif);background-position:bottom}
+.fondoPie td{font-weight:bold}
+
+/*Estilos de los campos de texto*/
+.campo{color:#000;border-collapse:separate;padding:1px 1px 1px 1px;border:solid 1px #a1b5ce;font-size:11px}
+.soloLectura{background-color:#EEE}
+.requerido {border-color:red}
+.numero{height:18px;margin-left:4px;width:24px}
+.imagenCalendario{border:0;vertical-align: top;cursor: pointer;margin-top:2px}
+.prismaticos{cursor:pointer;height:16px;vertical-align:top}
+
+/*panel de la aplicacion*/
+.cuadro{margin-top:2px;margin-left:5px;margin-bottom:6px;margin-right:5px; background:white}
+
+/*asistentes*/
+.botonesAsistente{margin-left:50px}
+.botonesAsistente input{width:90px}
+.insercionMasiva,.actualizacionMasiva{height:155px;padding-left:3%}
+.asistenteTienda{height:245px;padding-left:3%;width:100%}
+.asistenteEmpresa{padding-left:3%;height:270px}
+
+/*tabla de desglose*/
+.tablaDesglose{border-top:solid 1px #436b9e;border-right:solid 1px #436b9e;border-bottom:solid 1px #436b9e;margin-top:10px;margin-left:50px}
+.tablaDesglose thead{background-color:#0058c1;color:white}
+.tablaDesglose thead tr{}
+.tablaDesglose thead tr th{border-left:solid 1px #436b9e;text-align:center;vertical-align:middle}
+.tablaDesglose tbody{}
+.tablaDesglose tbody tr{}
+.tablaDesglose tbody tr td{border-left:solid 1px #436b9e;border-top:solid 1px #436b9e;text-align:center;font-size:11px;background-color:#FFF}
+.tablaDesglose .total{background:#bacade;font-weight:bold;color:#0058c1;width:30px}
+.tablaDesglose .totales{background:#D0D0D0}
+.tablaDesglose .totalesC{width:30px}
+.tablaDesglose .vacio{background-color:#EEE}
+.tablaDesglose input{border:none; font-size:11px;color:#0058c1;text-align:center;width:100px}
+
+/* teclas rapidas */ 
+#trapidas > .cabeceraResultados {
+background-color:#A1B5CE;
+border-bottom:1px solid #8C969C !important;
+border-top:1px solid #8C969C !important;
+font-family:Tahoma,Arial,Helvetica,sans-serif;
+font-weight:bold;
+padding:4px 2px 4px 3px;
+text-align:left;
+vertical-align:bottom;
+margin:0px;
+}
+.teclaGrupo {
+background:url("../images/tablas/gradiente_tabla.gif") repeat-x scroll 0 100% #ffffff;
+height:33px;
+padding-left:6px;
+padding-top:6px;
+clear:left;
+border-bottom:1px solid #CCCCCC;
+}
+.teclaGrupo  > label{
+float: left;
+width: 240px;
+padding-top: 6px;
+}
+.teclaComb {
+float: left;
+}
+.teclaComb  > div{
+padding-top: 6px;
+}
+.teclaBase{
+background:url("../images/iconos/tecla_base.gif") no-repeat scroll 0 0 #FFFFFF;
+color:#000000;
+font-weight:bold;
+float:left;
+height:26px;
+width:32px;
+text-align: center;
+}
+.teclaEspec{
+background:url("../images/iconos/tecla_espec.gif") no-repeat scroll 0 0 #FFFFFF;
+color:#000000;
+font-weight:bold;
+float:left;
+height:26px;
+width:48px;
+text-align: center;
+}
+.mas{
+float:left;
+}
+
+/*estilos de acerca de*/
+.acerca-logos{
+height:98px;
+margin-left:auto;
+margin-right:auto;
+width:274px;
+}
+.acerca-texto{
+clear: both;
+text-align: justify;
+margin: 0 8px;
+}
+.centro{
+text-align: center;
+}

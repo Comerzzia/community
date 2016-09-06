@@ -1,0 +1,87 @@
+package core;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'Comerzzia Core'}
+{$LIBPREFIX 'comerzzia_'}
+{$LIBSUFFIX '100'}
+{$RUNONLY}
+{$IMPLICITBUILD ON}
+
+requires
+  vclx,
+  vcl,
+  rtl,
+  xmlrtl,
+  dbrtl,
+  dsnap,
+  vcldb,
+  RaizeComponentsVclDb,
+  RaizeComponentsVcl,
+  JvMM,
+  unidac140,
+  dac140,
+  fs14,
+  AsyncPro,
+  vclactnband,
+  tmsd2010,
+  tmsexd2010,
+  EhLib140,
+  JvDB;
+
+contains
+  DataMBaseDatos in 'DataMBaseDatos.pas',
+  DataMCore in 'DataMCore.pas' {DMCore: TDataModule},
+  ClasesParametros in 'ClasesParametros.pas',
+  ClasesAplica in 'ClasesAplica.pas',
+  ClasesRecursos in 'ClasesRecursos.pas',
+  uMensajeDialog in 'uMensajeDialog.pas',
+  FormMensaje in 'FormMensaje.pas',
+  DataMVariables in 'DataMVariables.pas' {DMVariables: TDataModule},
+  DataMMenu in 'DataMMenu.pas' {DMMenu: TDataModule},
+  DataMBase in 'DataMBase.pas' {DMBase: TDMBase},
+  FormBase in 'FormBase.pas' {FrmBase: TFrmBase},
+  ClasesControlDll in 'ClasesControlDll.pas',
+  DataMTienda in 'DataMTienda.pas',
+  DataMImpuestos in 'DataMImpuestos.pas',
+  FormEspera in 'FormEspera.pas',
+  uEspera in 'uEspera.pas',
+  DataMContadores in 'DataMContadores.pas',
+  FormListaUsuarios in 'FormListaUsuarios.pas',
+  FormConfiguracion in 'FormConfiguracion.pas' {FrmConfiguracion},
+  DataMConfiguracionDispositivos in 'DataMConfiguracionDispositivos.pas' {DMConfiguracionDispositivos},
+  DataMUsuarios in 'DataMUsuarios.pas' {DMUsuarios: TDataModule},
+  Calendario in 'Calendario.pas',
+  uDispositivos in 'uDispositivos.pas',
+  uImpresora in 'uImpresora.pas',
+  uOPOS in 'uOPOS.pas',
+  uOPOSCashDrawer in 'uOPOSCashDrawer.pas',
+  uOPOSDisplay in 'uOPOSDisplay.pas',
+  uOPOSPRN in 'uOPOSPRN.pas',
+  uOperacionTEF in 'uOperacionTEF.pas',
+  fs_impresion in 'fs_impresion.pas',
+  iFuncImpresion in 'iFuncImpresion.pas',
+  uInforme in 'uInforme.pas',
+  igeneral in 'igeneral.pas';
+
+end.

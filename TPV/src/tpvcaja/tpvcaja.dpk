@@ -1,0 +1,48 @@
+package tpvcaja;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$LIBPREFIX 'comerzzia_'}
+{$LIBSUFFIX '100'}
+{$RUNONLY}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  core,
+  vcl,
+  dbrtl,
+  vcldb,
+  xmlrtl,
+  RaizeComponentsVcl,
+  RaizeComponentsVclDb,
+  EhLib140,
+  tpvventas;
+
+contains
+  recuento in 'recuento.pas',
+  Caja in 'Caja.pas',
+  uInformeCaja in 'uInformeCaja.pas',
+  uInformeMovCaja in 'uInformeMovCaja.pas';
+
+end.

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Etiquetas" columnCount="3" pageWidth="595" pageHeight="842" columnWidth="185" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<parameter name="CODEMP" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="CODART_DESDE" class="java.lang.String"/>
+	<parameter name="CODART_HASTA" class="java.lang.String"/>
+	<parameter name="CODPRO_DESDE" class="java.lang.String"/>
+	<parameter name="CODPRO_HASTA" class="java.lang.String"/>
+	<parameter name="CODFAM_DESDE" class="java.lang.String"/>
+	<parameter name="CODFAM_HASTA" class="java.lang.String"/>
+	<parameter name="CODTAR" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT
+     D_ARTICULOS_TBL.CODART AS D_ARTICULOS_TBL_CODART,
+     D_ARTICULOS_TBL.DESART AS D_ARTICULOS_TBL_DESART,
+     D_ARTICULOS_CODBAR_TBL.CODIGO_BARRAS AS D_ARTICULOS_CODBAR_TBL_CODIGO_,
+     D_TARIFAS_DET_TBL.PRECIO_TOTAL AS D_TARIFAS_DET_TBL_PRECIO_VENTA,
+     ETIQUETAS.DESETIQUETA AS DESETIQUETA,
+     ETIQUETAS.FACTOR AS FACTOR,
+     D_ARTICULOS_TBL.CANTIDAD_UM_ETIQUETA AS CANTIDAD
+FROM
+     D_ARTICULOS_CODBAR_TBL D_ARTICULOS_CODBAR_TBL 
+     	RIGHT OUTER JOIN D_ARTICULOS_TBL D_ARTICULOS_TBL 
+        	ON D_ARTICULOS_CODBAR_TBL.CODART = D_ARTICULOS_TBL.CODART
+     	LEFT OUTER JOIN D_TARIFAS_DET_TBL D_TARIFAS_DET_TBL 
+        	ON D_ARTICULOS_TBL.CODART = D_TARIFAS_DET_TBL.CODART
+     	LEFT OUTER JOIN D_UNIDAD_MEDIDA_ETIQUETAS_TBL ETIQUETAS 
+        	ON D_ARTICULOS_TBL.COD_UM_ETIQUETA = ETIQUETAS.COD_UM_ETIQUETA
+WHERE D_ARTICULOS_TBL.CODART >= $P{CODART_DESDE}
+ AND D_ARTICULOS_TBL.CODART <= $P{CODART_HASTA}
+ AND D_ARTICULOS_TBL.CODPRO >= $P{CODPRO_DESDE}
+ AND D_ARTICULOS_TBL.CODPRO <= $P{CODPRO_HASTA}
+ AND D_ARTICULOS_TBL.CODFAM >= $P{CODFAM_DESDE}
+ AND D_ARTICULOS_TBL.CODFAM <= $P{CODFAM_HASTA}
+ AND D_ARTICULOS_TBL.ACTIVO = 'S'
+ AND D_ARTICULOS_CODBAR_TBL.DUN14 = 'N'
+ AND LENGTH(D_ARTICULOS_CODBAR_TBL.CODIGO_BARRAS) = 13
+ AND D_TARIFAS_DET_TBL.CODTAR = 'GENERAL'
+ORDER BY
+     D_ARTICULOS_TBL.CODART ASC]]>
+	</queryString>
+	<field name="D_ARTICULOS_TBL_CODART" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="D_ARTICULOS_TBL_DESART" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="D_ARTICULOS_CODBAR_TBL_CODIGO_" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="D_TARIFAS_DET_TBL_PRECIO_VENTA" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DESETIQUETA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FACTOR" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CANTIDAD" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="LABEL_FACTOR" class="java.lang.String">
+		<variableExpression><![CDATA[$F{DESETIQUETA} + " sale a " + ($F{FACTOR}.doubleValue() > 0 
+? "" : "")]]></variableExpression>
+	</variable>
+	<variable name="FACTOR_SALE" class="java.lang.Double">
+		<variableExpression><![CDATA[($F{FACTOR}.doubleValue() > 0 
+? new Double($F{FACTOR}.doubleValue()*$F{D_TARIFAS_DET_TBL_PRECIO_VENTA}.doubleValue()/$F{CANTIDAD}.doubleValue()) : new Double(0.0))]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="100" splitType="Stretch">
+			<textField>
+				<reportElement x="8" y="19" width="17" height="78"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{D_ARTICULOS_TBL_CODART}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4" y="2" width="181" height="12"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{D_ARTICULOS_TBL_DESART}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="111" y="15" width="47" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{FACTOR_SALE}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="48" y="46" width="117" height="37"/>
+				<jr:EAN13 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" moduleWidth="1.0" textPosition="none" checksumMode="ignore">
+					<jr:codeExpression><![CDATA[$F{D_ARTICULOS_CODBAR_TBL_CODIGO_}]]></jr:codeExpression>
+				</jr:EAN13>
+			</componentElement>
+			<textField>
+				<reportElement x="47" y="84" width="117" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{D_ARTICULOS_CODBAR_TBL_CODIGO_}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="27" width="79" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Precio:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="31" y="15" width="80" height="11"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{LABEL_FACTOR}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="111" y="27" width="74" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{D_TARIFAS_DET_TBL_PRECIO_VENTA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

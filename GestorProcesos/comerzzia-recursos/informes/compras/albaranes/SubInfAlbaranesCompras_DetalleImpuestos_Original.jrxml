@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubInfPedidoCompras_DetalleImpuestos" pageWidth="555" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<parameter name="ID_PROV_ALBARAN" class="java.math.BigDecimal"/>
+	<queryString>
+		<![CDATA[SELECT
+     D_PROV_ALBARANES_CAB_TBL.ID_PROV_ALBARAN AS ID_PROV_ALBARAN,
+     D_PROV_ALBARANES_IMP_TBL.BASE AS BASE_IMPUESTOS,
+     D_PROV_ALBARANES_IMP_TBL.IMPUESTOS AS IMPUESTOS_IMPUESTOS,
+     D_PROV_ALBARANES_IMP_TBL.TOTAL AS TOTAL_IMPUESTOS,
+     D_PROV_ALBARANES_IMP_TBL.CODIMP AS IMPUESTO,
+     D_PROV_ALBARANES_CAB_TBL.ID_GRUPO_IMPUESTOS AS ID_GRUPO_IMPUESTOS,
+     D_PROV_ALBARANES_CAB_TBL.ID_TRAT_IMPUESTOS AS ID_TRAT_IMPUESTOS,
+     CONFIG_IMP_PORCENTAJES_TBL.PORCENTAJE AS PORCENTAJE,
+     CONFIG_IMP_PORCENTAJES_TBL.PORCENTAJE_RECARGO AS PORCENTAJE_RECARGO,
+     D_PROV_ALBARANES_CAB_TBL.BASE AS BASE_DOCUMENTO,
+     D_PROV_ALBARANES_CAB_TBL.IMPUESTOS AS IMPUESTO_DOCUMENTO,
+     D_PROV_ALBARANES_CAB_TBL.TOTAL AS TOTAL_DOCUMENTO
+FROM
+     D_PROV_ALBARANES_CAB_TBL D_PROV_ALBARANES_CAB_TBL 
+     INNER JOIN D_PROV_ALBARANES_IMP_TBL D_PROV_ALBARANES_IMP_TBL 
+     ON D_PROV_ALBARANES_CAB_TBL.ID_PROV_ALBARAN = D_PROV_ALBARANES_IMP_TBL.ID_PROV_ALBARAN
+     INNER JOIN CONFIG_IMP_PORCENTAJES_TBL CONFIG_IMP_PORCENTAJES_TBL 
+     ON D_PROV_ALBARANES_CAB_TBL.ID_GRUPO_IMPUESTOS = CONFIG_IMP_PORCENTAJES_TBL.ID_GRUPO_IMPUESTOS
+     AND CONFIG_IMP_PORCENTAJES_TBL.ID_TRAT_IMPUESTOS = D_PROV_ALBARANES_CAB_TBL.ID_TRAT_IMPUESTOS
+     AND CONFIG_IMP_PORCENTAJES_TBL.CODIMP = D_PROV_ALBARANES_IMP_TBL.CODIMP
+WHERE
+D_PROV_ALBARANES_CAB_TBL.ID_PROV_ALBARAN = $P{ID_PROV_ALBARAN}]]>
+	</queryString>
+	<field name="ID_PROV_ALBARAN" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASE_IMPUESTOS" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IMPUESTOS_IMPUESTOS" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TOTAL_IMPUESTOS" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IMPUESTO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID_GRUPO_IMPUESTOS" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID_TRAT_IMPUESTOS" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PORCENTAJE" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PORCENTAJE_RECARGO" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASE_DOCUMENTO" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IMPUESTO_DOCUMENTO" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TOTAL_DOCUMENTO" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="19" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="200" y="1" width="93" height="18" forecolor="#000000" backcolor="#CCCCCC"/>
+				<textElement>
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BASE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="382" y="1" width="82" height="18" forecolor="#000000" backcolor="#CCCCCC"/>
+				<textElement>
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IMPUESTOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="463" y="1" width="92" height="18" forecolor="#000000" backcolor="#CCCCCC"/>
+				<textElement>
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="292" y="1" width="44" height="18" forecolor="#000000" backcolor="#CCCCCC"/>
+				<textElement>
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="335" y="1" width="47" height="18" forecolor="#000000" backcolor="#CCCCCC"/>
+				<textElement>
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REC.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="200" y="1" width="93" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{BASE_IMPUESTOS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="382" y="1" width="82" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{IMPUESTOS_IMPUESTOS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="463" y="1" width="92" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{TOTAL_IMPUESTOS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="292" y="1" width="44" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="Tahoma" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{PORCENTAJE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="335" y="1" width="47" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="Tahoma" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{PORCENTAJE_RECARGO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="86" splitType="Stretch">
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="445" y="13" width="100" height="18"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{BASE_DOCUMENTO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="445" y="31" width="100" height="18"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{IMPUESTO_DOCUMENTO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="445" y="57" width="100" height="18"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{TOTAL_DOCUMENTO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="352" y="57" width="93" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Tahoma" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL A PAGAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="352" y="13" width="93" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Tahoma" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL BASE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="352" y="31" width="93" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Tahoma" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL IMP.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="349" y="54" width="196" height="1"/>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuracion entorno="Desarrollo" fecha="13/08/2009" xmlns="http://www.comerzzia.com/xml/ns/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.comerzzia.com/xml/ns/ http://www.comerzzia.com/xml/ns/comerzzia_1_0.xsd">
+    <BaseDatos>
+        <Datasource>java:/jdbc/COMERZZIA_DS</Datasource>
+        <EsquemaConfiguracion>COMERZZIA</EsquemaConfiguracion>
+        <EsquemaEmpresa>COMERZZIA</EsquemaEmpresa>
+
+    	<RutaBaseScripts>C:/comerzzia/scripts</RutaBaseScripts>
+    </BaseDatos>
+    
+    <Aplicacion>DESARROLLO</Aplicacion>
+    
+    <Informes>
+    	<RutaBase>C:/comerzzia/informes/</RutaBase>
+    </Informes>
+</configuracion>

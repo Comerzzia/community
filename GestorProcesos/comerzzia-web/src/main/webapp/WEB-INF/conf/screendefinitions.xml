@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='windows-1252'?>
+
+<screens>
+    <screen name="inicio" page="/inicio" />
+    <screen name="login" page="login" />
+    
+    <!-- Usuarios: restablecer contraseña de un usuario -->
+    <screen name="restablecerContrasena" page="/core/usuarios/mantenimiento/jsp/restablecerContrasena.jsp" />
+    
+    <!-- Permisos -->
+    <screen name="ver.permisos" page="permisos?accion=verPermisosUsuario" />
+    <screen name="administrar.permisos" page="permisos?accion=administrar" />
+    
+    <!-- Ayudas -->
+    <screen name="ayuda" page="/ayuda" />
+    
+    <!-- IFrame de Subida de Fotos de Artículos -->
+    <screen name="uploadFoto" page="/general/articulos/mantenimiento/jsp/uploadFoto.jsp" />
+    
+    <!-- Sincronizador de Tiendas -->
+    <screen name="sincronizador" page="/sincronizacion?accion=leerFormulario" />
+    
+    <!-- Procesador de Tickets -->
+    <screen name="monitor.tickets" page="/tickets?accion=leerFormulario" />
+    
+    <!-- Anular promoción -->
+    <screen name="anular.promocion" page="/promociones?accion=leerFormulario" />
+   
+    <!-- Modificar id de tracking -->
+    <screen name="modificar.tracking.albaran.venta" page="/ventas/albaranes/mantenimiento/jsp/tracking.jsp" />
+	
+    <!-- Consulta de teclas rápidas -->
+    <screen name="teclasRapidas" page="/comun/jsp/teclasRapidas.jsp" />
+	
+    <!-- A cerca de -->
+    <screen name="acercaDe" page="/comun/jsp/acercaDe.jsp" />
+</screens>

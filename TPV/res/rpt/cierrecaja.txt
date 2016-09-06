@@ -1,0 +1,82 @@
+procedure cabecera;
+begin
+   informe.imprimelinea(informe.damenodoxml('cabecera/empresa/descripcion'));
+	 informe.imprimelinea(informe.damenodoxml('cabecera/empresa/domicilio'));	
+	 informe.imprimelinea(informe.damenodoxml('cabecera/empresa/poblacion'));	
+	 informe.imprimelinea(informe.damenodoxml('cabecera/empresa/telefono1'));	
+	 informe.imprimelinea(informe.damenodoxml('cabecera/empresa/nombre_comercial'));
+	 informe.imprimelinea('');
+	 informe.imprimelinea('');
+   informe.imprimelinea('Caja: ' +  informe.damenodoxml('cabecera/codalm') + '/' + informe.damenodoxml('cabecera/codcaja'));	 
+	 informe.imprimelinea('Apertura: ' +  copy(informe.damenodoxml('cabecera/fecha_apertura'), 0, 19));
+	 informe.imprimelinea('Cierre: ' +  copy(informe.damenodoxml('cabecera/fecha_cierre'), 0, 19));
+	 informe.imprimelinea('Fecha Impresion: ' +  FormatDateTime('yyyy-mm-dd''T''hh:nn:ss', Now));
+	 informe.imprimelinea('');
+   informe.imprimelinea('----------------------------------------');
+   informe.imprimelinea('         RESUMEN TOTALIZADOS');
+   informe.imprimelinea('----------------------------------------');
+   informe.imprimelinea('total de tickets: ' +  copy(informe.damenodoxml('cabecera/totalescaja/numerotickets'), 0, 6));
+   informe.imprimelinea('');
+   informe.imprimelinea('A) MOV.ENTRADA:      ' + rellenaespacios(copy(informe.damenodoxml('cabecera/totalescaja/importemoventradas'), 0, 19), 19));
+   informe.imprimelinea('B) VENTAS:           ' + rellenaespacios(copy(informe.damenodoxml('cabecera/totalescaja/importeventa'), 0, 19), 19));
+   informe.imprimelinea(rellenaespacios(copy(informe.damenodoxml('cabecera/totalescaja/numeroticketsventa'), 0, 6), 6) + ' tickets de ventas');
+   informe.imprimelinea(rellenaespacios('-------------------', 40));
+   informe.imprimelinea('E = (A+B)            ' + rellenaespacios(copy(informe.damenodoxml('cabecera/totalescaja/importetotalentradas'), 0, 19), 19));
+   informe.imprimelinea('');
+   informe.imprimelinea('');
+   informe.imprimelinea('C) MOV.SALIDA:       ' + rellenaespacios(copy(informe.damenodoxml('cabecera/totalescaja/importemovsalidas'), 0, 19), 19));
+   informe.imprimelinea('D) DEVOLUCIONES:     ' + rellenaespacios(copy(informe.damenodoxml('cabecera/totalescaja/importedevoluciones'), 0, 19), 19));
+   informe.imprimelinea(rellenaespacios(copy(informe.damenodoxml('cabecera/totalescaja/numeroticketsdevoluciones'), 0, 6), 6) + ' tickets de devolucion');
+   informe.imprimelinea(rellenaespacios('-------------------', 40));
+   informe.imprimelinea('S = (C+D)            ' + rellenaespacios(copy(informe.damenodoxml('cabecera/totalescaja/importetotalsalidas'), 0, 19), 19));
+   informe.imprimelinea(rellenaespacios('-------------------', 40));
+   informe.imprimelinea('(E-S)                ' + rellenaespacios(copy(informe.damenodoxml('cabecera/totalescaja/totalentradasysalidas'), 0, 19), 19));
+   informe.imprimelinea('');
+   informe.imprimelinea('');
+   informe.imprimelinea('----------------------------------------');
+   informe.imprimelinea('       RESUMEN POR FORMA DE PAGO');
+   informe.imprimelinea('MEDIO PAGO     TOTAL  RECUENTO      DESC');
+   informe.imprimelinea('----------------------------------------');
+end;
+
+procedure detalle;
+var
+   i: Integer;
+   bTlineas: Integer;
+begin
+   bTlineas := informe.dameNumeroHijos('caja', 'lineasresumen', 'resumen');
+   for i := 0 to bTlineas - 1 do
+      informe.imprimelinea(rellenaespacios(copy(informe.damedetallenodoxml('caja', 'lineasresumen', 'desmedpag', i), 0, 10), 10) + ' ' + 
+                 rellenaespacios(copy(informe.damedetallenodoxml('caja', 'lineasresumen', 'total', i), 0, 9), 9) + ' ' +
+                 rellenaespacios(copy(informe.damedetallenodoxml('caja', 'lineasresumen', 'recuento', i), 0, 9), 9) + ' ' +
+                 rellenaespacios(copy(informe.damedetallenodoxml('caja', 'lineasresumen', 'descuadre', i), 0, 9), 9));           
+   informe.imprimelinea('');
+end;
+
+procedure total;
+begin
+   informe.imprimelinea('');
+   informe.imprimelinea('----------------------------------------');
+   informe.imprimelinea('                 TOTALES');
+   informe.imprimelinea('');
+   informe.imprimelinea('     TOTAL     DECLARADO       DESCUADRE');
+   informe.imprimelinea('----------------------------------------');
+   informe.imprimelinea('');
+   informe.imprimelinea(rellenaespacios(copy(informe.damenodoxml('cabecera/totalescaja/totalentradasysalidas'), 0, 10), 10) + ' ' + 
+              rellenaespacios(copy(informe.damenodoxml('cabecera/totalescaja/importerecuento'), 0, 13), 13) + ' ' +
+              rellenaespacios(copy(informe.damenodoxml('cabecera/totalescaja/importedescuadre'), 0, 15), 15)); 
+   informe.imprimelinea('');
+   informe.imprimelinea('');
+   informe.imprimelinea('');
+   informe.imprimelinea('');
+   informe.imprimelinea('');
+end;
+
+begin
+   abrircajon;
+   cabecera;
+   detalle;
+   total;
+   informe.imprimir;
+   cortarpapel;   
+end.

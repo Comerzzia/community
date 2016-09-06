@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lstPedidosCompras" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<parameter name="CODEMP" class="java.lang.String"/>
+	<parameter name="DESEMP" class="java.lang.String"/>
+	<parameter name="CODPRO_DESDE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["0"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CODPRO_HASTA" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["ZZZZZZZZZZ"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FECHA_DESDE" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FECHA_HASTA" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CODART_DESDE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["0"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CODART_HASTA" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["ZZZZZZZZZZZZZ"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="MOSTRAR_COMO" class="java.lang.String" isForPrompting="false">
+		<parameterDescription><![CDATA[Permite al usuario seleccionar el nivel de información que requiere a la hora de mostrar los datos. RESUMIDO o DETALLADO]]></parameterDescription>
+		<defaultValueExpression><![CDATA["RESUMIDO"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CODFAM_DESDE" class="java.lang.String">
+		<defaultValueExpression><![CDATA["0"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CODFAM_HASTA" class="java.lang.String">
+		<defaultValueExpression><![CDATA["ZZZZZZ"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CODALM_DESDE" class="java.lang.String">
+		<defaultValueExpression><![CDATA["0"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CODALM_HASTA" class="java.lang.String">
+		<defaultValueExpression><![CDATA["ZZZZ"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CODCONALM_DESDE" class="java.lang.String">
+		<defaultValueExpression><![CDATA["0"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CODCONALM_HASTA" class="java.lang.String">
+		<defaultValueExpression><![CDATA["ZZZZ"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     D_PROV_PEDIDOS_CAB_TBL.CODEMP AS CODEMP,
+     D_PROV_PEDIDOS_CAB_TBL.PERIODO AS PERIODO,
+     D_PROV_PEDIDOS_CAB_TBL.CODSERIE AS CODSERIE,
+     D_PROV_PEDIDOS_CAB_TBL.ID_PROV_PEDIDO AS ID_PROV_PEDIDO,
+     D_PROV_PEDIDOS_CAB_TBL.NUMPED AS NUMPED,
+     D_PROV_PEDIDOS_CAB_TBL.FECHA AS FECHA,
+     D_PROV_PEDIDOS_CAB_TBL.FECHA_SUMINISTRO_PREV AS FECHA_SUMINISTRO_PREV,
+     D_PROV_PEDIDOS_CAB_TBL.REFERENCIA_PROVEEDOR AS REFERENCIA_PROVEEDOR,
+     D_PROV_PEDIDOS_CAB_TBL.CODPRO AS CODPRO,
+     D_PROV_PEDIDOS_CAB_TBL.PERSONA_CONTACTO AS PERSONA_CONTACTO,
+     D_PROV_PEDIDOS_CAB_TBL.CODALM AS CODALM,
+     D_PROV_PEDIDOS_CAB_TBL.ID_GRUPO_IMPUESTOS AS ID_GRUPO_IMPUESTOS,
+     D_PROV_PEDIDOS_CAB_TBL.ID_TRAT_IMPUESTOS AS ID_TRAT_IMPUESTOS,
+     D_PROV_PEDIDOS_CAB_TBL.BASE AS BASE,
+     D_PROV_PEDIDOS_CAB_TBL.IMPUESTOS AS IMPUESTOS,
+     D_PROV_PEDIDOS_CAB_TBL.TOTAL AS TOTAL,
+     D_PROV_PEDIDOS_CAB_TBL.OBSERVACIONES AS OBSERVACIONES,
+     D_PROV_PEDIDOS_CAB_TBL.ID_USUARIO AS ID_USUARIO,
+     D_PROVEEDORES_TBL.DESPRO AS DESPRO,
+     D_PROVEEDORES_TBL.TIPO_PROVEEDOR AS TIPO_PROVEEDOR,
+     D_PROVEEDORES_TBL.TELEFONO1 AS TELEFONO1,
+     D_PROVEEDORES_TBL.TELEFONO2 AS TELEFONO2,
+     D_PROVEEDORES_TBL.FAX AS FAX,
+     D_PROV_PEDIDOS_DET_TBL.LINEA AS LINEA,
+     D_PROV_PEDIDOS_DET_TBL.CODART AS CODART,
+     D_PROV_PEDIDOS_DET_TBL.DESART AS DESART,
+     D_PROV_PEDIDOS_DET_TBL.DESGLOSE1 AS DESGLOSE1,
+     D_PROV_PEDIDOS_DET_TBL.DESGLOSE2 AS DESGLOSE2,
+     D_PROV_PEDIDOS_DET_TBL.DESCRIPCION_AMPLIADA AS DESCRIPCION_AMPLIADA,
+     D_PROV_PEDIDOS_DET_TBL.UNIDAD_MEDIDA AS UNIDAD_MEDIDA,
+     D_PROV_PEDIDOS_DET_TBL.CANTIDAD_MEDIDA_SOLICITADA AS CANTIDAD_MEDIDA_SOLICITADA,
+     D_PROV_PEDIDOS_DET_TBL.CANTIDAD_SOLICITADA AS CANTIDAD_SOLICITADA, 
+     D_PROV_PEDIDOS_DET_TBL.CANTIDAD_MEDIDA_ACEPTADA AS CANTIDAD_MEDIDA_ACEPTADA,         
+     D_PROV_PEDIDOS_DET_TBL.CANTIDAD_ACEPTADA AS CANTIDAD_ACEPTADA, 
+     D_PROV_PEDIDOS_DET_TBL.CANTIDAD_MEDIDA_RECEPCIONADA AS CANTIDAD_MEDIDA_RECEPCIONADA,         
+     D_PROV_PEDIDOS_DET_TBL.CANTIDAD_RECEPCIONADA AS CANTIDAD_RECEPCIONADA, 
+--     D_PROV_PEDIDOS_DET_TBL.CANTIDAD_MEDIDA AS CANTIDAD_MEDIDA,
+--     D_PROV_PEDIDOS_DET_TBL.CANTIDAD AS CANTIDAD,
+--     D_PROV_PEDIDOS_DET_TBL.CANTIDAD_SERVIDA AS CANTIDAD_SERVIDA,
+     D_PROV_PEDIDOS_DET_TBL.PRECIO AS PRECIO,
+     D_PROV_PEDIDOS_DET_TBL.DESCUENTO AS DESCUENTO,
+     D_PROV_PEDIDOS_DET_TBL.IMPORTE AS IMPORTE_LINEA,
+     D_PROV_PEDIDOS_DET_TBL.CANTIDAD_ACEPTADA - D_PROV_PEDIDOS_DET_TBL.CANTIDAD_RECEPCIONADA AS CANTIDAD_PENDIENTE,
+     D_ARTICULOS_TBL.CODFAM AS CODFAM,
+     D_FAMILIAS_TBL.DESFAM AS DESFAM,
+     D_PROV_PEDIDOS_CAB_TBL.ESTADO AS ESTADO,
+     D_PROV_PEDIDOS_CAB_TBL.SUBESTADO AS SUBESTADO,
+     D_PROV_PEDIDOS_DET_TBL.LESTADO AS LESTADO,
+     D_PROV_PEDIDOS_DET_TBL.LSUBESTADO AS LSUBESTADO
+FROM
+     D_PROVEEDORES_TBL D_PROVEEDORES_TBL INNER JOIN D_PROV_PEDIDOS_CAB_TBL D_PROV_PEDIDOS_CAB_TBL ON D_PROVEEDORES_TBL.CODPRO = D_PROV_PEDIDOS_CAB_TBL.CODPRO
+     LEFT OUTER JOIN D_PROV_PEDIDOS_DET_TBL D_PROV_PEDIDOS_DET_TBL ON D_PROV_PEDIDOS_CAB_TBL.ID_PROV_PEDIDO = D_PROV_PEDIDOS_DET_TBL.ID_PROV_PEDIDO
+     INNER JOIN D_ARTICULOS_TBL D_ARTICULOS_TBL ON D_PROV_PEDIDOS_DET_TBL.CODART = D_ARTICULOS_TBL.CODART
+     LEFT OUTER JOIN D_FAMILIAS_TBL D_FAMILIAS_TBL ON D_ARTICULOS_TBL.CODFAM = D_FAMILIAS_TBL.CODFAM
+WHERE
+     D_PROV_PEDIDOS_CAB_TBL.CODPRO >= $P{CODPRO_DESDE}
+ AND D_PROV_PEDIDOS_CAB_TBL.CODPRO <= $P{CODPRO_HASTA}
+ AND D_PROV_PEDIDOS_CAB_TBL.FECHA >= $P{FECHA_DESDE}
+ AND D_PROV_PEDIDOS_CAB_TBL.FECHA <= $P{FECHA_HASTA}
+ AND D_PROV_PEDIDOS_DET_TBL.CODART >= $P{CODART_DESDE}
+ AND D_PROV_PEDIDOS_DET_TBL.CODART <= $P{CODART_HASTA}
+ AND D_PROV_PEDIDOS_DET_TBL.LESTADO = 20
+ AND D_ARTICULOS_TBL.CODFAM >= $P{CODFAM_DESDE}
+ AND D_ARTICULOS_TBL.CODFAM <= $P{CODFAM_HASTA}
+ AND D_PROV_PEDIDOS_CAB_TBL.CODCONALM >= $P{CODCONALM_DESDE}
+ AND D_PROV_PEDIDOS_CAB_TBL.CODCONALM <= $P{CODCONALM_HASTA}
+ AND D_PROV_PEDIDOS_CAB_TBL.CODALM >= $P{CODALM_DESDE}
+ AND D_PROV_PEDIDOS_CAB_TBL.CODALM <= $P{CODALM_HASTA}]]>
+	</queryString>
+	<field name="CODEMP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PERIODO" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CODSERIE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID_PROV_PEDIDO" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NUMPED" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FECHA" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FECHA_SUMINISTRO_PREV" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="REFERENCIA_PROVEEDOR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CODPRO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PERSONA_CONTACTO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CODALM" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID_GRUPO_IMPUESTOS" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID_TRAT_IMPUESTOS" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASE" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IMPUESTOS" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TOTAL" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="OBSERVACIONES" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID_USUARIO" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DESPRO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TIPO_PROVEEDOR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TELEFONO1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TELEFONO2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FAX" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LINEA" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CODART" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DESART" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DESGLOSE1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DESGLOSE2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DESCRIPCION_AMPLIADA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="UNIDAD_MEDIDA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CANTIDAD_MEDIDA_SOLICITADA" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CANTIDAD_SOLICITADA" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CANTIDAD_MEDIDA_ACEPTADA" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CANTIDAD_ACEPTADA" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CANTIDAD_MEDIDA_RECEPCIONADA" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CANTIDAD_RECEPCIONADA" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PRECIO" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DESCUENTO" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IMPORTE_LINEA" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CANTIDAD_PENDIENTE" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CODFAM" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DESFAM" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ESTADO" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SUBESTADO" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LESTADO" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LSUBESTADO" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="txtDOCUMENTO" class="java.lang.String" resetType="None">
+		<variableExpression><![CDATA[$F{PERIODO}.toString().concat("/").concat($F{CODSERIE}).concat("-").concat($F{NUMPED}.toString())]]></variableExpression>
+	</variable>
+	<group name="ID_PROV_PEDIDO">
+		<groupExpression><![CDATA[$F{ID_PROV_PEDIDO}]]></groupExpression>
+		<groupHeader>
+			<band height="14">
+				<textField isBlankWhenNull="true">
+					<reportElement x="10" y="1" width="60" height="12" isRemoveLineWhenBlank="true"/>
+					<textElement>
+						<font fontName="Tahoma" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$V{txtDOCUMENTO}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yy" isBlankWhenNull="true">
+					<reportElement x="72" y="1" width="45" height="12" isRemoveLineWhenBlank="true"/>
+					<textElement>
+						<font fontName="Tahoma" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{FECHA}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yy" isBlankWhenNull="true">
+					<reportElement x="119" y="1" width="60" height="12" isRemoveLineWhenBlank="true"/>
+					<textElement>
+						<font fontName="Tahoma" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{FECHA_SUMINISTRO_PREV}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="179" y="1" width="53" height="12" isRemoveLineWhenBlank="true"/>
+					<textElement>
+						<font fontName="Tahoma" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{CODPRO}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="232" y="1" width="116" height="12" isRemoveLineWhenBlank="true"/>
+					<textElement>
+						<font fontName="Tahoma" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{DESPRO}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="ID_PROV_PEDIDO" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="353" y="1" width="38" height="12" isRemoveLineWhenBlank="true"/>
+					<textElement textAlignment="Right">
+						<font fontName="Tahoma" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CANTIDAD_ACEPTADA}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="ID_PROV_PEDIDO" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="391" y="1" width="53" height="12" isRemoveLineWhenBlank="true"/>
+					<textElement textAlignment="Right">
+						<font fontName="Tahoma" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CANTIDAD_RECEPCIONADA}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="ID_PROV_PEDIDO" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="444" y="1" width="53" height="12" isRemoveLineWhenBlank="true"/>
+					<textElement textAlignment="Right">
+						<font fontName="Tahoma" size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CANTIDAD_PENDIENTE}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement mode="Transparent" x="521" y="1" width="51" height="12" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="Tahoma" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{BASE}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement mode="Transparent" x="578" y="1" width="53" height="12" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="Tahoma" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{IMPUESTOS}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement mode="Transparent" x="635" y="1" width="65" height="12" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="Tahoma" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{TOTAL}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="3" y="13" width="794" height="1" isRemoveLineWhenBlank="true"/>
+					<graphicElement>
+						<pen lineStyle="Dashed" lineColor="#000000"/>
+					</graphicElement>
+				</line>
+			</band>
+			<band height="16">
+				<printWhenExpression><![CDATA[($P{MOSTRAR_COMO}.equals("DETALLADO")? Boolean.TRUE:Boolean.FALSE)]]></printWhenExpression>
+				<staticText>
+					<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="79" y="2" width="169" height="11" backcolor="#FFFFFF"/>
+					<textElement>
+						<font fontName="Tahoma" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ARTÍCULO / DESCRIPCIÓN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="435" y="2" width="53" height="11" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="Tahoma" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[SERVIDAS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="569" y="2" width="42" height="11" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="Tahoma" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[PRECIO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="635" y="2" width="65" height="11" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="Tahoma" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[IMPORTE ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="609" y="2" width="25" height="11" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="Tahoma" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[DTO.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="382" y="2" width="53" height="11" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="Tahoma" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[UDs]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="488" y="2" width="53" height="11" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Center">
+						<font fontName="Tahoma" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[PDTES.]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="125" splitType="Stretch">
+			<textField pattern="h.mm a">
+				<reportElement x="0" y="14" width="60" height="14"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="151" y="0" width="270" height="12"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{DESEMP}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="508" y="16" width="294" height="31"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<text><![CDATA[Relación de pedidos de compras con cantidades pendientes de recepcionar al proveedor.]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="80" height="14"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="31" width="453" height="10"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["DESDE PROVEEDOR " + $P{CODPRO_DESDE} + " HASTA " + $P{CODPRO_HASTA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="51" width="453" height="10"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["DESDE ARTÍCULO " + $P{CODART_DESDE} + " HASTA " + $P{CODART_HASTA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="61" width="78" height="10"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<text><![CDATA[DESDE FECHA]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="78" y="61" width="73" height="10"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{FECHA_DESDE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="151" y="61" width="42" height="10"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<text><![CDATA[HASTA]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="193" y="61" width="69" height="10"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{FECHA_HASTA}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="112" y="0" width="39" height="12"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{CODEMP}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="421" y="0" width="381" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Listado resumido de pedidos - Compras pendientes de suministro]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="41" width="453" height="10"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["DESDE FAMILIA " + $P{CODFAM_DESDE} + " HASTA " + $P{CODFAM_HASTA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="72" width="453" height="10"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["DESDE ALMACÉN " + $P{CODALM_DESDE} + " HASTA " + $P{CODALM_HASTA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="81" width="453" height="10"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["DESDE CONCEPTO DE ALMACÉN " + $P{CODCONALM_DESDE} + " HASTA " + $P{CODCONALM_HASTA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="450" y="13" width="53" height="11" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PDTES.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="584" y="13" width="53" height="11" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IMPUESTOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="17" y="13" width="66" height="11" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº PEDIDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="641" y="13" width="65" height="11" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="185" y="13" width="169" height="11" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROVEEDOR / DESCRIPCIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="78" y="13" width="45" height="11" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="527" y="13" width="51" height="11" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BASE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="125" y="13" width="58" height="11" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA PREV.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="359" y="13" width="38" height="11" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UDs ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="397" y="13" width="53" height="11" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SERVIDAS]]></text>
+			</staticText>
+			<line>
+				<reportElement x="12" y="26" width="789" height="1"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<printWhenExpression><![CDATA[($P{MOSTRAR_COMO}.equals("DETALLADO")? Boolean.TRUE:Boolean.FALSE)]]></printWhenExpression>
+			<textField isBlankWhenNull="false">
+				<reportElement x="266" y="2" width="55" height="10" isRemoveLineWhenBlank="true"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DESGLOSE1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="141" y="2" width="125" height="10" isRemoveLineWhenBlank="true"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DESART}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="79" y="2" width="63" height="10" isRemoveLineWhenBlank="true"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CODART}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="321" y="2" width="61" height="10" isRemoveLineWhenBlank="true"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DESGLOSE2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false">
+				<reportElement x="635" y="2" width="65" height="10" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{IMPORTE_LINEA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false">
+				<reportElement x="567" y="2" width="42" height="10" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{PRECIO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false">
+				<reportElement x="382" y="2" width="53" height="10" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CANTIDAD_ACEPTADA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false">
+				<reportElement x="608" y="2" width="25" height="10" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{DESCUENTO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="56" y="2" width="20" height="10" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{LINEA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="435" y="2" width="53" height="10" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="Tahoma" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CANTIDAD_RECEPCIONADA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="488" y="2" width="53" height="10" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="Tahoma" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CANTIDAD_PENDIENTE}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="41" y="14" width="761" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="27" splitType="Stretch">
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField" x="597" y="15" width="170" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Página " + $V{PAGE_NUMBER} + " de "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" pattern="" isBlankWhenNull="false">
+				<reportElement key="textField" x="767" y="15" width="30" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

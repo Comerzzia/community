@@ -1,0 +1,1954 @@
+-- ------------------------------------------------------------
+-- Copyright 2009-2014 RED.ES - Desarrollado por TIER1
+-- 
+-- Licencia con arreglo a la EUPL, versión 1.1 o -en cuanto 
+-- sean aprobadas por la comisión Europea- versiones 
+-- posteriores de la EUPL (la "Licencia").
+-- Solo podrá usarse esta obra si se respeta la Licencia.
+-- 
+-- http://ec.europa.eu/idabc/eupl.html
+-- 
+-- Salvo cuando lo exija la legislación aplicable o se acuerde
+-- por escrito, el programa distribuido con arreglo a la
+-- Licencia se distribuye "TAL CUAL",
+-- SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, 
+-- ni expresas ni implícitas.
+-- Véase la Licencia en el idioma concreto que rige
+-- los permisos y limitaciones que establece la Licencia.
+-- ------------------------------------------------------------
+
+CREATE TABLE CONFIG_ACCIONES_INFORMES_TBL
+    (ID_ACCION                      NUMBER(10,0) NOT NULL,
+    ID_VERSION                     NUMBER(10,0) NOT NULL,
+    VERSION                        VARCHAR2(50) NOT NULL,
+    DESCRIPCION                    VARCHAR2(250),
+    FORMATO_SALIDA                 VARCHAR2(30),
+    ACTIVO                         CHAR(1) NOT NULL,
+    TITULO                         VARCHAR2(50))
+;
+ALTER TABLE CONFIG_ACCIONES_INFORMES_TBL
+ADD CONSTRAINT CONFIG_ACCIONES_INFORMES_PK PRIMARY KEY (ID_ACCION, ID_VERSION)
+USING INDEX
+;
+
+CREATE TABLE CONFIG_ACCIONES_OPERACIONE_TBL
+    (ID_ACCION                      NUMBER(10,0) NOT NULL,
+    ID_OPERACION                   NUMBER(2,0) NOT NULL,
+    ORDEN                          NUMBER(2,0) NOT NULL,
+    DESOPERACION                   VARCHAR2(30) NOT NULL)
+;
+ALTER TABLE CONFIG_ACCIONES_OPERACIONE_TBL
+ADD CONSTRAINT CONFIG_ACCIONES_OPERACIONE_PK PRIMARY KEY (ID_ACCION, 
+  ID_OPERACION)
+USING INDEX
+;
+
+CREATE TABLE CONFIG_ACCIONES_PERMISOS_TBL
+    (ID_ACCION                      NUMBER(10,0) NOT NULL,
+    ID_OPERACION                   NUMBER(2,0) NOT NULL,
+    ID_USUARIO                     NUMBER(10,0) NOT NULL,
+    ID_PERFIL                      NUMBER(10,0) NOT NULL,
+    ACCESO                         NUMBER(1,0) NOT NULL)
+;
+ALTER TABLE CONFIG_ACCIONES_PERMISOS_TBL
+ADD CONSTRAINT CONFIG_ACCIONES_PERMISOS_PK PRIMARY KEY (ID_ACCION, ID_OPERACION, 
+  ID_USUARIO, ID_PERFIL)
+USING INDEX
+;
+
+CREATE TABLE CONFIG_ACCIONES_TBL
+    (ID_ACCION                      NUMBER(10,0) NOT NULL,
+    ACCION                         VARCHAR2(250),
+    TIPO_ACCION                    VARCHAR2(10) NOT NULL,
+    EJECUCION                      VARCHAR2(250) NOT NULL,
+    PARAMETROS                     VARCHAR2(250),
+    DESCRIPCION                    VARCHAR2(250),
+    TITULO                         VARCHAR2(250),
+    ICONO                          VARCHAR2(250),
+    ACTIVO                         CHAR(1) NOT NULL)
+;
+ALTER TABLE CONFIG_ACCIONES_TBL
+ADD CONSTRAINT CONFIG_ACCIONES_PK PRIMARY KEY (ID_ACCION)
+USING INDEX
+;
+ALTER TABLE CONFIG_ACCIONES_TBL
+ADD CONSTRAINT CONFIG_ACCIONES_UK UNIQUE (ACCION)
+USING INDEX
+;
+
+CREATE TABLE CONFIG_AYUDAS_TBL
+    (NOMBRE                         VARCHAR2(50) NOT NULL,
+    DEFINICION                     BLOB NOT NULL)
+;
+
+CREATE TABLE CONFIG_CONTADORES_DEF_TBL
+    (ID_CONTADOR                    VARCHAR2(20) NOT NULL,
+    USA_CODEMP                     CHAR(1) NOT NULL,
+    USA_CODSERIE                   CHAR(1) NOT NULL,
+    USA_PERIODO                    CHAR(1) NOT NULL,
+    DESCRIPCION                    VARCHAR2(30))
+;
+ALTER TABLE CONFIG_CONTADORES_DEF_TBL
+ADD CONSTRAINT CONFIG_CONTADORES_DEF_PK PRIMARY KEY (ID_CONTADOR)
+USING INDEX
+;
+
+CREATE TABLE CONFIG_CONTADORES_TBL
+    (ID_CONTADOR                    VARCHAR2(20) NOT NULL,
+    CODEMP                         VARCHAR2(4) NOT NULL,
+    CODSERIE                       VARCHAR2(5) NOT NULL,
+    PERIODO                        NUMBER(4,0) NOT NULL,
+    VALOR                          NUMBER(10,0) NOT NULL)
+;
+ALTER TABLE CONFIG_CONTADORES_TBL
+ADD CONSTRAINT CONFIG_CONTADORES_PK PRIMARY KEY (ID_CONTADOR, CODEMP, CODSERIE, 
+  PERIODO)
+USING INDEX
+;
+
+CREATE TABLE CONFIG_ESTADOS_TBL
+    (PROCESO                        VARCHAR2(30) NOT NULL,
+    ESTADO                         NUMBER(3,0) NOT NULL,
+    SUBESTADO                      NUMBER(3,0) NOT NULL,
+    DESESTADO                      VARCHAR2(50) NOT NULL,
+    ABREVIATURA                    VARCHAR2(30),
+    ICONO                          VARCHAR2(250),
+    AMBITO_APLICACION              VARCHAR2(250))
+;
+ALTER TABLE CONFIG_ESTADOS_TBL
+ADD CONSTRAINT CONFIG_ESTADOS_PK PRIMARY KEY (PROCESO, ESTADO, SUBESTADO)
+USING INDEX
+;
+
+CREATE TABLE CONFIG_IMP_GRUPOS_TBL
+    (ID_GRUPO_IMPUESTOS             NUMBER(5,0) NOT NULL,
+    VIGENCIA_DESDE                 DATE NOT NULL)
+;
+ALTER TABLE CONFIG_IMP_GRUPOS_TBL
+ADD CONSTRAINT CONFIG_IMP_GRUPOS_PK PRIMARY KEY (ID_GRUPO_IMPUESTOS)
+USING INDEX
+;
+
+CREATE TABLE CONFIG_IMP_PORCENTAJES_TBL
+    (ID_GRUPO_IMPUESTOS             NUMBER(5,0) NOT NULL,
+    ID_TRAT_IMPUESTOS              NUMBER(10,0) NOT NULL,
+    CODIMP                         CHAR(1) NOT NULL,
+    PORCENTAJE                     NUMBER(13,3) NOT NULL,
+    PORCENTAJE_RECARGO             NUMBER(13,3) NOT NULL)
+;
+ALTER TABLE CONFIG_IMP_PORCENTAJES_TBL
+ADD CONSTRAINT CONFIG_IMP_PORCENTAJES_PK PRIMARY KEY (ID_GRUPO_IMPUESTOS, 
+  ID_TRAT_IMPUESTOS, CODIMP)
+USING INDEX
+;
+
+CREATE TABLE CONFIG_IMP_TIPOS_TBL
+    (CODIMP                         CHAR(1) NOT NULL,
+    DESIMP                         VARCHAR2(45) NOT NULL)
+;
+ALTER TABLE CONFIG_IMP_TIPOS_TBL
+ADD CONSTRAINT CONFIG_IMP_TIPOS_PK PRIMARY KEY (CODIMP)
+USING INDEX
+;
+
+CREATE TABLE CONFIG_IMP_TRATAMIENTO_TBL
+    (ID_TRAT_IMPUESTOS              NUMBER(10,0) NOT NULL,
+    CODTRATIMP                     VARCHAR2(11) NOT NULL,
+    DESTRATIMP                     VARCHAR2(45) NOT NULL,
+    APLICA_RECARGO                 CHAR(1) NOT NULL)
+;
+ALTER TABLE CONFIG_IMP_TRATAMIENTO_TBL
+ADD CONSTRAINT CONFIG_IMP_TRATAMIENTO_PK PRIMARY KEY (ID_TRAT_IMPUESTOS)
+USING INDEX
+;
+ALTER TABLE CONFIG_IMP_TRATAMIENTO_TBL
+ADD CONSTRAINT CONFIG_IMP_TRATAMIENTO_UK UNIQUE (CODTRATIMP)
+USING INDEX
+;
+
+CREATE TABLE CONFIG_MENU_TBL
+    (APLICACION                     VARCHAR2(30) NOT NULL,
+    ORDEN                          NUMBER(4,0) NOT NULL,
+    OPCION                         VARCHAR2(250),
+    ID_ACCION                      NUMBER(10,0),
+    TECLA_RAPIDA                   VARCHAR2(10))
+;
+ALTER TABLE CONFIG_MENU_TBL
+ADD CONSTRAINT CONFIG_MENU_PK PRIMARY KEY (APLICACION, ORDEN)
+USING INDEX
+;
+
+CREATE TABLE CONFIG_PERFILES_TBL
+    (ID_PERFIL                      NUMBER(10,0) NOT NULL,
+    DESPERFIL                      VARCHAR2(30))
+;
+ALTER TABLE CONFIG_PERFILES_TBL
+ADD CONSTRAINT CONFIG_PERFILES_PK PRIMARY KEY (ID_PERFIL)
+USING INDEX
+;
+
+CREATE TABLE CONFIG_TIENDAS_TIPOS_TBL
+    (ID_TIPO_TIENDA                 NUMBER(10,0) NOT NULL,
+    DESTIPO_TIENDA                 VARCHAR2(45) NOT NULL,
+    CLASE_CONFIGURACION            VARCHAR2(255) NOT NULL,
+    CLASE_SINCRONIZACION           VARCHAR2(255) NOT NULL)
+;
+ALTER TABLE CONFIG_TIENDAS_TIPOS_TBL
+ADD CONSTRAINT CONFIG_TIENDAS_TIPOS_PK PRIMARY KEY (ID_TIPO_TIENDA)
+USING INDEX
+;
+
+CREATE TABLE CONFIG_TIENDAS_TIPOS_TRAB_TBL
+    (ID_TIPO_TIENDA                 NUMBER(10,0) NOT NULL,
+    TRABAJO                        VARCHAR2(45) NOT NULL,
+    CLASE                          VARCHAR2(255) NOT NULL,
+    INTERVALO                      VARCHAR2(45))
+;
+ALTER TABLE CONFIG_TIENDAS_TIPOS_TRAB_TBL
+ADD CONSTRAINT CONFIG_TIENDAS_TIPOS_TRAB_PK PRIMARY KEY (ID_TIPO_TIENDA, TRABAJO)
+USING INDEX
+;
+
+CREATE TABLE CONFIG_USUARIOS_PERFILES_TBL
+    (ID_USUARIO                     NUMBER(10,0) NOT NULL,
+    ID_PERFIL                      NUMBER(10,0) NOT NULL)
+;
+ALTER TABLE CONFIG_USUARIOS_PERFILES_TBL
+ADD CONSTRAINT CONFIG_USUARIOS_PERFILES_PK PRIMARY KEY (ID_USUARIO, ID_PERFIL)
+USING INDEX
+;
+
+CREATE TABLE CONFIG_USUARIOS_TBL
+    (ID_USUARIO                     NUMBER(10,0) NOT NULL,
+    USUARIO                        VARCHAR2(20) NOT NULL,
+    DESUSUARIO                     VARCHAR2(50),
+    CLAVE                          VARCHAR2(250),
+    ACTIVO                         CHAR(1) NOT NULL,
+    APLICACION_POR_DEFECTO         VARCHAR2(30),
+    PUEDE_CAMBIAR_APLICACION       CHAR(1) NOT NULL)
+;
+ALTER TABLE CONFIG_USUARIOS_TBL
+ADD CONSTRAINT CONFIG_USUARIOS_IDU_UNQ UNIQUE (USUARIO)
+USING INDEX
+;
+ALTER TABLE CONFIG_USUARIOS_TBL
+ADD CONSTRAINT CONFIG_USUARIOS_PK PRIMARY KEY (ID_USUARIO)
+USING INDEX
+;
+
+CREATE TABLE CONFIG_VARIABLES_DEF_TBL
+    (ID_VARIABLE                    VARCHAR2(50) NOT NULL,
+    DESCRIPCION                    VARCHAR2(255) NOT NULL,
+    VALOR_DEFECTO                  VARCHAR2(250),
+    NIVEL_USUARIO                  VARCHAR2(1) NOT NULL,
+    NIVEL_GRUPO                    VARCHAR2(1) NOT NULL,
+    NIVEL_EMPRESA                  VARCHAR2(1) NOT NULL,
+    NIVEL_GENERAL                  VARCHAR2(1) NOT NULL)
+;
+ALTER TABLE CONFIG_VARIABLES_DEF_TBL
+ADD CONSTRAINT CONFIG_VARIABLES_DEF_PK PRIMARY KEY (ID_VARIABLE)
+USING INDEX
+;
+
+CREATE TABLE CONFIG_VARIABLES_TBL
+    (ID_VARIABLE                    VARCHAR2(50) NOT NULL,
+    PESO                           NUMBER(3,0) NOT NULL,
+    ID_USUARIO                     NUMBER(10,0),
+    ID_GRUPO                       NUMBER(10,0),
+    CODEMP                         VARCHAR2(4),
+    VALOR                          VARCHAR2(250))
+;
+ALTER TABLE CONFIG_VARIABLES_TBL
+ADD CONSTRAINT CONFIG_VARIABLES_PK PRIMARY KEY (ID_VARIABLE, PESO)
+USING INDEX
+;
+
+CREATE TABLE D_ALMACENES_ARTICULOS_TBL
+    (CODALM                         VARCHAR2(4) NOT NULL,
+    CODART                         VARCHAR2(13) NOT NULL,
+    DESGLOSE1                      VARCHAR2(15) NOT NULL,
+    DESGLOSE2                      VARCHAR2(15) NOT NULL,
+    STOCK                          NUMBER(13,3) NOT NULL,
+    STOCK_UM_ALTERNATIVA           NUMBER(13,3) NOT NULL,
+    STOCK_MINIMO                   NUMBER(13,3) NOT NULL,
+    STOCK_MAXIMO                   NUMBER(13,3) NOT NULL,
+    STOCK_PENDIENTE_RECIBIR        NUMBER(13,3) NOT NULL,
+    STOCK_PENDIENTE_SERVIR         NUMBER(13,3) NOT NULL,
+    UBICACION1                     VARCHAR2(15),
+    UBICACION2                     VARCHAR2(15),
+    UBICACION3                     VARCHAR2(15),
+    UBICACION4                     VARCHAR2(15),
+    PMP                            NUMBER(13,3) NOT NULL,
+    ACTIVO                         CHAR(1) NOT NULL)
+;
+ALTER TABLE D_ALMACENES_ARTICULOS_TBL
+ADD CONSTRAINT D_ALMACENES_ARTICULOS_PK PRIMARY KEY (CODALM, CODART, DESGLOSE1, 
+  DESGLOSE2)
+USING INDEX
+;
+
+CREATE TABLE D_ALMACENES_CONCEPTOS_TBL
+    (CODAPLICACION                  VARCHAR2(4) NOT NULL,
+    CODCONALM                      VARCHAR2(4) NOT NULL,
+    DESCONALM                      VARCHAR2(30),
+    SIGNO                          CHAR(1),
+    CODALM_ORIGEN                  VARCHAR2(4),
+    CODALM_DESTINO                 VARCHAR2(4),
+    SOLICITUD_ACEPTACION_AUTO      CHAR(1) NOT NULL,
+    SOLICITUD_RECEPCION_AUTO       CHAR(1) NOT NULL,
+    SOLICITUD_GENERAR_FALTAS       CHAR(1) NOT NULL,
+    VISIBLE_TIENDAS                CHAR(1) NOT NULL,
+    ACTIVO                         CHAR(1) NOT NULL)
+;
+ALTER TABLE D_ALMACENES_CONCEPTOS_TBL
+ADD CONSTRAINT D_ALMACENES_CONCEPTOS_PK PRIMARY KEY (CODAPLICACION, CODCONALM)
+USING INDEX
+;
+
+CREATE TABLE D_ALMACENES_REGULARIZA_TBL
+    (ID_REGULARIZACION              NUMBER(10,0) NOT NULL,
+    CODALM                         VARCHAR2(4) NOT NULL,
+    FECHA                          DATE NOT NULL,
+    CODAPLICACION                  VARCHAR2(4) NOT NULL,
+    CODCONALM                      VARCHAR2(4) NOT NULL,
+    CODART                         VARCHAR2(13) NOT NULL,
+    DESGLOSE1                      VARCHAR2(15) NOT NULL,
+    DESGLOSE2                      VARCHAR2(15) NOT NULL,
+    CANTIDAD_MEDIDA                NUMBER(13,3),
+    UNIDAD_MEDIDA                  VARCHAR2(4),
+    CANTIDAD                       NUMBER(13,3) NOT NULL,
+    PRECIO                         NUMBER(14,4),
+    IMPORTE                        NUMBER(13,3) NOT NULL,
+    OBSERVACIONES                  VARCHAR2(255),
+    ID_USUARIO                     NUMBER(10,0),
+    ANTERIOR_STOCK                 NUMBER(13,3),
+    ANTERIOR_STOCK_UM_ALTERNATIVA  NUMBER(13,3))
+;
+ALTER TABLE D_ALMACENES_REGULARIZA_TBL
+ADD CONSTRAINT D_ALMACEN_REGULARIZA_PK PRIMARY KEY (ID_REGULARIZACION)
+USING INDEX
+;
+
+CREATE TABLE D_ALMACENES_TBL
+    (CODALM                         VARCHAR2(4) NOT NULL,
+    DESALM                         VARCHAR2(45) NOT NULL,
+    DOMICILIO                      VARCHAR2(50),
+    POBLACION                      VARCHAR2(50),
+    PROVINCIA                      VARCHAR2(50),
+    CP                             VARCHAR2(8),
+    TELEFONO1                      VARCHAR2(15),
+    TELEFONO2                      VARCHAR2(15),
+    FAX                            VARCHAR2(15),
+    PERSONA_CONTACTO               VARCHAR2(45),
+    CODEMP                         VARCHAR2(4) NOT NULL,
+    CODCLI                         VARCHAR2(11) NOT NULL,
+    ACTIVO                         CHAR(1) NOT NULL)
+;
+ALTER TABLE D_ALMACENES_TBL
+ADD CONSTRAINT D_ALMACENES_PK PRIMARY KEY (CODALM)
+USING INDEX
+;
+ALTER TABLE D_ALMACENES_TBL
+ADD CONSTRAINT D_ALMACENES_UK UNIQUE (CODCLI)
+USING INDEX
+;
+
+CREATE TABLE D_ALMACENES_USUARIOS_TBL
+    (CODALM                         VARCHAR2(4) NOT NULL,
+    ID_USUARIO                     NUMBER(10,0) NOT NULL)
+;
+ALTER TABLE D_ALMACENES_USUARIOS_TBL
+ADD CONSTRAINT D_ALMACENES_USUARIOS_PK PRIMARY KEY (CODALM, ID_USUARIO)
+USING INDEX
+;
+
+CREATE TABLE D_ARTICULOS_CODBAR_TBL
+    (CODART                         VARCHAR2(13) NOT NULL,
+    DESGLOSE1                      VARCHAR2(15) NOT NULL,
+    DESGLOSE2                      VARCHAR2(15) NOT NULL,
+    CODIGO_BARRAS                  VARCHAR2(20) NOT NULL,
+    DUN14                          CHAR(1) NOT NULL,
+    FECHA_ALTA                     DATE NOT NULL,
+    FACTOR_CONVERSION              NUMBER(13,3))
+;
+ALTER TABLE D_ARTICULOS_CODBAR_TBL
+ADD CONSTRAINT D_ARTICULOS_CODBAR_PK PRIMARY KEY (CODART, CODIGO_BARRAS)
+USING INDEX
+;
+ALTER TABLE D_ARTICULOS_CODBAR_TBL
+ADD CONSTRAINT D_ARTICULOS_CODBAR_UK UNIQUE (CODIGO_BARRAS)
+USING INDEX
+;
+COMMENT ON COLUMN D_ARTICULOS_CODBAR_TBL.FACTOR_CONVERSION IS 'Factor de conversión asociado al DUN14'
+;
+
+CREATE TABLE D_ARTICULOS_FOTO_TBL
+    (CODART                         VARCHAR2(13) NOT NULL,
+    TIPO_FOTO                      VARCHAR2(1) NOT NULL,
+    FOTO                           BLOB)
+;
+ALTER TABLE D_ARTICULOS_FOTO_TBL
+ADD CONSTRAINT D_ARTICULOS_FOTO_PK PRIMARY KEY (CODART, TIPO_FOTO)
+USING INDEX
+;
+
+CREATE TABLE D_ARTICULOS_NUM_SERIE_MOV_TBL
+    (ID_NUMSERIE                    NUMBER(10,0) NOT NULL,
+    FECHA                          DATE NOT NULL,
+    TIPO_MOVIMIENTO                VARCHAR2(2) NOT NULL,
+    ID_DOCUMENTO                   NUMBER(10,0),
+    LINEA                          NUMBER(5,0),
+    REFERENCIA                     VARCHAR2(50),
+    ESTADO                         NUMBER(4,0) NOT NULL,
+    SUBESTADO                      NUMBER(4,0) NOT NULL)
+;
+ALTER TABLE D_ARTICULOS_NUM_SERIE_MOV_TBL
+ADD CONSTRAINT D_ARTICULOS_NUM_SERIE_MOV_PK PRIMARY KEY (ID_NUMSERIE, FECHA, 
+  TIPO_MOVIMIENTO)
+USING INDEX
+;
+
+CREATE TABLE D_ARTICULOS_NUM_SERIE_TBL
+    (ID_NUMSERIE                    NUMBER(10,0) NOT NULL,
+    ID_NUMSERIE_PADRE              NUMBER(10,0),
+    ID_NUMSERIE_SUSTITUIDO         NUMBER(10,0),
+    NUMERO_SERIE                   VARCHAR2(25) NOT NULL,
+    CODALM                         VARCHAR2(4) NOT NULL,
+    CODART                         VARCHAR2(13) NOT NULL,
+    CODCLI                         VARCHAR2(11),
+    CODPRO                         VARCHAR2(11),
+    FECHA                          DATE,
+    ESTADO                         NUMBER(3,0) NOT NULL,
+    SUBESTADO                      NUMBER(3,0) NOT NULL,
+    OBSERVACIONES                  VARCHAR2(255))
+;
+
+CREATE UNIQUE INDEX D_ARTICULOS_NUM_SERIE_UK ON D_ARTICULOS_NUM_SERIE_TBL
+  (
+    NUMERO_SERIE                    ASC
+  )
+;
+ALTER TABLE D_ARTICULOS_NUM_SERIE_TBL
+ADD CONSTRAINT D_ARTICULOS_NUM_SERIE_PK PRIMARY KEY (ID_NUMSERIE)
+USING INDEX
+;
+
+CREATE TABLE D_ARTICULOS_TBL
+    (CODART                         VARCHAR2(13) NOT NULL,
+    DESART                         VARCHAR2(45) NOT NULL,
+    FORMATO                        VARCHAR2(20),
+    CODFAM                         VARCHAR2(6),
+    CODSECCION                     VARCHAR2(4),
+    CODCAT                         VARCHAR2(20),
+    CODPRO                         VARCHAR2(11),
+    REFERENCIA_PROVEEDOR           VARCHAR2(40),
+    DTO_PROVEEDOR                  NUMBER(5,2) NOT NULL,
+    CODFAB                         VARCHAR2(11),
+    PMP                            NUMBER(14,4),
+    ACT_AUTOMATICA_COSTO           CHAR(1),
+    COSTO_ACTUALIZADO              DATE,
+    CODIMP                         CHAR(1) NOT NULL,
+    OBSERVACIONES                  VARCHAR2(255),
+    ACTIVO                         CHAR(1) NOT NULL,
+    NUMEROS_SERIE                  CHAR(1),
+    DESGLOSE1                      CHAR(1) NOT NULL,
+    DESGLOSE2                      CHAR(1) NOT NULL,
+    GENERICO                       CHAR(1) NOT NULL,
+    ESCAPARATE                     CHAR(1) NOT NULL,
+    UNIDAD_MEDIDA_ALTERNATIVA      VARCHAR2(4),
+    COD_UM_ETIQUETA                VARCHAR2(4),
+    CANTIDAD_UM_ETIQUETA           NUMBER(13,3),
+    FECHA_ALTA                     DATE,
+    VERSION                        NUMBER(10,0) NOT NULL,
+    FECHA_VERSION                  DATE)
+;
+ALTER TABLE D_ARTICULOS_TBL
+ADD CONSTRAINT D_ARTICULOS_PK PRIMARY KEY (CODART)
+USING INDEX
+;
+
+CREATE TABLE D_ARTICULOS_UNID_MEDIDA_TBL
+    (CODART                         VARCHAR2(13) NOT NULL,
+    UNIDAD_MEDIDA                  VARCHAR2(4) NOT NULL,
+    FACTOR_CONVERSION              NUMBER(13,3) NOT NULL,
+    ALTO                           NUMBER(13,0),
+    ANCHO                          NUMBER(13,0),
+    FONDO                          NUMBER(13,0),
+    PESO                           NUMBER(13,3))
+;
+ALTER TABLE D_ARTICULOS_UNID_MEDIDA_TBL
+ADD CONSTRAINT D_ARTICULOS_UNID_MEDIDA_PK PRIMARY KEY (CODART, UNIDAD_MEDIDA)
+USING INDEX
+;
+
+CREATE TABLE D_BANCOS_TBL
+    (CODBAN                         VARCHAR2(11) NOT NULL,
+    DESBAN                         VARCHAR2(45) NOT NULL,
+    DOMICILIO                      VARCHAR2(50),
+    POBLACION                      VARCHAR2(50),
+    PROVINCIA                      VARCHAR2(50),
+    TELEFONO1                      VARCHAR2(15),
+    TELEFONO2                      VARCHAR2(15),
+    FAX                            VARCHAR2(15),
+    CCC                            VARCHAR2(20),
+    CIF                            VARCHAR2(20),
+    CP                             VARCHAR2(8),
+    CODEMP                         VARCHAR2(4) NOT NULL,
+    OBSERVACIONES                  VARCHAR2(255),
+    ACTIVO                         CHAR(1) NOT NULL)
+;
+ALTER TABLE D_BANCOS_TBL
+ADD CONSTRAINT D_BANCOS_PK PRIMARY KEY (CODBAN)
+USING INDEX
+;
+
+CREATE TABLE D_CAJA_CAB_TBL
+    (UID_DIARIO_CAJA                VARCHAR2(40) NOT NULL,
+    CODALM                         VARCHAR2(4) NOT NULL,
+    CODCAJA                        VARCHAR2(2) NOT NULL,
+    FECHA_APERTURA                 DATE NOT NULL,
+    FECHA_CIERRE                   DATE,
+    ID_USUARIO                     NUMBER(10,0))
+;
+ALTER TABLE D_CAJA_CAB_TBL
+ADD CONSTRAINT D_CAJA_CAB_PK PRIMARY KEY (UID_DIARIO_CAJA)
+USING INDEX
+;
+
+CREATE TABLE D_CAJA_DET_TBL
+    (UID_DIARIO_CAJA                VARCHAR2(40) NOT NULL,
+    LINEA                          NUMBER(5,0) NOT NULL,
+    FECHA                          DATE NOT NULL,
+    CARGO                          NUMBER(13,3),
+    ABONO                          NUMBER(13,3),
+    CONCEPTO                       VARCHAR2(40) NOT NULL,
+    DOCUMENTO                      VARCHAR2(10),
+    ID_MEDPAG_VEN                  NUMBER(10,0),
+    ID_DOCUMENTO                   VARCHAR2(40))
+;
+ALTER TABLE D_CAJA_DET_TBL
+ADD CONSTRAINT D_CAJA_DET_PK PRIMARY KEY (UID_DIARIO_CAJA, LINEA)
+USING INDEX
+;
+
+CREATE TABLE D_CATEGORIZACION_TBL
+    (CODCAT                         VARCHAR2(20) NOT NULL,
+    DESCAT                         VARCHAR2(45) NOT NULL,
+    ACTIVO                         CHAR(1))
+;
+ALTER TABLE D_CATEGORIZACION_TBL
+ADD CONSTRAINT D_CATEGORIZACION_PK PRIMARY KEY (CODCAT)
+USING INDEX
+;
+
+CREATE TABLE D_CLIE_ALBARANES_CAB_TBL
+    (ID_CLIE_ALBARAN                NUMBER(10,0) NOT NULL,
+    CODEMP                         VARCHAR2(4) NOT NULL,
+    PERIODO                        NUMBER(4,0) NOT NULL,
+    CODSERIE                       VARCHAR2(5) NOT NULL,
+    NUMALB                         NUMBER(10,0) NOT NULL,
+    FECHA                          DATE NOT NULL,
+    HORA                           VARCHAR2(5),
+    FECHA_SUMINISTRO               DATE NOT NULL,
+    CODALM                         VARCHAR2(4) NOT NULL,
+    CODCAJA                        VARCHAR2(2),
+    UID_DIARIO_CAJA                VARCHAR2(40),
+    CODAPLICACION                  VARCHAR2(4) NOT NULL,
+    CODCONALM                      VARCHAR2(4) NOT NULL,
+    CODCLI                         VARCHAR2(11) NOT NULL,
+    CODTAR                         VARCHAR2(11),
+    ID_TIPO_PORTE                  NUMBER(10,0),
+    PERSONA_CONTACTO               VARCHAR2(30),
+    REFERENCIA_CLIENTE             VARCHAR2(45),
+    ID_GRUPO_IMPUESTOS             NUMBER(5,0) NOT NULL,
+    ID_TRAT_IMPUESTOS              NUMBER(10,0) NOT NULL,
+    BASE                           NUMBER(13,3) NOT NULL,
+    IMPUESTOS                      NUMBER(13,3) NOT NULL,
+    TOTAL                          NUMBER(13,3) NOT NULL,
+    OBSERVACIONES                  VARCHAR2(255),
+    ID_USUARIO                     NUMBER(10,0),
+    ID_FACTURA_REP                 NUMBER(10,0),
+    ID_FACTURA_SOP                 NUMBER(10,0),
+    TARJETA_FIDELIZACION           VARCHAR2(30),
+    TRACKING_PORTE                 VARCHAR2(50),
+    UID_TICKET                     VARCHAR2(40))
+;
+ALTER TABLE D_CLIE_ALBARANES_CAB_TBL
+ADD CONSTRAINT D_CLIE_ALBARANES_CAB_PK PRIMARY KEY (ID_CLIE_ALBARAN)
+USING INDEX
+;
+ALTER TABLE D_CLIE_ALBARANES_CAB_TBL
+ADD CONSTRAINT D_CLIE_ALBARANES_CAB_UK UNIQUE (CODEMP, PERIODO, CODSERIE, NUMALB)
+USING INDEX
+;
+
+CREATE TABLE D_CLIE_ALBARANES_DET_TBL
+    (ID_CLIE_ALBARAN                NUMBER(10,0) NOT NULL,
+    LINEA                          NUMBER(5,0) NOT NULL,
+    FECHA                          DATE NOT NULL,
+    CODART                         VARCHAR2(13) NOT NULL,
+    DESGLOSE1                      VARCHAR2(15) NOT NULL,
+    DESGLOSE2                      VARCHAR2(15) NOT NULL,
+    DESART                         VARCHAR2(45),
+    DESCRIPCION_AMPLIADA           VARCHAR2(255),
+    UNIDAD_MEDIDA                  VARCHAR2(4),
+    CANTIDAD_MEDIDA                NUMBER(13,3),
+    CANTIDAD                       NUMBER(13,3) NOT NULL,
+    PRECIO                         NUMBER(14,4) NOT NULL,
+    PRECIO_TOTAL                   NUMBER(14,4) NOT NULL,
+    DESCUENTO                      NUMBER(5,2) NOT NULL,
+    IMPORTE                        NUMBER(13,3) NOT NULL,
+    IMPORTE_TOTAL                  NUMBER(13,3) NOT NULL,
+    CODIMP                         CHAR(1) NOT NULL,
+    PRECIO_COSTO                   NUMBER(14,4) NOT NULL,
+    ID_CLIE_PEDIDO                 NUMBER(10,0),
+    PEDIDO_LINEA                   NUMBER(5,0))
+;
+ALTER TABLE D_CLIE_ALBARANES_DET_TBL
+ADD CONSTRAINT D_CLIE_ALBARANES_DET_PK PRIMARY KEY (ID_CLIE_ALBARAN, LINEA)
+USING INDEX
+;
+
+CREATE TABLE D_CLIE_ALBARANES_IMP_TBL
+    (ID_CLIE_ALBARAN                NUMBER(10,0) NOT NULL,
+    CODIMP                         CHAR(1) NOT NULL,
+    BASE                           NUMBER(13,3) NOT NULL,
+    IMPUESTOS                      NUMBER(13,3) NOT NULL,
+    TOTAL                          NUMBER(13,3) NOT NULL)
+;
+ALTER TABLE D_CLIE_ALBARANES_IMP_TBL
+ADD CONSTRAINT D_CLIE_ALBARANES_IMP_PK PRIMARY KEY (ID_CLIE_ALBARAN, CODIMP)
+USING INDEX
+;
+
+CREATE TABLE D_CLIE_ALBARANES_PAG_TBL
+    (ID_CLIE_ALBARAN                NUMBER(10,0) NOT NULL,
+    LINEA                          NUMBER(5,0) NOT NULL,
+    ID_MEDPAG_VEN                  NUMBER(10,0) NOT NULL,
+    IMPORTE                        NUMBER(13,3) NOT NULL,
+    NUMERO_OPERACION               VARCHAR2(30))
+;
+ALTER TABLE D_CLIE_ALBARANES_PAG_TBL
+ADD CONSTRAINT D_CLIE_ALBARANES_PAG_PK PRIMARY KEY (ID_CLIE_ALBARAN, LINEA)
+USING INDEX
+;
+
+CREATE TABLE D_CLIE_PEDIDOS_CAB_TBL
+    (ID_CLIE_PEDIDO                 NUMBER(10,0) NOT NULL,
+    CODEMP                         VARCHAR2(4) NOT NULL,
+    PERIODO                        NUMBER(4,0) NOT NULL,
+    CODSERIE                       VARCHAR2(5) NOT NULL,
+    NUMPED                         NUMBER(10,0) NOT NULL,
+    FECHA                          DATE NOT NULL,
+    FECHA_SUMINISTRO_PREV          DATE,
+    CODALM                         VARCHAR2(4) NOT NULL,
+    CODCAJA                        VARCHAR2(2),
+    UID_DIARIO_CAJA                VARCHAR2(40),
+    CODAPLICACION                  VARCHAR2(4) NOT NULL,
+    CODCONALM                      VARCHAR2(4) NOT NULL,
+    CODCLI                         VARCHAR2(11) NOT NULL,
+    CODTAR                         VARCHAR2(11),
+    ID_TIPO_PORTE                  NUMBER(10,0),
+    PERSONA_CONTACTO               VARCHAR2(30),
+    REFERENCIA_CLIENTE             VARCHAR2(45),
+    ID_GRUPO_IMPUESTOS             NUMBER(5,0) NOT NULL,
+    ID_TRAT_IMPUESTOS              NUMBER(10,0) NOT NULL,
+    BASE                           NUMBER(13,3) NOT NULL,
+    IMPUESTOS                      NUMBER(13,3) NOT NULL,
+    TOTAL                          NUMBER(13,3) NOT NULL,
+    OBSERVACIONES                  VARCHAR2(255),
+    ID_USUARIO                     NUMBER(10,0),
+    TARJETA_FIDELIZACION           VARCHAR2(30),
+    ESTADO                         NUMBER(3,0) NOT NULL,
+    SUBESTADO                      NUMBER(3,0) NOT NULL,
+    ESTADO_RECEPTOR                NUMBER(3,0) NOT NULL,
+    SUBESTADO_RECEPTOR             NUMBER(3,0) NOT NULL,
+    ID_CLIE_PRESUPUESTO            NUMBER(10,0))
+;
+ALTER TABLE D_CLIE_PEDIDOS_CAB_TBL
+ADD CONSTRAINT D_CLIE_PEDIDOS_CAB_PK PRIMARY KEY (ID_CLIE_PEDIDO)
+USING INDEX
+;
+ALTER TABLE D_CLIE_PEDIDOS_CAB_TBL
+ADD CONSTRAINT D_CLIE_PEDIDOS_CAB_UK UNIQUE (CODEMP, PERIODO, CODSERIE, NUMPED)
+USING INDEX
+;
+
+CREATE TABLE D_CLIE_PEDIDOS_DET_TBL
+    (ID_CLIE_PEDIDO                 NUMBER(10,0) NOT NULL,
+    LINEA                          NUMBER(5,0) NOT NULL,
+    CODART                         VARCHAR2(13) NOT NULL,
+    DESGLOSE1                      VARCHAR2(15) NOT NULL,
+    DESGLOSE2                      VARCHAR2(15) NOT NULL,
+    DESART                         VARCHAR2(45),
+    DESCRIPCION_AMPLIADA           VARCHAR2(255),
+    UNIDAD_MEDIDA                  VARCHAR2(4),
+    CANTIDAD_MEDIDA_SOLICITADA     NUMBER(13,3),
+    CANTIDAD_SOLICITADA            NUMBER(13,3),
+    CANTIDAD_MEDIDA_ACEPTADA       NUMBER(13,3),
+    CANTIDAD_ACEPTADA              NUMBER(13,3),
+    CANTIDAD_MEDIDA_PREPARADA      NUMBER(13,3),
+    CANTIDAD_PREPARADA             NUMBER(13,3),
+    PRECIO                         NUMBER(14,4) NOT NULL,
+    DESCUENTO                      NUMBER(5,2) NOT NULL,
+    IMPORTE                        NUMBER(13,3) NOT NULL,
+    CODIMP                         CHAR(1) NOT NULL,
+    ID_PROMOCION                   NUMBER(10,0),
+    LESTADO                        NUMBER(3,0) NOT NULL,
+    LSUBESTADO                     NUMBER(3,0) NOT NULL,
+    ID_CLIE_PEDIDO_ORIGEN          NUMBER(10,0),
+    LINEA_PEDIDO_ORIGEN            NUMBER(5,0))
+;
+ALTER TABLE D_CLIE_PEDIDOS_DET_TBL
+ADD CONSTRAINT D_CLIE_PEDIDOS_DET_PK PRIMARY KEY (ID_CLIE_PEDIDO, LINEA)
+USING INDEX
+;
+
+CREATE TABLE D_CLIE_PEDIDOS_IMP_TBL
+    (ID_CLIE_PEDIDO                 NUMBER(10,0) NOT NULL,
+    CODIMP                         CHAR(1) NOT NULL,
+    BASE                           NUMBER(13,3) NOT NULL,
+    IMPUESTOS                      NUMBER(13,3) NOT NULL,
+    TOTAL                          NUMBER(13,3) NOT NULL)
+;
+ALTER TABLE D_CLIE_PEDIDOS_IMP_TBL
+ADD CONSTRAINT D_CLIE_PEDIDOS_IMP_PK PRIMARY KEY (ID_CLIE_PEDIDO, CODIMP)
+USING INDEX
+;
+
+CREATE TABLE D_CLIE_PEDIDOS_PAG_TBL
+    (ID_CLIE_PEDIDO                 NUMBER(10,0) NOT NULL,
+    LINEA                          NUMBER(5,0) NOT NULL,
+    ID_MEDPAG_VEN                  NUMBER(10,0) NOT NULL,
+    IMPORTE                        NUMBER(13,3) NOT NULL,
+    NUMERO_OPERACION               VARCHAR2(30))
+;
+ALTER TABLE D_CLIE_PEDIDOS_PAG_TBL
+ADD CONSTRAINT D_CLIE_PEDIDOS_PAG_PK PRIMARY KEY (ID_CLIE_PEDIDO, LINEA)
+USING INDEX
+;
+
+CREATE TABLE D_CLIE_PRESUPUESTOS_CAB_TBL
+    (ID_CLIE_PRESUPUESTO            NUMBER(10,0) NOT NULL,
+    CODEMP                         VARCHAR2(4) NOT NULL,
+    PERIODO                        NUMBER(4,0) NOT NULL,
+    CODSERIE                       VARCHAR2(5) NOT NULL,
+    NUMPRE                         NUMBER(10,0) NOT NULL,
+    VERSION                        NUMBER(3,0) NOT NULL,
+    FECHA                          DATE NOT NULL,
+    CODALM                         VARCHAR2(4) NOT NULL,
+    CODAPLICACION                  VARCHAR2(4) NOT NULL,
+    CODCONALM                      VARCHAR2(4) NOT NULL,
+    CODCLI                         VARCHAR2(11) NOT NULL,
+    CODTAR                         VARCHAR2(11),
+    ID_TIPO_PORTE                  NUMBER(10,0),
+    PERSONA_CONTACTO               VARCHAR2(30),
+    REFERENCIA_CLIENTE             VARCHAR2(45),
+    ID_GRUPO_IMPUESTOS             NUMBER(5,0) NOT NULL,
+    ID_TRAT_IMPUESTOS              NUMBER(10,0) NOT NULL,
+    BASE                           NUMBER(13,3) NOT NULL,
+    IMPUESTOS                      NUMBER(13,3) NOT NULL,
+    TOTAL                          NUMBER(13,3) NOT NULL,
+    OBSERVACIONES                  VARCHAR2(255),
+    ID_USUARIO                     NUMBER(10,0),
+    TARJETA_FIDELIZACION           VARCHAR2(30),
+    ESTADO                         NUMBER(3,0) NOT NULL,
+    SUBESTADO                      NUMBER(3,0) NOT NULL)
+;
+ALTER TABLE D_CLIE_PRESUPUESTOS_CAB_TBL
+ADD CONSTRAINT D_CLIE_PRESUPUESTOS_CAB_PK PRIMARY KEY (ID_CLIE_PRESUPUESTO)
+USING INDEX
+;
+ALTER TABLE D_CLIE_PRESUPUESTOS_CAB_TBL
+ADD CONSTRAINT D_CLIE_PRESUPUESTOS_CAB_UK UNIQUE (CODEMP, PERIODO, CODSERIE, 
+  NUMPRE, VERSION)
+USING INDEX
+;
+
+CREATE TABLE D_CLIE_PRESUPUESTOS_DET_TBL
+    (ID_CLIE_PRESUPUESTO            NUMBER(10,0) NOT NULL,
+    LINEA                          NUMBER(5,0) NOT NULL,
+    FECHA                          DATE NOT NULL,
+    CODART                         VARCHAR2(13) NOT NULL,
+    DESGLOSE1                      VARCHAR2(15) NOT NULL,
+    DESGLOSE2                      VARCHAR2(15) NOT NULL,
+    DESART                         VARCHAR2(45),
+    DESCRIPCION_AMPLIADA           VARCHAR2(255),
+    UNIDAD_MEDIDA                  VARCHAR2(4),
+    CANTIDAD_MEDIDA                NUMBER(13,3),
+    CANTIDAD                       NUMBER(13,3) NOT NULL,
+    PRECIO                         NUMBER(14,4) NOT NULL,
+    PRECIO_TOTAL                   NUMBER(14,4) NOT NULL,
+    DESCUENTO                      NUMBER(5,2) NOT NULL,
+    IMPORTE                        NUMBER(13,3) NOT NULL,
+    IMPORTE_TOTAL                  NUMBER(13,3) NOT NULL,
+    CODIMP                         CHAR(1) NOT NULL,
+    PRECIO_COSTO                   NUMBER(14,4) NOT NULL)
+;
+ALTER TABLE D_CLIE_PRESUPUESTOS_DET_TBL
+ADD CONSTRAINT D_CLIE_PRESUPUESTOS_DET_PK PRIMARY KEY (ID_CLIE_PRESUPUESTO, 
+  LINEA)
+USING INDEX
+;
+
+CREATE TABLE D_CLIE_PRESUPUESTOS_IMP_TBL
+    (ID_CLIE_PRESUPUESTO            NUMBER(10,0) NOT NULL,
+    CODIMP                         CHAR(1) NOT NULL,
+    BASE                           NUMBER(13,3) NOT NULL,
+    IMPUESTOS                      NUMBER(13,3) NOT NULL,
+    TOTAL                          NUMBER(13,3) NOT NULL)
+;
+ALTER TABLE D_CLIE_PRESUPUESTOS_IMP_TBL
+ADD CONSTRAINT D_CLIE_PRESUPUESTOS_IMP_PK PRIMARY KEY (ID_CLIE_PRESUPUESTO, 
+  CODIMP)
+USING INDEX
+;
+
+CREATE TABLE D_CLIE_PRESUPUESTOS_PAG_TBL
+    (ID_CLIE_PRESUPUESTO            NUMBER(10,0) NOT NULL,
+    LINEA                          NUMBER(5,0) NOT NULL,
+    ID_MEDPAG_VEN                  NUMBER(10,0) NOT NULL,
+    IMPORTE                        NUMBER(13,3) NOT NULL,
+    NUMERO_OPERACION               VARCHAR2(30))
+;
+ALTER TABLE D_CLIE_PRESUPUESTOS_PAG_TBL
+ADD CONSTRAINT D_CLIE_PRESUPUESTOS_PAG_PK PRIMARY KEY (ID_CLIE_PRESUPUESTO, 
+  LINEA)
+USING INDEX
+;
+
+CREATE TABLE D_CLIENTES_TBL
+    (CODCLI                         VARCHAR2(11) NOT NULL,
+    DESCLI                         VARCHAR2(45) NOT NULL,
+    NOMBRE_COMERCIAL               VARCHAR2(45),
+    DOMICILIO                      VARCHAR2(50),
+    POBLACION                      VARCHAR2(50),
+    PROVINCIA                      VARCHAR2(50),
+    CP                             VARCHAR2(8),
+    TELEFONO1                      VARCHAR2(15),
+    TELEFONO2                      VARCHAR2(15),
+    FAX                            VARCHAR2(15),
+    CODPAIS                        VARCHAR2(4),
+    PERSONA_CONTACTO               VARCHAR2(45),
+    EMAIL                          VARCHAR2(60),
+    CIF                            VARCHAR2(20),
+    ID_TRAT_IMPUESTOS              NUMBER(10,0) NOT NULL,
+    ID_MEDPAG_VEN                  NUMBER(10,0),
+    CODTAR                         VARCHAR2(11),
+    CODSEC                         VARCHAR2(4),
+    BANCO                          VARCHAR2(45),
+    BANCO_DOMICILIO                VARCHAR2(50),
+    BANCO_POBLACION                VARCHAR2(50),
+    CCC                            VARCHAR2(20),
+    OBSERVACIONES                  VARCHAR2(255),
+    ACTIVO                         CHAR(1) NOT NULL,
+    FECHA_ALTA                     DATE,
+    FECHA_BAJA                     DATE,
+    RIESGO_CONCEDIDO               NUMBER(9,0))
+;
+ALTER TABLE D_CLIENTES_TBL
+ADD CONSTRAINT D_CLIENTES_PK PRIMARY KEY (CODCLI)
+USING INDEX
+;
+ALTER TABLE D_CLIENTES_TBL
+ADD CONSTRAINT D_CLIENTES_UK UNIQUE (CIF)
+USING INDEX
+;
+
+CREATE TABLE D_COBROS_DOC_TBL
+    (ID_COBRO                       NUMBER(10,0) NOT NULL,
+    CODEMP                         VARCHAR2(4) NOT NULL,
+    CODCLI                         VARCHAR2(11) NOT NULL,
+    FECHA_ALTA                     DATE NOT NULL,
+    FECHA_VENCIMIENTO              DATE NOT NULL,
+    FECHA_BAJA                     DATE,
+    FECHA_COBRO                    DATE,
+    BORRADO                        CHAR(1) NOT NULL,
+    CODTIPOEFEC                    VARCHAR2(2) NOT NULL,
+    CODSERIE                       VARCHAR2(5),
+    DOCUMENTO                      VARCHAR2(20) NOT NULL,
+    IMPORTE                        NUMBER(13,3) NOT NULL,
+    OBSERVACIONES                  VARCHAR2(255),
+    CODBAN_COBRO                   VARCHAR2(11),
+    CODBAN_DEVOLUCION              VARCHAR2(11),
+    GASTOS_DEVOLUCION              NUMBER(13,3),
+    REMESABLE                      CHAR(1) NOT NULL,
+    FECHA_ENTRADA_DOCUMENTO        DATE,
+    ID_REMESA                      NUMBER(10,0),
+    ID_COBRO_DEVOLUCION            NUMBER(10,0))
+;
+
+CREATE INDEX D_COBROS_IND1 ON D_COBROS_DOC_TBL
+  (
+    CODCLI                          ASC,
+    FECHA_VENCIMIENTO               ASC
+  )
+;
+ALTER TABLE D_COBROS_DOC_TBL
+ADD CONSTRAINT D_COBROS_DOC_PK PRIMARY KEY (ID_COBRO)
+USING INDEX
+;
+
+CREATE TABLE D_COBROS_REMESAS_CAB_TBL
+    (ID_REMESA                      NUMBER(10,0) NOT NULL,
+    CODBAN                         VARCHAR2(11) NOT NULL,
+    FECHA_REMESA                   DATE,
+    ESTADO                         NUMBER(3,0) NOT NULL)
+;
+ALTER TABLE D_COBROS_REMESAS_CAB_TBL
+ADD CONSTRAINT D_COBROS_REMESAS_CAB_PK PRIMARY KEY (ID_REMESA)
+USING INDEX
+;
+
+CREATE TABLE D_COBROS_VEN_TBL
+    (ID_VENCIMIENTO                 NUMBER(10,0) NOT NULL,
+    ID_COBRO                       NUMBER(10,0) NOT NULL,
+    ID_VENCIMIENTO_ENLACE          NUMBER(10,0),
+    CODSERIE                       VARCHAR2(5),
+    DOCUMENTO                      VARCHAR2(20) NOT NULL,
+    FECHA_FACTURA                  DATE,
+    FECHA_VENCIMIENTO              DATE NOT NULL,
+    IMPORTE                        NUMBER(13,3) NOT NULL,
+    FECHA_ALTA                     DATE NOT NULL)
+;
+ALTER TABLE D_COBROS_VEN_TBL
+ADD CONSTRAINT D_COBROS_VEN_PK PRIMARY KEY (ID_VENCIMIENTO)
+USING INDEX
+;
+
+CREATE TABLE D_EMPRESAS_TBL
+    (CODEMP                         VARCHAR2(4) NOT NULL,
+    DESEMP                         VARCHAR2(45),
+    NOMBRE_COMERCIAL               VARCHAR2(45),
+    DOMICILIO                      VARCHAR2(50),
+    POBLACION                      VARCHAR2(50),
+    PROVINCIA                      VARCHAR2(50),
+    CP                             VARCHAR2(8),
+    CIF                            VARCHAR2(20),
+    TELEFONO1                      VARCHAR2(15),
+    TELEFONO2                      VARCHAR2(15),
+    FAX                            VARCHAR2(15),
+    ACTIVO                         CHAR(1) NOT NULL,
+    LOGOTIPO                       BLOB,
+    REGISTRO_MERCANTIL             VARCHAR2(255))
+;
+ALTER TABLE D_EMPRESAS_TBL
+ADD CONSTRAINT D_EMPRESAS_PK PRIMARY KEY (CODEMP)
+USING INDEX
+;
+
+CREATE TABLE D_FACTURAS_REP_CAB_TBL
+    (ID_FACTURA_REP                 NUMBER(10,0) NOT NULL,
+    CODEMP                         VARCHAR2(4) NOT NULL,
+    PERIODO                        NUMBER(4,0) NOT NULL,
+    CODSERIE                       VARCHAR2(5) NOT NULL,
+    NUMFAC                         NUMBER(10,0) NOT NULL,
+    REFERENCIA                     VARCHAR2(50),
+    FECHA                          DATE NOT NULL,
+    CODCLI                         VARCHAR2(11) NOT NULL,
+    DESCLI                         VARCHAR2(45),
+    DOMICILIO                      VARCHAR2(50),
+    POBLACION                      VARCHAR2(50),
+    PROVINCIA                      VARCHAR2(50),
+    CP                             VARCHAR2(8),
+    CIF                            VARCHAR2(20),
+    ID_GRUPO_IMPUESTOS             NUMBER(5,0) NOT NULL,
+    ID_TRAT_IMPUESTOS              NUMBER(10,0) NOT NULL,
+    ID_VENCIMIENTO_ENLACE          NUMBER(10,0),
+    CONCEPTO                       VARCHAR2(50) NOT NULL,
+    BASE                           NUMBER(13,3) NOT NULL,
+    IMPUESTOS                      NUMBER(13,3) NOT NULL,
+    TOTAL                          NUMBER(13,3) NOT NULL,
+    OBSERVACIONES                  VARCHAR2(255))
+;
+ALTER TABLE D_FACTURAS_REP_CAB_TBL
+ADD CONSTRAINT D_FACTURAS_REP_CAB_PK PRIMARY KEY (ID_FACTURA_REP)
+USING INDEX
+;
+ALTER TABLE D_FACTURAS_REP_CAB_TBL
+ADD CONSTRAINT D_FACTURAS_REP_CAB_UK UNIQUE (CODEMP, PERIODO, CODSERIE, NUMFAC)
+USING INDEX
+;
+
+CREATE TABLE D_FACTURAS_REP_DET_TBL
+    (ID_FACTURA_REP                 NUMBER(10,0) NOT NULL,
+    LINEA                          NUMBER(5,0) NOT NULL,
+    REFERENCIA                     VARCHAR2(30),
+    FECHA_REFERENCIA               DATE,
+    CODART                         VARCHAR2(13),
+    DESGLOSE1                      VARCHAR2(15),
+    DESGLOSE2                      VARCHAR2(15),
+    CONCEPTO                       VARCHAR2(50) NOT NULL,
+    CONCEPTO_AMPLIADO              VARCHAR2(255),
+    UNIDAD_MEDIDA                  VARCHAR2(4),
+    CANTIDAD_MEDIDA                NUMBER(13,3),
+    CANTIDAD                       NUMBER(13,3) NOT NULL,
+    PRECIO                         NUMBER(14,4) NOT NULL,
+    IMPORTE                        NUMBER(13,3) NOT NULL,
+    CODIMP                         CHAR(1) NOT NULL)
+;
+ALTER TABLE D_FACTURAS_REP_DET_TBL
+ADD CONSTRAINT D_FACTURAS_REP_DET_PK PRIMARY KEY (ID_FACTURA_REP, LINEA)
+USING INDEX
+;
+
+CREATE TABLE D_FACTURAS_REP_IMP_TBL
+    (ID_FACTURA_REP                 NUMBER(10,0) NOT NULL,
+    CODIMP                         CHAR(1) NOT NULL,
+    BASE                           NUMBER(13,3) NOT NULL,
+    IMPUESTOS                      NUMBER(13,3) NOT NULL,
+    TOTAL                          NUMBER(13,3) NOT NULL)
+;
+ALTER TABLE D_FACTURAS_REP_IMP_TBL
+ADD CONSTRAINT D_FACTURAS_REP_IMP_PK PRIMARY KEY (ID_FACTURA_REP, CODIMP)
+USING INDEX
+;
+
+CREATE TABLE D_FACTURAS_REP_PAG_TBL
+    (ID_FACTURA_REP                 NUMBER(10,0) NOT NULL,
+    LINEA                          NUMBER(5,0) NOT NULL,
+    ID_MEDPAG_VEN                  NUMBER(10,0) NOT NULL,
+    IMPORTE                        NUMBER(13,3) NOT NULL,
+    NUMERO_OPERACION               VARCHAR2(30))
+;
+ALTER TABLE D_FACTURAS_REP_PAG_TBL
+ADD CONSTRAINT D_FACTURAS_REP_PAG_PK PRIMARY KEY (ID_FACTURA_REP, LINEA)
+USING INDEX
+;
+
+CREATE TABLE D_FACTURAS_SOP_CAB_TBL
+    (ID_FACTURA_SOP                 NUMBER(10,0) NOT NULL,
+    CODEMP                         VARCHAR2(4) NOT NULL,
+    PERIODO                        NUMBER(4,0) NOT NULL,
+    CODSERIE                       VARCHAR2(5) NOT NULL,
+    NUMFAC                         NUMBER(10,0) NOT NULL,
+    REFERENCIA                     VARCHAR2(50),
+    FECHA                          DATE NOT NULL,
+    FECHA_FACT_PROVEEDOR           DATE,
+    CODPRO                         VARCHAR2(11) NOT NULL,
+    DESPRO                         VARCHAR2(45),
+    DOMICILIO                      VARCHAR2(50),
+    POBLACION                      VARCHAR2(50),
+    PROVINCIA                      VARCHAR2(50),
+    CP                             VARCHAR2(8),
+    CIF                            VARCHAR2(20),
+    ID_GRUPO_IMPUESTOS             NUMBER(5,0) NOT NULL,
+    ID_TRAT_IMPUESTOS              NUMBER(10,0) NOT NULL,
+    ID_VENCIMIENTO_ENLACE          NUMBER(10,0),
+    CONCEPTO                       VARCHAR2(50) NOT NULL,
+    BASE                           NUMBER(13,3) NOT NULL,
+    IMPUESTOS                      NUMBER(13,3) NOT NULL,
+    TOTAL                          NUMBER(13,3) NOT NULL,
+    OBSERVACIONES                  VARCHAR2(255))
+;
+ALTER TABLE D_FACTURAS_SOP_CAB_TBL
+ADD CONSTRAINT D_FACTURAS_SOP_CAB_PK PRIMARY KEY (ID_FACTURA_SOP)
+USING INDEX
+;
+ALTER TABLE D_FACTURAS_SOP_CAB_TBL
+ADD CONSTRAINT D_FACTURAS_SOP_CAB_UK UNIQUE (CODEMP, PERIODO, CODSERIE, NUMFAC)
+USING INDEX
+;
+
+CREATE TABLE D_FACTURAS_SOP_DET_TBL
+    (ID_FACTURA_SOP                 NUMBER(10,0) NOT NULL,
+    LINEA                          NUMBER(5,0) NOT NULL,
+    REFERENCIA                     VARCHAR2(30),
+    FECHA_REFERENCIA               DATE,
+    CODART                         VARCHAR2(13),
+    DESGLOSE1                      VARCHAR2(15),
+    DESGLOSE2                      VARCHAR2(15),
+    CONCEPTO                       VARCHAR2(50) NOT NULL,
+    CONCEPTO_AMPLIADO              VARCHAR2(255),
+    UNIDAD_MEDIDA                  VARCHAR2(4),
+    CANTIDAD_MEDIDA                NUMBER(13,3),
+    CANTIDAD                       NUMBER(13,3) NOT NULL,
+    PRECIO                         NUMBER(14,4) NOT NULL,
+    IMPORTE                        NUMBER(13,3) NOT NULL,
+    CODIMP                         CHAR(1) NOT NULL)
+;
+ALTER TABLE D_FACTURAS_SOP_DET_TBL
+ADD CONSTRAINT D_FACTURAS_SOP_DET_PK PRIMARY KEY (ID_FACTURA_SOP, LINEA)
+USING INDEX
+;
+
+CREATE TABLE D_FACTURAS_SOP_IMP_TBL
+    (ID_FACTURA_SOP                 NUMBER(10,0) NOT NULL,
+    CODIMP                         CHAR(1) NOT NULL,
+    BASE                           NUMBER(13,3) NOT NULL,
+    IMPUESTOS                      NUMBER(13,3) NOT NULL,
+    TOTAL                          NUMBER(13,3) NOT NULL)
+;
+ALTER TABLE D_FACTURAS_SOP_IMP_TBL
+ADD CONSTRAINT D_FACTURAS_SOP_IMP_PK PRIMARY KEY (ID_FACTURA_SOP, CODIMP)
+USING INDEX
+;
+
+CREATE TABLE D_FACTURAS_SOP_PAG_TBL
+    (ID_FACTURA_SOP                 NUMBER(10,0) NOT NULL,
+    LINEA                          NUMBER(5,0) NOT NULL,
+    ID_MEDPAG_VEN                  NUMBER(10,0) NOT NULL,
+    IMPORTE                        NUMBER(13,3) NOT NULL,
+    NUMERO_OPERACION               VARCHAR2(30))
+;
+ALTER TABLE D_FACTURAS_SOP_PAG_TBL
+ADD CONSTRAINT D_FACTURAS_SOP_PAG_PK PRIMARY KEY (ID_FACTURA_SOP, LINEA)
+USING INDEX
+;
+
+CREATE TABLE D_FAMILIAS_TBL
+    (CODFAM                         VARCHAR2(6) NOT NULL,
+    DESFAM                         VARCHAR2(30) NOT NULL,
+    ACTIVO                         CHAR(1) NOT NULL)
+;
+ALTER TABLE D_FAMILIAS_TBL
+ADD CONSTRAINT D_FAMILIAS_PK PRIMARY KEY (CODFAM)
+USING INDEX
+;
+
+CREATE TABLE D_MEDIOS_PAGO_TBL
+    (CODMEDPAG                      VARCHAR2(4) NOT NULL,
+    DESMEDPAG                      VARCHAR2(45) NOT NULL,
+    CONTADO                        CHAR(1),
+    EFECTIVO                       CHAR(1),
+    TARJETA_CREDITO                CHAR(1),
+    CODTIPOEFEC                    VARCHAR2(2),
+    VISIBLE_VENTA                  CHAR(1),
+    VISIBLE_TIENDA_VIRTUAL         CHAR(1),
+    VISIBLE_COMPRA                 CHAR(1),
+    ACTIVO                         CHAR(1) NOT NULL)
+;
+ALTER TABLE D_MEDIOS_PAGO_TBL
+ADD CONSTRAINT D_MEDIOS_PAGO_PK PRIMARY KEY (CODMEDPAG)
+USING INDEX
+;
+
+CREATE TABLE D_MEDIOS_PAGO_VEN_TBL
+    (ID_MEDPAG_VEN                  NUMBER(10,0) NOT NULL,
+    CODMEDPAG                      VARCHAR2(4) NOT NULL,
+    DESMEDPAG_VEN                  VARCHAR2(45) NOT NULL,
+    NUMERO_VENCIMIENTOS            NUMBER(5,0) NOT NULL,
+    DIAS_CADENCIA                  NUMBER(5,0) NOT NULL,
+    DIAS_ENTRE_VENCIMIENTOS        NUMBER(5,0) NOT NULL,
+    DIAS_NATURALES                 CHAR(1) NOT NULL,
+    ACTIVO                         CHAR(1) NOT NULL)
+;
+
+CREATE INDEX D_MEDIOS_PAGO_VEN_IND1 ON D_MEDIOS_PAGO_VEN_TBL
+  (
+    CODMEDPAG                       ASC
+  )
+;
+ALTER TABLE D_MEDIOS_PAGO_VEN_TBL
+ADD CONSTRAINT D_MEDIOS_PAGO_VEN_PK PRIMARY KEY (ID_MEDPAG_VEN)
+USING INDEX
+;
+
+CREATE TABLE D_PAGOS_DOC_TBL
+    (ID_PAGO                        NUMBER(10,0) NOT NULL,
+    CODEMP                         VARCHAR2(4) NOT NULL,
+    CODPRO                         VARCHAR2(11) NOT NULL,
+    FECHA_ALTA                     DATE NOT NULL,
+    FECHA_VENCIMIENTO              DATE NOT NULL,
+    FECHA_BAJA                     DATE,
+    FECHA_PAGO                     DATE,
+    BORRADO                        CHAR(1) NOT NULL,
+    CODTIPOEFEC                    VARCHAR2(2) NOT NULL,
+    CODSERIE                       VARCHAR2(5),
+    DOCUMENTO                      VARCHAR2(20) NOT NULL,
+    IMPORTE                        NUMBER(13,3) NOT NULL,
+    CODBAN_PAGO                    VARCHAR2(11),
+    DOCUMENTO_PAGO                 VARCHAR2(10),
+    ID_REMESA                      NUMBER(10,0),
+    FECHA_EMISION                  DATE,
+    OBSERVACIONES                  VARCHAR2(255))
+;
+ALTER TABLE D_PAGOS_DOC_TBL
+ADD CONSTRAINT D_PAGOS_DOC_PK PRIMARY KEY (ID_PAGO)
+USING INDEX
+;
+
+CREATE TABLE D_PAGOS_REMESAS_CAB_TBL
+    (ID_REMESA                      NUMBER(10,0) NOT NULL,
+    CODBAN                         VARCHAR2(11) NOT NULL,
+    CODTIPOEFEC                    VARCHAR2(2) NOT NULL,
+    FECHA_REMESA                   DATE NOT NULL,
+    FECHA_GENERACION               DATE NOT NULL,
+    ESTADO                         NUMBER(3,0) NOT NULL)
+;
+ALTER TABLE D_PAGOS_REMESAS_CAB_TBL
+ADD CONSTRAINT D_PAGOS_REMESAS_CAB_PK PRIMARY KEY (ID_REMESA)
+USING INDEX
+;
+
+CREATE TABLE D_PAGOS_VEN_TBL
+    (ID_VENCIMIENTO                 NUMBER(10,0) NOT NULL,
+    ID_PAGO                        NUMBER(10,0) NOT NULL,
+    ID_VENCIMIENTO_ENLACE          NUMBER(10,0),
+    CODSERIE                       VARCHAR2(5),
+    DOCUMENTO                      VARCHAR2(20) NOT NULL,
+    FECHA_FACTURA                  DATE,
+    FECHA_VENCIMIENTO              DATE NOT NULL,
+    IMPORTE                        NUMBER(13,3) NOT NULL,
+    FECHA_ALTA                     DATE NOT NULL,
+    FECHA_ACEPTACION               DATE)
+;
+ALTER TABLE D_PAGOS_VEN_TBL
+ADD CONSTRAINT D_PAGOS_VEN_PK PRIMARY KEY (ID_VENCIMIENTO)
+USING INDEX
+;
+
+CREATE TABLE D_PAISES_TBL
+    (CODPAIS                        VARCHAR2(4) NOT NULL,
+    DESPAIS                        VARCHAR2(20) NOT NULL,
+    ACTIVO                         CHAR(1) NOT NULL)
+;
+ALTER TABLE D_PAISES_TBL
+ADD CONSTRAINT D_PAISES_PK PRIMARY KEY (CODPAIS)
+USING INDEX
+;
+
+CREATE TABLE D_PROMOCIONES_CAB_TBL
+    (ID_PROMOCION                   NUMBER(10,0) NOT NULL,
+    CODTAR                         VARCHAR2(11) NOT NULL,
+    DESCRIPCION                    VARCHAR2(50) NOT NULL,
+    FECHA_INICIO                   DATE NOT NULL,
+    FECHA_FIN                      DATE NOT NULL,
+    SOLO_FIDELIZACION              CHAR(1) NOT NULL,
+    ID_TIPO_PROMOCION              NUMBER(10,0) NOT NULL,
+    VERSION_TARIFA                 NUMBER(10,0))
+;
+ALTER TABLE D_PROMOCIONES_CAB_TBL
+ADD CONSTRAINT D_PROMOCIONES_CAB_PK PRIMARY KEY (ID_PROMOCION)
+USING INDEX
+;
+
+CREATE TABLE D_PROMOCIONES_DET_TBL
+    (ID_PROMOCION                   NUMBER(10,0) NOT NULL,
+    CODART                         VARCHAR2(13) NOT NULL,
+    PRECIO_TARIFA                  NUMBER(14,4) NOT NULL,
+    PRECIO_TARIFA_TOTAL            NUMBER(14,4) NOT NULL,
+    PRECIO_VENTA                   NUMBER(14,4),
+    PRECIO_TOTAL                   NUMBER(14,4),
+    PUNTOS                         NUMBER(5,0) NOT NULL,
+    TEXTO_PROMOCION                VARCHAR2(255),
+    DATOS_PROMOCION                BLOB,
+    FECHA_INICIO                   DATE,
+    FECHA_FIN                      DATE,
+    VERSION_TARIFA                 NUMBER(10,0))
+;
+ALTER TABLE D_PROMOCIONES_DET_TBL
+ADD CONSTRAINT D_PROMOCIONES_DET_PK PRIMARY KEY (ID_PROMOCION, CODART)
+USING INDEX
+;
+
+CREATE TABLE D_PROMOCIONES_TIPOS_TBL
+    (ID_TIPO_PROMOCION              NUMBER(10,0) NOT NULL,
+    DESTIPOPROMOCION               VARCHAR2(45) NOT NULL,
+    CONFIGURACION                  BLOB)
+;
+ALTER TABLE D_PROMOCIONES_TIPOS_TBL
+ADD CONSTRAINT D_PROMOCIONES_TIPOS_PK PRIMARY KEY (ID_TIPO_PROMOCION)
+USING INDEX
+;
+
+CREATE TABLE D_PROV_ALBARANES_CAB_TBL
+    (ID_PROV_ALBARAN                NUMBER(10,0) NOT NULL,
+    CODEMP                         VARCHAR2(4) NOT NULL,
+    PERIODO                        NUMBER(4,0) NOT NULL,
+    CODSERIE                       VARCHAR2(5) NOT NULL,
+    NUMALB                         NUMBER(10,0) NOT NULL,
+    FECHA                          DATE NOT NULL,
+    FECHA_SUMINISTRO               DATE NOT NULL,
+    CODALM                         VARCHAR2(4) NOT NULL,
+    CODCAJA                        VARCHAR2(2),
+    UID_DIARIO_CAJA                VARCHAR2(40),
+    CODAPLICACION                  VARCHAR2(4) NOT NULL,
+    CODCONALM                      VARCHAR2(4) NOT NULL,
+    REFERENCIA_PROVEEDOR           VARCHAR2(45),
+    CODPRO                         VARCHAR2(11) NOT NULL,
+    PERSONA_CONTACTO               VARCHAR2(45),
+    ID_GRUPO_IMPUESTOS             NUMBER(5,0) NOT NULL,
+    ID_TRAT_IMPUESTOS              NUMBER(10,0) NOT NULL,
+    BASE                           NUMBER(13,3) NOT NULL,
+    IMPUESTOS                      NUMBER(13,3) NOT NULL,
+    TOTAL                          NUMBER(13,3) NOT NULL,
+    OBSERVACIONES                  VARCHAR2(255),
+    ID_USUARIO                     NUMBER(10,0),
+    ID_FACTURA_SOP                 NUMBER(10,0))
+;
+ALTER TABLE D_PROV_ALBARANES_CAB_TBL
+ADD CONSTRAINT D_PROV_ALBARANES_CAB_PK PRIMARY KEY (ID_PROV_ALBARAN)
+USING INDEX
+;
+ALTER TABLE D_PROV_ALBARANES_CAB_TBL
+ADD CONSTRAINT D_PROV_ALBARANES_CAB_UK UNIQUE (CODEMP, PERIODO, CODSERIE, NUMALB)
+USING INDEX
+;
+
+CREATE TABLE D_PROV_ALBARANES_DET_TBL
+    (ID_PROV_ALBARAN                NUMBER(10,0) NOT NULL,
+    LINEA                          NUMBER(5,0) NOT NULL,
+    FECHA                          DATE NOT NULL,
+    CODART                         VARCHAR2(13) NOT NULL,
+    DESGLOSE1                      VARCHAR2(15) NOT NULL,
+    DESGLOSE2                      VARCHAR2(15) NOT NULL,
+    DESART                         VARCHAR2(45),
+    DESCRIPCION_AMPLIADA           VARCHAR2(255),
+    UNIDAD_MEDIDA                  VARCHAR2(4),
+    CANTIDAD_MEDIDA                NUMBER(13,3),
+    CANTIDAD                       NUMBER(13,3) NOT NULL,
+    PRECIO                         NUMBER(14,4) NOT NULL,
+    DESCUENTO                      NUMBER(5,2) NOT NULL,
+    IMPORTE                        NUMBER(13,3) NOT NULL,
+    CODIMP                         CHAR(1) NOT NULL,
+    ID_PROV_PEDIDO                 NUMBER(10,0),
+    PEDIDO_LINEA                   NUMBER(5,0))
+;
+ALTER TABLE D_PROV_ALBARANES_DET_TBL
+ADD CONSTRAINT D_PROV_ALBARANES_DET_PK PRIMARY KEY (ID_PROV_ALBARAN, LINEA)
+USING INDEX
+;
+
+CREATE TABLE D_PROV_ALBARANES_IMP_TBL
+    (ID_PROV_ALBARAN                NUMBER(10,0) NOT NULL,
+    CODIMP                         CHAR(1) NOT NULL,
+    BASE                           NUMBER(13,3) NOT NULL,
+    IMPUESTOS                      NUMBER(13,3) NOT NULL,
+    TOTAL                          NUMBER(13,3) NOT NULL)
+;
+ALTER TABLE D_PROV_ALBARANES_IMP_TBL
+ADD CONSTRAINT D_PROV_ALBARANES_IMP_PK PRIMARY KEY (ID_PROV_ALBARAN, CODIMP)
+USING INDEX
+;
+
+CREATE TABLE D_PROV_ALBARANES_PAG_TBL
+    (ID_PROV_ALBARAN                NUMBER(10,0) NOT NULL,
+    LINEA                          NUMBER(5,0) NOT NULL,
+    ID_MEDPAG_VEN                  NUMBER(10,0) NOT NULL,
+    IMPORTE                        NUMBER(13,3) NOT NULL)
+;
+ALTER TABLE D_PROV_ALBARANES_PAG_TBL
+ADD CONSTRAINT D_PROV_ALBARANES_PAG_PK PRIMARY KEY (ID_PROV_ALBARAN, LINEA)
+USING INDEX
+;
+
+CREATE TABLE D_PROV_PEDIDOS_CAB_TBL
+    (ID_PROV_PEDIDO                 NUMBER(10,0) NOT NULL,
+    CODEMP                         VARCHAR2(4) NOT NULL,
+    PERIODO                        NUMBER(4,0) NOT NULL,
+    CODSERIE                       VARCHAR2(5) NOT NULL,
+    NUMPED                         NUMBER(10,0) NOT NULL,
+    FECHA                          DATE NOT NULL,
+    FECHA_SUMINISTRO_PREV          DATE,
+    REFERENCIA_PROVEEDOR           VARCHAR2(45),
+    CODALM                         VARCHAR2(4) NOT NULL,
+    CODCAJA                        VARCHAR2(2),
+    UID_DIARIO_CAJA                VARCHAR2(40),
+    CODAPLICACION                  VARCHAR2(4) NOT NULL,
+    CODCONALM                      VARCHAR2(4) NOT NULL,
+    CODPRO                         VARCHAR2(11) NOT NULL,
+    PERSONA_CONTACTO               VARCHAR2(30),
+    ID_GRUPO_IMPUESTOS             NUMBER(5,0) NOT NULL,
+    ID_TRAT_IMPUESTOS              NUMBER(10,0) NOT NULL,
+    BASE                           NUMBER(13,3) NOT NULL,
+    IMPUESTOS                      NUMBER(13,3) NOT NULL,
+    TOTAL                          NUMBER(13,3) NOT NULL,
+    OBSERVACIONES                  VARCHAR2(255),
+    ID_USUARIO                     NUMBER(10,0),
+    ESTADO                         NUMBER(3,0) NOT NULL,
+    SUBESTADO                      NUMBER(3,0) NOT NULL)
+;
+ALTER TABLE D_PROV_PEDIDOS_CAB_TBL
+ADD CONSTRAINT D_PROV_PEDIDOS_CAB_PK PRIMARY KEY (ID_PROV_PEDIDO)
+USING INDEX
+;
+ALTER TABLE D_PROV_PEDIDOS_CAB_TBL
+ADD CONSTRAINT D_PROV_PEDIDOS_CAB_UK UNIQUE (CODEMP, PERIODO, CODSERIE, NUMPED)
+USING INDEX
+;
+
+CREATE TABLE D_PROV_PEDIDOS_DET_TBL
+    (ID_PROV_PEDIDO                 NUMBER(10,0) NOT NULL,
+    LINEA                          NUMBER(5,0) NOT NULL,
+    CODART                         VARCHAR2(13) NOT NULL,
+    DESGLOSE1                      VARCHAR2(15) NOT NULL,
+    DESGLOSE2                      VARCHAR2(15) NOT NULL,
+    DESART                         VARCHAR2(45),
+    DESCRIPCION_AMPLIADA           VARCHAR2(255),
+    UNIDAD_MEDIDA                  VARCHAR2(4),
+    CANTIDAD_MEDIDA_SOLICITADA     NUMBER(13,3),
+    CANTIDAD_SOLICITADA            NUMBER(13,3),
+    CANTIDAD_MEDIDA_ACEPTADA       NUMBER(13,3),
+    CANTIDAD_ACEPTADA              NUMBER(13,3),
+    CANTIDAD_MEDIDA_RECEPCIONADA   NUMBER(13,3),
+    CANTIDAD_RECEPCIONADA          NUMBER(13,3),
+    PRECIO                         NUMBER(14,4) NOT NULL,
+    DESCUENTO                      NUMBER(5,2) NOT NULL,
+    IMPORTE                        NUMBER(13,3) NOT NULL,
+    CODIMP                         CHAR(1) NOT NULL,
+    LESTADO                        NUMBER(3,0) NOT NULL,
+    LSUBESTADO                     NUMBER(3,0) NOT NULL,
+    ID_PROV_PEDIDO_ORIGEN          NUMBER(10,0),
+    LINEA_PEDIDO_ORIGEN            NUMBER(5,0))
+;
+ALTER TABLE D_PROV_PEDIDOS_DET_TBL
+ADD CONSTRAINT D_PROV_PEDIDOS_DET_PK PRIMARY KEY (ID_PROV_PEDIDO, LINEA)
+USING INDEX
+;
+
+CREATE TABLE D_PROV_PEDIDOS_IMP_TBL
+    (ID_PROV_PEDIDO                 NUMBER(10,0) NOT NULL,
+    CODIMP                         CHAR(1) NOT NULL,
+    BASE                           NUMBER(13,3) NOT NULL,
+    IMPUESTOS                      NUMBER(13,3) NOT NULL,
+    TOTAL                          NUMBER(13,3) NOT NULL)
+;
+ALTER TABLE D_PROV_PEDIDOS_IMP_TBL
+ADD CONSTRAINT D_PROV_PEDIDOS_IMP_PK PRIMARY KEY (ID_PROV_PEDIDO, CODIMP)
+USING INDEX
+;
+
+CREATE TABLE D_PROV_PEDIDOS_PAG_TBL
+    (ID_PROV_PEDIDO                 NUMBER(10,0) NOT NULL,
+    LINEA                          NUMBER(5,0) NOT NULL,
+    ID_MEDPAG_VEN                  NUMBER(10,0) NOT NULL,
+    IMPORTE                        NUMBER(13,3) NOT NULL)
+;
+ALTER TABLE D_PROV_PEDIDOS_PAG_TBL
+ADD CONSTRAINT D_PROV_PEDIDOS_PAG_PK PRIMARY KEY (ID_PROV_PEDIDO, LINEA)
+USING INDEX
+;
+
+CREATE TABLE D_PROVEEDORES_TBL
+    (CODPRO                         VARCHAR2(11) NOT NULL,
+    DESPRO                         VARCHAR2(45) NOT NULL,
+    TIPO_PROVEEDOR                 VARCHAR2(3),
+    NOMBRE_COMERCIAL               VARCHAR2(45),
+    DOMICILIO                      VARCHAR2(50),
+    POBLACION                      VARCHAR2(50),
+    PROVINCIA                      VARCHAR2(50),
+    CP                             VARCHAR2(8),
+    CODPAIS                        VARCHAR2(4),
+    TELEFONO1                      VARCHAR2(15),
+    TELEFONO2                      VARCHAR2(15),
+    FAX                            VARCHAR2(15),
+    PERSONA_CONTACTO               VARCHAR2(45),
+    EMAIL                          VARCHAR2(60),
+    CIF                            VARCHAR2(20),
+    ID_TRAT_IMPUESTOS              NUMBER(10,0) NOT NULL,
+    ID_MEDPAG_VEN                  NUMBER(10,0),
+    OBSERVACIONES                  VARCHAR2(255),
+    ACTIVO                         CHAR(1) NOT NULL,
+    FECHA_ALTA                     DATE,
+    FECHA_BAJA                     DATE,
+    BANCO                          VARCHAR2(45),
+    BANCO_DOMICILIO                VARCHAR2(50),
+    BANCO_POBLACION                VARCHAR2(50),
+    CCC                            VARCHAR2(20))
+;
+ALTER TABLE D_PROVEEDORES_TBL
+ADD CONSTRAINT D_PROVEEDORES_PK PRIMARY KEY (CODPRO)
+USING INDEX
+;
+
+CREATE TABLE D_SECCIONES_TBL
+    (CODSECCION                     VARCHAR2(4) NOT NULL,
+    DESSECCION                     VARCHAR2(20) NOT NULL,
+    ACTIVO                         CHAR(1) NOT NULL)
+;
+ALTER TABLE D_SECCIONES_TBL
+ADD CONSTRAINT D_SECCIONES_PK PRIMARY KEY (CODSECCION)
+USING INDEX
+;
+
+CREATE TABLE D_SECTORES_TBL
+    (CODSEC                         VARCHAR2(4) NOT NULL,
+    DESSEC                         VARCHAR2(20) NOT NULL,
+    ACTIVO                         CHAR(1) NOT NULL)
+;
+ALTER TABLE D_SECTORES_TBL
+ADD CONSTRAINT D_SECTORES_PK PRIMARY KEY (CODSEC)
+USING INDEX
+;
+
+CREATE TABLE D_SERIES_TBL
+    (CODSERIE                       VARCHAR2(5) NOT NULL,
+    DESSERIE                       VARCHAR2(45) NOT NULL,
+    ACTIVO                         CHAR(1) NOT NULL)
+;
+ALTER TABLE D_SERIES_TBL
+ADD CONSTRAINT D_SERIES_PK PRIMARY KEY (CODSERIE)
+USING INDEX
+;
+
+CREATE TABLE D_SINCRONIZADOR_TRABAJOS_TBL
+    (ID_TRABAJO                     NUMBER(10,0) NOT NULL,
+    TRABAJO                        VARCHAR2(45) NOT NULL,
+    CLASE                          VARCHAR2(255) NOT NULL,
+    CODALM                         VARCHAR2(4) NOT NULL,
+    ESTADO                         NUMBER(1,0) NOT NULL,
+    FECHA_INICIO                   DATE,
+    INTERVALO                      VARCHAR2(45),
+    FECHA_PROXIMA_EJEC             DATE,
+    FECHA_ULTIMA_EJEC              DATE,
+    RESULTADO                      NUMBER(1,0),
+    OBSERVACIONES                  VARCHAR2(255))
+;
+
+CREATE TABLE D_TARIFAS_ACT_CAB_TBL
+    (ID_ACTUALIZACION               NUMBER(10,0) NOT NULL,
+    CODTAR                         VARCHAR2(11) NOT NULL,
+    DES_ACTUALIZACION              VARCHAR2(45) NOT NULL,
+    FECHA_PREVISTA_APLICACION      DATE)
+;
+ALTER TABLE D_TARIFAS_ACT_CAB_TBL
+ADD CONSTRAINT D_TARIFAS_ACT_CAB_PK PRIMARY KEY (ID_ACTUALIZACION)
+USING INDEX
+;
+
+CREATE TABLE D_TARIFAS_ACT_DET_TBL
+    (ID_ACTUALIZACION               NUMBER(10,0) NOT NULL,
+    CODTAR                         VARCHAR2(11) NOT NULL,
+    CODART                         VARCHAR2(13) NOT NULL,
+    PRECIO_COSTO                   NUMBER(14,4),
+    FACTOR_MARCAJE                 NUMBER(8,4),
+    PRECIO_VENTA                   NUMBER(14,4) NOT NULL,
+    PRECIO_TOTAL                   NUMBER(14,4) NOT NULL)
+;
+ALTER TABLE D_TARIFAS_ACT_DET_TBL
+ADD CONSTRAINT D_TARIFAS_ACT_DET_PK PRIMARY KEY (ID_ACTUALIZACION, CODART)
+USING INDEX
+;
+
+CREATE TABLE D_TARIFAS_CAB_TBL
+    (CODTAR                         VARCHAR2(11) NOT NULL,
+    DESTAR                         VARCHAR2(45) NOT NULL,
+    VERSION                        NUMBER(10,0) NOT NULL,
+    ID_GRUPO_IMPUESTOS             NUMBER(5,0) NOT NULL,
+    ID_TRAT_IMPUESTOS              NUMBER(10,0) NOT NULL,
+    FECHA_VERSION                  DATE)
+;
+ALTER TABLE D_TARIFAS_CAB_TBL
+ADD CONSTRAINT D_TARIFAS_CAB_PK PRIMARY KEY (CODTAR)
+USING INDEX
+;
+
+CREATE TABLE D_TARIFAS_DET_HIST_TBL
+    (CODTAR                         VARCHAR2(11) NOT NULL,
+    CODART                         VARCHAR2(13) NOT NULL,
+    FECHA                          DATE NOT NULL,
+    PRECIO_COSTO                   NUMBER(14,4),
+    FACTOR_MARCAJE                 NUMBER(8,4),
+    PRECIO_VENTA                   NUMBER(14,4),
+    VERSION                        NUMBER(10,0) NOT NULL,
+    ID_USUARIO                     NUMBER(10,0),
+    BORRADO                        CHAR(1) NOT NULL,
+    PRECIO_TOTAL                   NUMBER(14,4))
+;
+ALTER TABLE D_TARIFAS_DET_HIST_TBL
+ADD CONSTRAINT D_TARIFAS_DET_HIST_PK PRIMARY KEY (CODTAR, CODART, FECHA, VERSION)
+USING INDEX
+;
+
+CREATE TABLE D_TARIFAS_DET_TBL
+    (CODTAR                         VARCHAR2(11) NOT NULL,
+    CODART                         VARCHAR2(13) NOT NULL,
+    PRECIO_COSTO                   NUMBER(14,4),
+    FACTOR_MARCAJE                 NUMBER(8,4),
+    PRECIO_VENTA                   NUMBER(14,4) NOT NULL,
+    PRECIO_TOTAL                   NUMBER(14,4) NOT NULL,
+    VERSION                        NUMBER(10,0))
+;
+ALTER TABLE D_TARIFAS_DET_TBL
+ADD CONSTRAINT D_TARIFAS_DET_PK PRIMARY KEY (CODTAR, CODART)
+USING INDEX
+;
+
+CREATE TABLE D_TICKETS_ERR_TBL
+    (UID_TICKET                     VARCHAR2(40) NOT NULL,
+    CODALM                         VARCHAR2(4) NOT NULL,
+    ID_TICKET                      NUMBER(10,0) NOT NULL,
+    FECHA                          DATE NOT NULL,
+    TICKET                         BLOB NOT NULL,
+    FECHA_PROCESO                  DATE NOT NULL,
+    MENSAJE_ERROR                  VARCHAR2(255) NOT NULL)
+;
+
+CREATE INDEX D_TICKETS_ERR_IND1 ON D_TICKETS_ERR_TBL
+  (
+    CODALM                          ASC
+  )
+;
+ALTER TABLE D_TICKETS_ERR_TBL
+ADD CONSTRAINT D_TICKETS_ERR_PK PRIMARY KEY (UID_TICKET)
+USING INDEX
+;
+
+CREATE TABLE D_TICKETS_HIST_TBL
+    (UID_TICKET                     VARCHAR2(40) NOT NULL,
+    CODALM                         VARCHAR2(4) NOT NULL,
+    ID_TICKET                      NUMBER(10,0) NOT NULL,
+    FECHA                          DATE NOT NULL,
+    TICKET                         BLOB NOT NULL,
+    FECHA_PROCESO                  DATE NOT NULL)
+;
+
+CREATE INDEX D_TICKETS_HIST_IND1 ON D_TICKETS_HIST_TBL
+  (
+    CODALM                          ASC,
+    FECHA                           ASC,
+    ID_TICKET                       ASC
+  )
+;
+ALTER TABLE D_TICKETS_HIST_TBL
+ADD CONSTRAINT D_TICKETS_HIST_PK PRIMARY KEY (UID_TICKET)
+USING INDEX
+;
+
+CREATE TABLE D_TICKETS_TBL
+    (UID_TICKET                     VARCHAR2(40) NOT NULL,
+    CODALM                         VARCHAR2(4) NOT NULL,
+    ID_TICKET                      NUMBER(10,0) NOT NULL,
+    FECHA                          DATE NOT NULL,
+    TICKET                         BLOB NOT NULL)
+;
+ALTER TABLE D_TICKETS_TBL
+ADD CONSTRAINT D_TICKETS_PK PRIMARY KEY (UID_TICKET)
+USING INDEX
+;
+
+CREATE TABLE D_TIENDAS_TARIFAS_TBL
+    (CODALM                         VARCHAR2(4) NOT NULL,
+    CODTAR                         VARCHAR2(11) NOT NULL,
+    VERSION_TARIFA                 NUMBER(10,0) NOT NULL,
+    FECHA_VERSION_TARIFA           DATE,
+    VERSION_TARIFA_REV             NUMBER(10,0) NOT NULL,
+    FECHA_VERSION_TARIFA_REV       DATE)
+;
+ALTER TABLE D_TIENDAS_TARIFAS_TBL
+ADD CONSTRAINT D_TIENDAS_TARIFAS_PK PRIMARY KEY (CODALM, CODTAR)
+USING INDEX
+;
+
+CREATE TABLE D_TIENDAS_TBL
+    (CODALM                         VARCHAR2(4) NOT NULL,
+    ID_TIPO_TIENDA                 NUMBER(10,0) NOT NULL,
+    VERSION_ARTICULOS              NUMBER(10,0) NOT NULL,
+    VERSION_ARTICULOS_REV          NUMBER(10,0) NOT NULL,
+    CONFIGURACION                  BLOB,
+    ACTIVO                         CHAR(1) NOT NULL,
+    FECHA_VERSION_ARTICULOS        DATE,
+    FECHA_VERSION_ARTICULOS_REV    DATE,
+    CODMEDPAG_POR_DEFECTO          VARCHAR2(4) NOT NULL,
+    CODCONALM_VENTAS               VARCHAR2(4) NOT NULL)
+;
+ALTER TABLE D_TIENDAS_TBL
+ADD CONSTRAINT D_TIENDAS_PK PRIMARY KEY (CODALM)
+USING INDEX
+;
+
+CREATE TABLE D_TIPOS_EFECTOS_TBL
+    (CODTIPOEFEC                    VARCHAR2(2) NOT NULL,
+    DESTIPOEFEC                    VARCHAR2(30) NOT NULL,
+    REMESABLE                      CHAR(1) NOT NULL,
+    ENTRADA_DOCUMENTO_AUTOMATICA   CHAR(1) NOT NULL,
+    ACTIVO                         CHAR(1) NOT NULL)
+;
+ALTER TABLE D_TIPOS_EFECTOS_TBL
+ADD CONSTRAINT D_TIPOS_EFECTOS_PK PRIMARY KEY (CODTIPOEFEC)
+USING INDEX
+;
+
+CREATE TABLE D_TIPOS_PORTES_TBL
+    (ID_TIPO_PORTE                  NUMBER(10,0) NOT NULL,
+    DESTIPOPORTE                   VARCHAR2(45) NOT NULL,
+    CODART_PORTE                   VARCHAR2(13),
+    DESDE_VOLUMEN_VENTA            NUMBER(7,0),
+    URL_TRACKING                   VARCHAR2(255))
+;
+ALTER TABLE D_TIPOS_PORTES_TBL
+ADD CONSTRAINT D_TIPOS_PORTES_PK PRIMARY KEY (ID_TIPO_PORTE)
+USING INDEX
+;
+
+CREATE TABLE D_UNIDAD_MEDIDA_ETIQUETAS_TBL
+    (COD_UM_ETIQUETA                VARCHAR2(4) NOT NULL,
+    DES_UM_ETIQUETA                VARCHAR2(20) NOT NULL,
+    DESETIQUETA                    VARCHAR2(10) NOT NULL,
+    FACTOR                         NUMBER(10,0) NOT NULL)
+;
+ALTER TABLE D_UNIDAD_MEDIDA_ETIQUETAS_TBL
+ADD CONSTRAINT D_UNIDAD_MEDIDA_ETIQUETAS_PK PRIMARY KEY (COD_UM_ETIQUETA)
+USING INDEX
+;
+
+CREATE TABLE T_ARTICULOS_CODBAR_TBL
+    (CODALM                         VARCHAR2(4) NOT NULL,
+    CODART                         VARCHAR2(13) NOT NULL,
+    DESGLOSE1                      VARCHAR2(15) NOT NULL,
+    DESGLOSE2                      VARCHAR2(15) NOT NULL,
+    CODIGO_BARRAS                  VARCHAR2(20) NOT NULL,
+    DUN14                          CHAR(1) NOT NULL,
+    FECHA_ALTA                     DATE NOT NULL,
+    FACTOR_CONVERSION              NUMBER(13,3))
+;
+ALTER TABLE T_ARTICULOS_CODBAR_TBL
+ADD CONSTRAINT T_ARTICULOS_CODBAR_PK PRIMARY KEY (CODALM, CODART, CODIGO_BARRAS)
+USING INDEX
+;
+ALTER TABLE T_ARTICULOS_CODBAR_TBL
+ADD CONSTRAINT T_ARTICULOS_CODBAR_UK UNIQUE (CODALM, CODIGO_BARRAS)
+USING INDEX
+;
+
+CREATE TABLE T_ARTICULOS_TBL
+    (CODALM                         VARCHAR2(4) NOT NULL,
+    CODART                         VARCHAR2(13) NOT NULL,
+    DESART                         VARCHAR2(45) NOT NULL,
+    FORMATO                        VARCHAR2(20),
+    CODIMP                         CHAR(1) NOT NULL,
+    OBSERVACIONES                  VARCHAR2(255),
+    ACTIVO                         CHAR(1),
+    NUMEROS_SERIE                  CHAR(1),
+    DESGLOSE1                      CHAR(1),
+    DESGLOSE2                      CHAR(1),
+    GENERICO                       CHAR(1) NOT NULL,
+    VERSION                        NUMBER(10,0),
+    UNIDADES_CAJA                  NUMBER(5,0),
+    CODCAT                         VARCHAR2(20),
+    ESCAPARATE                     CHAR(1),
+    FECHA_ALTA                     DATE)
+;
+ALTER TABLE T_ARTICULOS_TBL
+ADD CONSTRAINT T_ARTICULOS_PK PRIMARY KEY (CODALM, CODART)
+USING INDEX
+;
+
+CREATE TABLE T_CAJA_CAB_TBL
+    (UID_DIARIO_CAJA                VARCHAR2(40) NOT NULL,
+    CODALM                         VARCHAR2(4) NOT NULL,
+    CODCAJA                        VARCHAR2(2) NOT NULL,
+    FECHA_APERTURA                 DATE NOT NULL,
+    FECHA_CIERRE                   DATE,
+    ID_USUARIO                     NUMBER(10,0),
+    SALDO_INICIAL                  NUMBER(13,3))
+;
+ALTER TABLE T_CAJA_CAB_TBL
+ADD CONSTRAINT T_CAJA_CAB_PK PRIMARY KEY (UID_DIARIO_CAJA)
+USING INDEX
+;
+
+CREATE TABLE T_CAJA_DET_CIERRE_TBL
+    (UID_DIARIO_CAJA                VARCHAR2(40) NOT NULL,
+    CODMEDPAG                      VARCHAR2(4) NOT NULL,
+    TOTAL                          NUMBER(13,3) NOT NULL,
+    DECLARADO                      NUMBER(13,3) NOT NULL)
+;
+ALTER TABLE T_CAJA_DET_CIERRE_TBL
+ADD CONSTRAINT T_CAJA_DET_CIERRE_PK PRIMARY KEY (UID_DIARIO_CAJA, CODMEDPAG)
+USING INDEX
+;
+
+CREATE TABLE T_CAJA_DET_RECUENTO_TBL
+    (UID_DIARIO_CAJA                VARCHAR2(40) NOT NULL,
+    LINEA                          NUMBER(5,0) NOT NULL,
+    CODMEDPAG                      VARCHAR2(4) NOT NULL,
+    CANTIDAD                       NUMBER(5,0) NOT NULL,
+    VALOR                          NUMBER(13,3) NOT NULL)
+;
+ALTER TABLE T_CAJA_DET_RECUENTO_TBL
+ADD CONSTRAINT T_CAJA_DET_RECUENTO_PK PRIMARY KEY (UID_DIARIO_CAJA, LINEA)
+USING INDEX
+;
+
+CREATE TABLE T_CAJA_DET_TBL
+    (UID_DIARIO_CAJA                VARCHAR2(40) NOT NULL,
+    LINEA                          NUMBER(5,0) NOT NULL,
+    FECHA                          DATE NOT NULL,
+    ENTRADA                        NUMBER(13,3),
+    SALIDA                         NUMBER(13,3),
+    CONCEPTO                       VARCHAR2(40) NOT NULL,
+    DOCUMENTO                      VARCHAR2(10),
+    CODMEDPAG                      VARCHAR2(4),
+    UID_TICKET                     VARCHAR2(40))
+;
+ALTER TABLE T_CAJA_DET_TBL
+ADD CONSTRAINT T_CAJA_DET_PK PRIMARY KEY (UID_DIARIO_CAJA, LINEA)
+USING INDEX
+;
+
+CREATE TABLE T_CATEGORIZACION_TBL
+    (CODALM                         VARCHAR2(4) NOT NULL,
+    CODCAT                         VARCHAR2(20) NOT NULL,
+    DESCAT                         VARCHAR2(45) NOT NULL,
+    ACTIVO                         CHAR(1))
+;
+ALTER TABLE T_CATEGORIZACION_TBL
+ADD CONSTRAINT T_CATEGORIZACION_PK PRIMARY KEY (CODALM, CODCAT)
+USING INDEX
+;
+
+CREATE TABLE T_CLIENTES_TBL
+    (CODALM                         VARCHAR2(4) NOT NULL,
+    CIF                            VARCHAR2(20) NOT NULL,
+    DESCLI                         VARCHAR2(45) NOT NULL,
+    NOMBRE_COMERCIAL               VARCHAR2(45),
+    DOMICILIO                      VARCHAR2(50),
+    POBLACION                      VARCHAR2(50),
+    PROVINCIA                      VARCHAR2(50),
+    CP                             VARCHAR2(8),
+    TELEFONO1                      VARCHAR2(15),
+    TELEFONO2                      VARCHAR2(15),
+    FAX                            VARCHAR2(15),
+    PERSONA_CONTACTO               VARCHAR2(45),
+    EMAIL                          VARCHAR2(60),
+    ID_TRAT_IMPUESTOS              NUMBER(10,0) NOT NULL,
+    CODMEDPAG                      VARCHAR2(4),
+    CODTAR                         VARCHAR2(11),
+    OBSERVACIONES                  VARCHAR2(255),
+    ACTIVO                         CHAR(1) NOT NULL,
+    FECHA_ALTA                     DATE,
+    FECHA_BAJA                     DATE,
+    VENTA_A_CREDITO                CHAR(1) NOT NULL)
+;
+ALTER TABLE T_CLIENTES_TBL
+ADD CONSTRAINT T_CLIENTES_PK PRIMARY KEY (CODALM, CIF)
+USING INDEX
+;
+
+CREATE TABLE T_CODIGOS_BARRA_ESP_TBL
+    (ORDEN                          NUMBER(5,0) NOT NULL,
+    DESCRIPCION                    VARCHAR2(45) NOT NULL,
+    PREFIJO                        VARCHAR2(13) NOT NULL,
+    CODART                         VARCHAR2(20),
+    PRECIO                         VARCHAR2(20),
+    CANTIDAD                       VARCHAR2(20),
+    FIDELIZACION                   CHAR(1))
+;
+ALTER TABLE T_CODIGOS_BARRA_ESP_TBL
+ADD CONSTRAINT T_CODIGOS_BARRA_ESP_PK PRIMARY KEY (ORDEN)
+USING INDEX
+;
+
+CREATE TABLE T_MEDIOS_PAGO_TBL
+    (CODALM                         VARCHAR2(4) NOT NULL,
+    CODMEDPAG                      VARCHAR2(4) NOT NULL,
+    DESMEDPAG                      VARCHAR2(45) NOT NULL,
+    CONTADO                        CHAR(1),
+    EFECTIVO                       CHAR(1),
+    TARJETA_CREDITO                CHAR(1),
+    ACTIVO                         CHAR(1) NOT NULL)
+;
+ALTER TABLE T_MEDIOS_PAGO_TBL
+ADD CONSTRAINT T_MEDIOS_PAGO_PK PRIMARY KEY (CODALM, CODMEDPAG)
+USING INDEX
+;
+
+CREATE TABLE T_PROMOCIONES_DET_TBL
+    (CODALM                         VARCHAR2(4) NOT NULL,
+    ID_PROMOCION                   NUMBER(10,0) NOT NULL,
+    CODTAR                         VARCHAR2(11) NOT NULL,
+    CODART                         VARCHAR2(13) NOT NULL,
+    PRECIO_TARIFA                  NUMBER(14,4) NOT NULL,
+    PRECIO_VENTA                   NUMBER(14,4),
+    PUNTOS                         NUMBER(5,0) NOT NULL,
+    TEXTO_PROMOCION                VARCHAR2(255),
+    DATOS_PROMOCION                BLOB,
+    FECHA_INICIO                   DATE NOT NULL,
+    FECHA_FIN                      DATE NOT NULL,
+    SOLO_FIDELIZACION              CHAR(1) NOT NULL,
+    VERSION_TARIFA                 NUMBER(10,0),
+    ID_TIPO_PROMOCION              NUMBER(10,0))
+;
+ALTER TABLE T_PROMOCIONES_DET_TBL
+ADD CONSTRAINT T_PROMOCIONES_DET_PK PRIMARY KEY (CODALM, ID_PROMOCION, CODART)
+USING INDEX
+;
+
+CREATE TABLE T_TARIFAS_DET_TBL
+    (CODALM                         VARCHAR2(4) NOT NULL,
+    CODTAR                         VARCHAR2(11) NOT NULL,
+    CODART                         VARCHAR2(13) NOT NULL,
+    PRECIO_COSTO                   NUMBER(14,4),
+    FACTOR_MARCAJE                 NUMBER(8,4),
+    PRECIO_VENTA                   NUMBER(14,4) NOT NULL,
+    PRECIO_TOTAL                   NUMBER(14,4) NOT NULL,
+    VERSION                        NUMBER(10,0))
+;
+ALTER TABLE T_TARIFAS_DET_TBL
+ADD CONSTRAINT T_TARIFAS_DET_PK PRIMARY KEY (CODALM, CODTAR, CODART)
+USING INDEX
+;
+
+CREATE TABLE T_TICKETS_TBL
+    (UID_TICKET                     VARCHAR2(40) NOT NULL,
+    CODALM                         VARCHAR2(4) NOT NULL,
+    ID_TICKET                      NUMBER(10,0) NOT NULL,
+    FECHA                          DATE NOT NULL,
+    TICKET                         BLOB NOT NULL,
+    ENVIADO                        CHAR(1) NOT NULL,
+    FECHA_ENVIO                    DATE)
+;
+
+CREATE INDEX T_TICKETS_IND1 ON T_TICKETS_TBL
+  (
+    CODALM                          ASC,
+    ENVIADO                         ASC
+  )
+;
+ALTER TABLE T_TICKETS_TBL
+ADD CONSTRAINT T_TICKETS_PK PRIMARY KEY (UID_TICKET)
+USING INDEX
+;
+
+CREATE TABLE T_TIENDAS_CAJAS_TBL
+    (CODALM                         VARCHAR2(4),
+    CODCAJA                        VARCHAR2(2),
+    UID_TPV                        VARCHAR2(40) NOT NULL,
+    CONFIGURACION                  BLOB)
+;
+ALTER TABLE T_TIENDAS_CAJAS_TBL
+ADD CONSTRAINT T_TIENDAS_CAJAS_PK PRIMARY KEY (UID_TPV)
+USING INDEX
+;
+ALTER TABLE T_TIENDAS_CAJAS_TBL
+ADD CONSTRAINT T_TIENDAS_CAJAS_UK UNIQUE (CODALM, CODCAJA)
+USING INDEX
+;
+
+CREATE TABLE T_TIENDAS_TBL
+    (CODALM                         VARCHAR2(4) NOT NULL,
+    DESALM                         VARCHAR2(45) NOT NULL,
+    NOMBRE_COMERCIAL               VARCHAR2(45),
+    DOMICILIO                      VARCHAR2(50),
+    POBLACION                      VARCHAR2(50),
+    PROVINCIA                      VARCHAR2(50),
+    CP                             VARCHAR2(8),
+    TELEFONO1                      VARCHAR2(15),
+    TELEFONO2                      VARCHAR2(15),
+    FAX                            VARCHAR2(15),
+    CIF                            VARCHAR2(20) NOT NULL,
+    PERSONA_CONTACTO               VARCHAR2(45),
+    ACTIVO                         CHAR(1) NOT NULL,
+    CLIENTE_POR_DEFECTO            VARCHAR2(20) NOT NULL)
+;
+ALTER TABLE T_TIENDAS_TBL
+ADD CONSTRAINT T_TIENDAS_PK PRIMARY KEY (CODALM)
+USING INDEX
+;
+
+CREATE TABLE TV_CLIENTES_TBL
+    (CODALM                         VARCHAR2(4) NOT NULL,
+    CIF                            VARCHAR2(20) NOT NULL,
+    USUARIO                        VARCHAR2(20) NOT NULL,
+    CLAVE                          VARCHAR2(250) NOT NULL)
+;
+ALTER TABLE TV_CLIENTES_TBL
+ADD CONSTRAINT TV_CLIENTES_PK PRIMARY KEY (CODALM, CIF)
+USING INDEX
+;
+ALTER TABLE TV_CLIENTES_TBL
+ADD CONSTRAINT TV_CLIENTES_UK UNIQUE (CODALM, USUARIO)
+USING INDEX
+;

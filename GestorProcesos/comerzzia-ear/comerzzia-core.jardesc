@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="comerzzia/deploy/comerzzia-core.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/comerzzia/comerzzia-core.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.impuestos.porcentajes"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.perfiles"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.menu"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.acciones"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.menu"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.ayudasconfig"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.impuestos.tiposimpuestos"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.tipostiendas"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.sesion"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.ayudas"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.ayudasconfig"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.acciones"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.database"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.impuestos.tratamientosimpuestos"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.estados"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.tipostiendas.trabajos"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.database"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.empresas"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.general.tiendas{TiendaException.java"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.login"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.informes"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.config"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.usuarios"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.permisos"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.general.tiendas.usuarios"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.general.tiendas.usuarios"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.informes"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.impuestos.porcentajes"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.impuestos"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.ayudas"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.impuestos.tratamientosimpuestos"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.usuarios.perfiles"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.permisos"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.empresas"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.perfiles"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.impuestos.grupos"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.impuestos.grupos"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.impuestos"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.variables"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.tipostiendas"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.contadores"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.impuestos.tiposimpuestos"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.acciones.operaciones"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.usuarios"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.estados"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.usuarios.perfiles"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.general.tiendas{TiendaConstraintViolationException.java"/>
+        <javaElement handleIdentifier="=comerzzia-persistencia/src\/main\/java&lt;com.comerzzia.persistencia.core.variables"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.tipostiendas.trabajos"/>
+        <javaElement handleIdentifier="=comerzzia-servicios/src\/main\/java&lt;com.comerzzia.servicios.core.contadores"/>
+    </selectedElements>
+    <fatjar builder="org.eclipse.jdt.ui.plain_jar_builder" launchConfig=""/>
+</jardesc>

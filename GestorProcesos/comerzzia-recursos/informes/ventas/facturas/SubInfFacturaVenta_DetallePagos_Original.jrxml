@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="infAlbaranVenta_DetalleFormasPago" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<parameter name="ID_FACTURA_REP" class="java.math.BigDecimal"/>
+	<queryString>
+		<![CDATA[SELECT
+     MEDIOS_PAGO_VEN.DESMEDPAG_VEN AS DESMEDPAG,
+     COBROS_VEN.FECHA_VENCIMIENTO AS COBROS_VEN_FECHA_VENCIMIENTO,
+     COBROS_VEN.IMPORTE AS COBROS_VEN_IMPORTE,
+     FACTURAS_PAG.IMPORTE AS FACTURAS_PAG_IMPORTE
+FROM
+     D_FACTURAS_REP_PAG_TBL FACTURAS_PAG INNER JOIN D_FACTURAS_REP_CAB_TBL CABECERA ON FACTURAS_PAG.ID_FACTURA_REP = CABECERA.ID_FACTURA_REP
+     INNER JOIN D_CLIENTES_TBL CLIENTES ON CABECERA.CODCLI = CLIENTES.CODCLI
+     LEFT OUTER JOIN D_COBROS_VEN_TBL COBROS_VEN ON CABECERA.ID_VENCIMIENTO_ENLACE = COBROS_VEN.ID_VENCIMIENTO_ENLACE
+     LEFT OUTER JOIN D_MEDIOS_PAGO_VEN_TBL MEDIOS_PAGO_VEN ON CLIENTES.ID_MEDPAG_VEN = MEDIOS_PAGO_VEN.ID_MEDPAG_VEN
+WHERE
+    CABECERA.ID_FACTURA_REP = $P{ID_FACTURA_REP}]]>
+	</queryString>
+	<field name="DESMEDPAG" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COBROS_VEN_FECHA_VENCIMIENTO" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COBROS_VEN_IMPORTE" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FACTURAS_PAG_IMPORTE" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="IMPORTE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="13" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="4" y="2" width="221" height="11" forecolor="#000000" backcolor="#CCCCCC"/>
+				<textElement>
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FORMA DE PAGO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="4" y="0" width="107" height="12"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DESMEDPAG}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="171" y="0" width="54" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{COBROS_VEN_FECHA_VENCIMIENTO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="111" y="0" width="60" height="12"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{COBROS_VEN_IMPORTE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="111" y="0" width="60" height="11"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{FACTURAS_PAG_IMPORTE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

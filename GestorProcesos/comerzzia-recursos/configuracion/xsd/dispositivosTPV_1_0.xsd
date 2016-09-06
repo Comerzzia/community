@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.comerzzia.com/xml/ns/" xmlns="http://www.comerzzia.com/xml/ns/">
+  <xs:element name="dispositivos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="visores"/>
+        <xs:element ref="cajones"/>
+        <xs:element ref="impresoras"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="tipoconexionType">
+      <xs:restriction base="xs:string">
+          <xs:enumeration value="puertoSerie"/>
+          <xs:enumeration value="puertoImpresora"/>
+          <xs:enumeration value="OPOS"/>
+      </xs:restriction>
+  </xs:simpleType>  
+   <xs:complexType name="dispositivoType">           
+      <xs:sequence>           
+          <xs:element ref="metodosconexion"/>           
+		  <xs:element ref="operaciones" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>           
+      <xs:attribute name="modelo" use="required" type="xs:NCName"/>
+    </xs:complexType>   
+  <xs:element name="operaciones">
+     <xs:complexType>      
+      <xs:sequence>      
+          <xs:element ref="secuenciaapertura" minOccurs="0" maxOccurs="1"/>                
+		  <xs:element ref="secuenciacorte" minOccurs="0" maxOccurs="1"/>
+		  <xs:element ref="porcentajecorte" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+	  </xs:complexType>
+  </xs:element>
+  <xs:element name="metodosconexion">
+     <xs:complexType>      
+      <xs:sequence>      
+          <xs:element ref="metodoconexion" minOccurs="1" maxOccurs="unbounded"/>                
+      </xs:sequence>
+	  </xs:complexType>
+  </xs:element>
+  <xs:element name="metodoconexion">
+    <xs:complexType>      
+      <xs:sequence minOccurs="1">      
+          <xs:element ref="puertoImpresora" minOccurs="0" maxOccurs="unbounded"/>      
+          <xs:element ref="puertoSerie" minOccurs="0" maxOccurs="unbounded"/>      
+          <xs:element ref="OPOS" minOccurs="0" maxOccurs="unbounded"/>      
+      </xs:sequence>      
+      <xs:attribute name="nombreconexion" use="required" type="xs:string">
+      </xs:attribute>
+      <xs:attribute name="tipoconexion" use="required" type="tipoconexionType"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="visores">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="visor"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="visor" type="dispositivoType">
+  </xs:element>
+  <xs:element name="cajones">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="cajon"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="cajon" type="dispositivoType">
+  </xs:element>
+  <xs:element name="impresoras">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="impresora"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="impresora" type="dispositivoType">
+  </xs:element>  
+  <xs:element name="OPOS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="NombreClase"/>
+        <xs:element ref="NombreDispositivo"/>		
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NombreClase" type="xs:NCName"/>
+  <xs:element name="NombreDispositivo" type="xs:NCName"/>
+  <xs:element name="porcentajecorte" type="xs:nonNegativeInteger"/>
+  <xs:element name="puertoImpresora"/>    
+  <xs:simpleType name="secuenciaType">
+		<xs:annotation>
+		    <xs:documentation xml:lang="es" source="Secuencia de escape de caracteres, en formato 999;999;999;..."/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">			
+			<xs:pattern value="([0-9][0-9][0-9];)+"/> 
+		</xs:restriction>
+	</xs:simpleType>
+  <xs:element name="secuenciacorte" type="secuenciaType">    
+  </xs:element>
+  <xs:element name="secuenciaapertura" type="secuenciaType">    
+  </xs:element>
+  <xs:element name="puertoSerie">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="PuertoCOM"/>
+        <xs:element ref="Baudios"/>
+        <xs:element ref="BitsDatos"/>
+        <xs:element ref="BitsParada"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PuertoCOM" type="xs:nonNegativeInteger"/>
+  <xs:element name="Baudios" type="xs:nonNegativeInteger"/>
+  <xs:element name="BitsDatos" type="xs:nonNegativeInteger"/>
+  <xs:element name="BitsParada" type="xs:nonNegativeInteger"/>
+</xs:schema>

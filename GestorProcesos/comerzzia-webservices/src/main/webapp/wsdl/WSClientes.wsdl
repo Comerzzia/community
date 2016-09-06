@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://clientes.general.ws.comerzzia.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://clientes.general.ws.comerzzia.com" xmlns:intf="http://clientes.general.ws.comerzzia.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://clientes.general.ws.comerzzia.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="obtenerCliente">
+    <complexType>
+     <sequence>
+      <element name="cif" type="xsd:string"/>
+      <element name="usuario" type="xsd:string"/>
+      <element name="clave" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="obtenerClienteResponse">
+    <complexType>
+     <sequence>
+      <element name="obtenerClienteReturn" type="impl:WSClienteBean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="WSClienteBean">
+    <sequence>
+     <element name="activo" nillable="true" type="xsd:string"/>
+     <element name="banco" nillable="true" type="xsd:string"/>
+     <element name="ccc" nillable="true" type="xsd:string"/>
+     <element name="cif" nillable="true" type="xsd:string"/>
+     <element name="codAlmacenTienda" nillable="true" type="xsd:string"/>
+     <element name="codCli" nillable="true" type="xsd:string"/>
+     <element name="codMedioPago" nillable="true" type="xsd:string"/>
+     <element name="codPais" nillable="true" type="xsd:string"/>
+     <element name="codSec" nillable="true" type="xsd:string"/>
+     <element name="codTar" nillable="true" type="xsd:string"/>
+     <element name="codTratImp" nillable="true" type="xsd:string"/>
+     <element name="cp" nillable="true" type="xsd:string"/>
+     <element name="desAlmacenTienda" nillable="true" type="xsd:string"/>
+     <element name="desCli" nillable="true" type="xsd:string"/>
+     <element name="desMedPagVen" nillable="true" type="xsd:string"/>
+     <element name="desMedioPagoVencimiento" nillable="true" type="xsd:string"/>
+     <element name="desPais" nillable="true" type="xsd:string"/>
+     <element name="desSec" nillable="true" type="xsd:string"/>
+     <element name="desTar" nillable="true" type="xsd:string"/>
+     <element name="desTratImp" nillable="true" type="xsd:string"/>
+     <element name="domicilio" nillable="true" type="xsd:string"/>
+     <element name="domicilioBanco" nillable="true" type="xsd:string"/>
+     <element name="email" nillable="true" type="xsd:string"/>
+     <element name="fax" nillable="true" type="xsd:string"/>
+     <element name="fechaAlta" nillable="true" type="xsd:dateTime"/>
+     <element name="fechaBaja" nillable="true" type="xsd:dateTime"/>
+     <element name="idMedioPagoVencimiento" nillable="true" type="xsd:long"/>
+     <element name="idTratImp" nillable="true" type="xsd:long"/>
+     <element name="nombreComercial" nillable="true" type="xsd:string"/>
+     <element name="observaciones" nillable="true" type="xsd:string"/>
+     <element name="personaContacto" nillable="true" type="xsd:string"/>
+     <element name="poblacion" nillable="true" type="xsd:string"/>
+     <element name="poblacionBanco" nillable="true" type="xsd:string"/>
+     <element name="provincia" nillable="true" type="xsd:string"/>
+     <element name="riesgoConcedido" nillable="true" type="xsd:double"/>
+     <element name="telefono1" nillable="true" type="xsd:string"/>
+     <element name="telefono2" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="obtenerClienteRequest">
+
+      <wsdl:part element="impl:obtenerCliente" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="obtenerClienteResponse">
+
+      <wsdl:part element="impl:obtenerClienteResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="WSClientes">
+
+      <wsdl:operation name="obtenerCliente">
+
+         <wsdl:input message="impl:obtenerClienteRequest" name="obtenerClienteRequest"/>
+
+         <wsdl:output message="impl:obtenerClienteResponse" name="obtenerClienteResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="WSClientesSoapBinding" type="impl:WSClientes">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="obtenerCliente">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="obtenerClienteRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="obtenerClienteResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="WSClientesService">
+
+      <wsdl:port binding="impl:WSClientesSoapBinding" name="WSClientes">
+
+         <wsdlsoap:address location="http://localhost/comerzzia/ws/services/WSClientes"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

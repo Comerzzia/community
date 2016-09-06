@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<acciones>
+	<FrmTicket>
+		<AcAparcarTicket>
+			<titulo>APARCAR TICKET</titulo>
+			<descripcion>Aparca el ticket actual</descripcion>
+			<atajo>F1</atajo>
+		</AcAparcarTicket>
+		<AcAnotarPagos>
+			<titulo>PAGOS</titulo>
+			<descripcion>Anota pagos realizados y salva el ticket</descripcion>
+			<atajo>F5</atajo>
+		</AcAnotarPagos>
+		<AcRecuperarTicket>
+			<titulo>RECUPERAR TICKET</titulo>
+			<descripcion>Recuperar Ticket aparcado</descripcion>
+			<atajo>F2</atajo>
+		</AcRecuperarTicket>
+		<AcBuscarCliente>
+			<titulo>CLIENTE</titulo>
+			<descripcion>Seleccionar cliente</descripcion>
+			<atajo>F9</atajo>
+		</AcBuscarCliente>
+		<AcBuscarArticulo>
+			<titulo>BUSCAR ARTÍCULO</titulo>
+			<descripcion>Buscar artículo</descripcion>
+			<atajo>Ctrl+F</atajo>
+		</AcBuscarArticulo>
+		<AcCambiarUsuario>
+			<titulo>CAMBIAR CAJERO</titulo>
+			<descripcion>Cambiar de usuario / cajero</descripcion>
+			<atajo>F10</atajo>
+		</AcCambiarUsuario>
+		<AcAbrirCajon>
+			<titulo>ABRIR CAJON</titulo>
+			<descripcion>Abrir cajón</descripcion>
+			<atajo>Ctrl+O</atajo>
+		</AcAbrirCajon>
+		<AcBorrarLineaTicket>
+			<titulo>BORRAR LINEA</titulo>
+			<descripcion>Borrar línea de ticket</descripcion>
+			<atajo>Ctrl+Del</atajo>
+		</AcBorrarLineaTicket>
+		<AcEditarLinea>
+			<titulo>MODIFICAR LINEA</titulo>
+			<descripcion>Modificar la línea del ticket</descripcion>
+			<atajo>Ctrl+E</atajo>
+		</AcEditarLinea>
+		<AcDevolucion>
+			<titulo>DEVOLVER LÍNEA</titulo>
+			<descripcion>Marca/desmarca la línea del ticket como devolución</descripcion>
+			<atajo>Ctrl+D</atajo>
+		</AcDevolucion>
+	</FrmTicket>
+	<FrmCaja>
+		<AcAbrirCaja>
+			<titulo>APERTURA</titulo>
+			<descripcion>Realizar apertura de caja</descripcion>
+			<atajo>F1</atajo>
+		</AcAbrirCaja>
+		<AcMovimientos>
+			<titulo>MOVIMIENTOS</titulo>
+			<descripcion>Ver movimientos de caja / Ventas</descripcion>
+			<atajo>F2</atajo>
+		</AcMovimientos>
+		<AcImprimirUltimoCierre>
+			<titulo>IMPRIMIR ULT. CIERRE</titulo>
+			<descripcion>Imprimir última caja cerrada</descripcion>
+			<atajo>F4</atajo>
+		</AcImprimirUltimoCierre>
+		<AcCambiarUsuario>
+			<titulo>CAMBIAR CAJERO</titulo>
+			<descripcion>Cambiar de usuario / cajero</descripcion>
+			<atajo>F10</atajo>
+		</AcCambiarUsuario>
+		<AcCierre>
+			<titulo>CIERRE</titulo>
+			<Descripcion>Cerrar caja activa</Descripcion>
+			<atajo>F6</atajo>
+		</AcCierre>
+		<AcInsertarApunte>
+			<titulo>INSERTAR APUNTE</titulo>
+			<descripcion>Insertar un apunte en la caja</descripcion>
+			<atajo>F7</atajo>
+		</AcInsertarApunte>
+		<AcAbrirCajon>
+			<titulo>ABRIR CAJON</titulo>
+			<descripcion>Abrir cajón</descripcion>
+			<atajo>Ctrl+O</atajo>
+		</AcAbrirCajon>
+		<AcEliminarMovimiento>
+			<titulo>BORRAR MOVIMIENTO</titulo>
+			<descripcion>Borra el movimiento de caja seleccionado</descripcion>
+			<atajo></atajo>
+		</AcEliminarMovimiento>
+		<AcRecuento>
+			<titulo>RECUENTO DE CAJA</titulo>
+			<descripcion>Realizar el recuento de la caja</descripcion>
+			<atajo>F8</atajo>
+		</AcRecuento>
+	</FrmCaja>
+</acciones>

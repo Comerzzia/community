@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ===================================================================== -->
+<!-- -->
+<!-- JBoss Server Configuration -->
+<!-- -->
+<!-- ===================================================================== -->
+
+<!-- $Id: ora-ds.xml,v 1.1.2.1 2002/12/12 03:07:05 jboynes Exp $ -->
+
+
+<datasources>
+    <local-tx-datasource> 
+        <jndi-name>jdbc/COMERZZIA_DS</jndi-name>
+        <connection-url>jdbc:oracle:thin:@192.168.21.140:1521:COMERAND</connection-url>
+        <driver-class>oracle.jdbc.driver.OracleDriver</driver-class>
+        <user-name>COMERZZIA</user-name>
+        <password>COMERZZIA</password>
+        <min-pool-size>1</min-pool-size>
+    </local-tx-datasource>
+</datasources>
+

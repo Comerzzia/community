@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.comerzzia.com/xml/ns/" xmlns="http://www.comerzzia.com/xml/ns/">
+  <xs:element name="configuracion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="BaseDatos">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Datasource" type="xs:anyURI">
+                  <xs:annotation>
+                      <xs:documentation source="es" xml:lang="Nombre JNDI de la fuente de datos de la aplicacion"/>
+                  </xs:annotation>
+              </xs:element>
+              <xs:element name="EsquemaConfiguracion" type="xs:NCName">
+                  <xs:annotation>
+                      <xs:documentation xml:lang="es" source="Nombre del esquema de base de datos donde residen las tablas de configuracion CONFIG_"/>
+                  </xs:annotation>
+              </xs:element>
+              <xs:element name="EsquemaEmpresa" type="xs:NCName">
+                  <xs:annotation>
+                      <xs:documentation xml:lang="es" source="Nombre del esquema de base de datos donde residen las tablas de la empresa D_"/>
+                  </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Informes">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="RutaBase" type="xs:anyURI">
+                  <xs:annotation>
+                      <xs:documentation xml:lang="es" source="Ruta al directorio donde se encuentran los informes de la aplicacion"/>
+                  </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Aplicacion" type="xs:NCName">
+            <xs:annotation>
+                <xs:documentation xml:lang="es" source="Nombre del menu de aplicacion que se cargara por defecto al entrar en la aplicacion"/>
+            </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="entorno" use="optional" type="xs:NCName"/>
+      <xs:attribute name="fecha" use="optional" type="xs:string"/>      
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

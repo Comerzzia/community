@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Parametros>
+	<BaseDatos>
+		<Proveedor>MySQL</Proveedor>
+		<Servidor>192.168.101.244</Servidor>
+		<Puerto>3306</Puerto>
+		<Usuario>comerzzia</Usuario>
+		<Clave>comerzzia</Clave>
+		<Esquema>COMERZZIA</Esquema>
+		<Opciones>
+	</Opciones>
+	</BaseDatos>
+	<Usuario>
+		<Aplicacion>TPV</Aplicacion>
+	</Usuario>
+  <Desarrollo>
+		<MonitorSQL>S</MonitorSQL>
+    <MODO_DEMO>S</MODO_DEMO>
+    <IMPRIMIRAFICHERO>S</IMPRIMIRAFICHERO>
+	</Desarrollo>
+</Parametros>

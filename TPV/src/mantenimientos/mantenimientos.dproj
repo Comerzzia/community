@@ -1,0 +1,177 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{5347cc77-a508-4d2a-a014-f753bff905fb}</ProjectGuid>
+			<MainSource>mantenimientos.dpk</MainSource>
+			<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+			<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+			<DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+			<DCC_DependencyCheckOutputName>..\..\bin\comerzzia_mantenimientos100.bpl</DCC_DependencyCheckOutputName>
+			<ProjectVersion>12.0</ProjectVersion>
+			<Config Condition="'$(Config)'==''">Debug</Config>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_1)'!=''">
+			<Cfg_1>true</Cfg_1>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
+			<Cfg_2>true</Cfg_2>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Base)'!=''">
+			<DllSuffix>100</DllSuffix>
+			<DCC_BplOutput>..\..\bin</DCC_BplOutput>
+			<DCC_ImageBase>00400000</DCC_ImageBase>
+			<DesignOnlyPackage>false</DesignOnlyPackage>
+			<DCC_DependencyCheckOutputName>..\..\bin\comerzzia_mantenimientos100.bpl</DCC_DependencyCheckOutputName>
+			<DCC_UnitSearchPath>..\dcp;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+			<RuntimeOnlyPackage>true</RuntimeOnlyPackage>
+			<DCC_DcpOutput>..\dcp</DCC_DcpOutput>
+			<GenDll>true</GenDll>
+			<GenPackage>true</GenPackage>
+			<DllPrefix>comerzzia_</DllPrefix>
+			<DllPrefixDefined>true</DllPrefixDefined>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<Version>7.0</Version>
+			<DCC_DebugInformation>False</DCC_DebugInformation>
+			<DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+			<DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+			<DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_2)'!=''">
+			<Version>7.0</Version>
+			<DCC_ResourcePath>..\..\src_core\libcore;..\..\dcp;$(DCC_ResourcePath)</DCC_ResourcePath>
+			<DCC_ObjPath>..\..\src_core\libcore;..\..\dcp;$(DCC_ObjPath)</DCC_ObjPath>
+			<DCC_IncludePath>..\..\src_core\libcore;..\..\dcp;$(DCC_IncludePath)</DCC_IncludePath>
+		</PropertyGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
+			<Borland.ProjectType>Package</Borland.ProjectType>
+			<BorlandProject>
+				<Delphi.Personality>
+					<Parameters>
+						<Parameters Name="UseLauncher">False</Parameters>
+						<Parameters Name="LoadAllSymbols">True</Parameters>
+						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
+						<Parameters Name="HostApplication">..\..\BIN\TPV.exe</Parameters>
+					</Parameters>
+					<VersionInfo>
+						<VersionInfo Name="IncludeVerInfo">True</VersionInfo>
+						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
+						<VersionInfo Name="MajorVer">1</VersionInfo>
+						<VersionInfo Name="MinorVer">3</VersionInfo>
+						<VersionInfo Name="Release">0</VersionInfo>
+						<VersionInfo Name="Build">0</VersionInfo>
+						<VersionInfo Name="Debug">False</VersionInfo>
+						<VersionInfo Name="PreRelease">False</VersionInfo>
+						<VersionInfo Name="Special">False</VersionInfo>
+						<VersionInfo Name="Private">False</VersionInfo>
+						<VersionInfo Name="DLL">False</VersionInfo>
+						<VersionInfo Name="Locale">1034</VersionInfo>
+						<VersionInfo Name="CodePage">1252</VersionInfo>
+					</VersionInfo>
+					<VersionInfoKeys>
+						<VersionInfoKeys Name="CompanyName">TIER1, S.L.</VersionInfoKeys>
+						<VersionInfoKeys Name="FileDescription">Modulo de mantenimientos</VersionInfoKeys>
+						<VersionInfoKeys Name="FileVersion">1.3.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="InternalName"/>
+						<VersionInfoKeys Name="LegalCopyright"/>
+						<VersionInfoKeys Name="LegalTrademarks"/>
+						<VersionInfoKeys Name="OriginalFilename"/>
+						<VersionInfoKeys Name="ProductName">ComerZZia</VersionInfoKeys>
+						<VersionInfoKeys Name="ProductVersion">1.3</VersionInfoKeys>
+						<VersionInfoKeys Name="Comments"/>
+					</VersionInfoKeys>
+					<Source>
+						<Source Name="MainSource">mantenimientos.dpk</Source>
+					</Source>
+					<Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\dcloffice2k140.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\dclofficexp140.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+					</Excluded_Packages>
+				</Delphi.Personality>
+			</BorlandProject>
+			<ProjectFileVersion>12</ProjectFileVersion>
+		</ProjectExtensions>
+		<ItemGroup>
+			<DelphiCompile Include="mantenimientos.dpk">
+				<MainSource>MainSource</MainSource>
+			</DelphiCompile>
+			<DCCReference Include="vclx.dcp"/>
+			<DCCReference Include="vcl.dcp"/>
+			<DCCReference Include="rtl.dcp"/>
+			<DCCReference Include="xmlrtl.dcp"/>
+			<DCCReference Include="dbrtl.dcp"/>
+			<DCCReference Include="dsnap.dcp"/>
+			<DCCReference Include="vcldb.dcp"/>
+			<DCCReference Include="RaizeComponentsVclDb.dcp"/>
+			<DCCReference Include="RaizeComponentsVcl.dcp"/>
+			<DCCReference Include="JvMM.dcp"/>
+			<DCCReference Include="unidac140.dcp"/>
+			<DCCReference Include="core.dcp"/>
+			<DCCReference Include="dac140.dcp"/>
+			<DCCReference Include="fs14.dcp"/>
+			<DCCReference Include="AsyncPro.dcp"/>
+			<DCCReference Include="vclactnband.dcp"/>
+			<DCCReference Include="tmsd2010.dcp"/>
+			<DCCReference Include="tmsexd2010.dcp"/>
+			<DCCReference Include="soaprtl.dcp"/>
+			<DCCReference Include="inet.dcp"/>
+			<DCCReference Include="EhLib140.dcp"/>
+			<DCCReference Include="AyudaMediosPagos.pas"/>
+			<DCCReference Include="AyudaTarifas.pas"/>
+			<DCCReference Include="FormMantBasico.pas">
+				<Form>FrmMantBasico</Form>
+			</DCCReference>
+			<DCCReference Include="FormMantArticulos.pas">
+				<Form>FrmMantArticulos</Form>
+			</DCCReference>
+			<DCCReference Include="FormCodigoBarras.pas">
+				<Form>FrmCodigoBarras</Form>
+			</DCCReference>
+			<DCCReference Include="FormMantClientes.pas">
+				<Form>FrmMantClientes</Form>
+			</DCCReference>
+			<DCCReference Include="WebServiceClientes.pas"/>
+			<DCCReference Include="FormConfCodigoBarras.pas">
+				<Form>FrmConfCodigoBarras</Form>
+			</DCCReference>
+			<DCCReference Include="DataMMTOMediosPago.pas">
+				<Form>DMMediosPago</Form>
+				<DesignClass>TDataModule</DesignClass>
+			</DCCReference>
+			<DCCReference Include="DataMMTOTarifas.pas">
+				<Form>DMTarifas</Form>
+				<DesignClass>TDataModule</DesignClass>
+			</DCCReference>
+			<DCCReference Include="DataMMTOArticulo.pas">
+				<Form>DMArticulo</Form>
+				<DesignClass>TDataModule</DesignClass>
+			</DCCReference>
+			<DCCReference Include="DataMMTOCliente.pas">
+				<Form>DMCliente</Form>
+				<DesignClass>TDataModule</DesignClass>
+			</DCCReference>
+			<DCCReference Include="DataMMTOCodigoBarras.pas">
+				<Form>DMCodigoBarras</Form>
+				<DesignClass>TDataModule</DesignClass>
+			</DCCReference>
+			<BuildConfiguration Include="Base">
+				<Key>Base</Key>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Debug">
+				<Key>Cfg_2</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Release">
+				<Key>Cfg_1</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+		</ItemGroup>
+		<Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+	</Project>

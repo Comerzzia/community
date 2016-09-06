@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<portlet-app version="1.0" xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd">
+  <portlet>
+    <description xml:lang="EN">Tienda Virtual</description>
+    <portlet-name>TiendaVirtualPortlet</portlet-name>
+    <display-name xml:lang="EN">TiendaVirtualPortlet</display-name>
+    <portlet-class>com.comerzzia.portlets.tiendavirtual.TiendaVirtualPortlet</portlet-class>
+
+    <expiration-cache>-1</expiration-cache>
+
+    <supports>
+      <mime-type>text/html</mime-type>
+      <portlet-mode>view</portlet-mode>
+      <!-- <portlet-mode>edit</portlet-mode> -->
+     </supports>
+
+    <supported-locale>es_ES</supported-locale>
+
+    <portlet-info>
+      <title>Tienda Virtual</title>
+      <short-title>Tienda Virtual</short-title>
+      <keywords>Tienda Virtual</keywords>
+    </portlet-info>
+    
+    <security-role-ref>
+		<role-name>guest</role-name>
+	</security-role-ref>
+	<security-role-ref>
+		<role-name>power-user</role-name>
+	</security-role-ref>
+	<security-role-ref>
+		<role-name>user</role-name>
+	</security-role-ref>
+	
+  </portlet>
+
+</portlet-app>

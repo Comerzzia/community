@@ -1,0 +1,39 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from WSClientesService WSDL service -->
+
+  <service name="WSClientes" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://clientes.general.ws.comerzzia.com"/>
+      <parameter name="wsdlServiceElement" value="WSClientesService"/>
+      <parameter name="schemaQualified" value="http://clientes.general.ws.comerzzia.com"/>
+      <parameter name="wsdlServicePort" value="WSClientes"/>
+      <parameter name="className" value="com.comerzzia.ws.general.clientes.WSClientesSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="WSClientes"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="obtenerCliente" qname="operNS:obtenerCliente" xmlns:operNS="http://clientes.general.ws.comerzzia.com" returnQName="retNS:obtenerClienteReturn" xmlns:retNS="http://clientes.general.ws.comerzzia.com" returnType="rtns:WSClienteBean" xmlns:rtns="http://clientes.general.ws.comerzzia.com" soapAction="" >
+        <parameter qname="pns:cif" xmlns:pns="http://clientes.general.ws.comerzzia.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:usuario" xmlns:pns="http://clientes.general.ws.comerzzia.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:clave" xmlns:pns="http://clientes.general.ws.comerzzia.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="obtenerCliente"/>
+
+      <typeMapping
+        xmlns:ns="http://clientes.general.ws.comerzzia.com"
+        qname="ns:WSClienteBean"
+        type="java:com.comerzzia.ws.general.clientes.WSClienteBean"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>

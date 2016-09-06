@@ -1,0 +1,68 @@
+package mantenimientos;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$LIBPREFIX 'comerzzia_'}
+{$LIBSUFFIX '100'}
+{$RUNONLY}
+{$IMPLICITBUILD ON}
+
+requires
+  vclx,
+  vcl,
+  rtl,
+  xmlrtl,
+  dbrtl,
+  dsnap,
+  vcldb,
+  RaizeComponentsVclDb,
+  RaizeComponentsVcl,
+  JvMM,
+  unidac140,
+  core,
+  dac140,
+  fs14,
+  AsyncPro,
+  vclactnband,
+  tmsd2010,
+  tmsexd2010,
+  soaprtl,
+  inet,
+  EhLib140;
+
+contains
+  AyudaMediosPagos in 'AyudaMediosPagos.pas',
+  AyudaTarifas in 'AyudaTarifas.pas',
+  FormMantBasico in 'FormMantBasico.pas' {FrmMantBasico},
+  FormMantArticulos in 'FormMantArticulos.pas' {FrmMantArticulos},
+  FormCodigoBarras in 'FormCodigoBarras.pas' {FrmCodigoBarras},
+  FormMantClientes in 'FormMantClientes.pas' {FrmMantClientes},
+  WebServiceClientes in 'WebServiceClientes.pas',
+  FormConfCodigoBarras in 'FormConfCodigoBarras.pas' {FrmConfCodigoBarras},
+  DataMMTOMediosPago in 'DataMMTOMediosPago.pas' {DMMediosPago: TDataModule},
+  DataMMTOTarifas in 'DataMMTOTarifas.pas' {DMTarifas: TDataModule},
+  DataMMTOArticulo in 'DataMMTOArticulo.pas' {DMArticulo: TDataModule},
+  DataMMTOCliente in 'DataMMTOCliente.pas' {DMCliente: TDataModule},
+  DataMMTOCodigoBarras in 'DataMMTOCodigoBarras.pas' {DMCodigoBarras: TDataModule};
+
+end.

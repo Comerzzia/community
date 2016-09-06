@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ===================================================================== -->
+<!-- -->
+<!-- JBoss Server Configuration -->
+<!-- -->
+<!-- ===================================================================== -->
+
+<!-- $Id: ora-ds.xml,v 1.1.2.1 2002/12/12 03:07:05 jboynes Exp $ -->
+
+
+<datasources>
+    <local-tx-datasource>
+		<jndi-name>jdbc/COMERZZIA_MYSQL_DS</jndi-name>
+        <connection-url>jdbc:mysql://192.168.101.244:3306/comerzzia</connection-url>
+		<driver-class>com.mysql.jdbc.Driver</driver-class>
+		<user-name>comerzzia</user-name>
+		<password>comerzzia</password>
+		<min-pool-size>3</min-pool-size>
+		<max-pool-size>50</max-pool-size>
+		<idle-timeout-minutes>5</idle-timeout-minutes> 
+		<exception-sorter-class-name>com.mysql.jdbc.integration.jboss.ExtendedMysqlExceptionSorter</exception-sorter-class-name> 
+		<valid-connection-checker-class-name>com.mysql.jdbc.integration.jboss.MysqlValidConnectionChecker</valid-connection-checker-class-name>
+		<metadata>
+			<type-mapping>mySQL</type-mapping>
+		</metadata>
+	</local-tx-datasource>
+</datasources>
+

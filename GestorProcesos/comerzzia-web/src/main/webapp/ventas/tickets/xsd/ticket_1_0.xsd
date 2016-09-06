@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="ticket">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="cabecera"/>
+				<xs:element ref="lineas"/>
+				<xs:element ref="pagos"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="cabecera">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="uid_ticket"/>
+				<xs:element ref="id_ticket"/>
+				<xs:element ref="fecha"/>
+				<xs:element ref="tienda"/>
+				<xs:element ref="codcaja"/>
+				<xs:element ref="uid_diario_caja"/>
+				<xs:element ref="cliente"/>
+				<xs:element ref="cajero"/>
+				<xs:element ref="empresa" minOccurs="0"/>
+				<xs:element ref="totales"/>
+				<xs:element ref="lineasimpuestos"/>
+				<xs:element name="extension" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation xml:lang="es" source="Elemento para extension de formato para terceros"/>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="uid_ticket">
+		<xs:annotation>
+			<xs:documentation xml:lang="es" source="Identificador unico de ticket"/>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="40"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="id_ticket" type="xs:nonNegativeInteger">
+		<xs:annotation>
+			<xs:documentation xml:lang="es" source="Numero de ticket"/>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="fecha" type="xs:dateTime"/>
+	<xs:element name="tienda">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:length value="4"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="codcaja">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:length value="2"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="uid_diario_caja">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="40"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="cliente">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="codcli"/>
+				<xs:element ref="descli"/>
+				<xs:element ref="id_grupo_impuestos"/>
+				<xs:element ref="id_trat_impuestos"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="codcli">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="11"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="descli">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="45"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="id_grupo_impuestos" type="xs:nonNegativeInteger"/>
+	<xs:element name="id_trat_impuestos" type="xs:integer"/>
+	<xs:element name="cajero">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="id_usuario"/>
+				<xs:element ref="desusuario" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="id_usuario" type="xs:integer"/>
+	<xs:element name="desusuario" nillable="false">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="45"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="empresa">
+		<xs:complexType>
+			<xs:sequence minOccurs="0">
+				<xs:element ref="descripcion"/>
+				<xs:element ref="domicilio"/>
+				<xs:element ref="poblacion"/>
+				<xs:element ref="provincia"/>
+				<xs:element ref="telefono1"/>
+				<xs:element ref="telefono2"/>
+				<xs:element ref="fax"/>
+				<xs:element ref="nombre_comercial"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="descripcion" type="xs:string"/>
+	<xs:element name="domicilio" type="xs:string"/>
+	<xs:element name="poblacion" type="xs:string"/>
+	<xs:element name="provincia" type="xs:string"/>
+	<xs:element name="telefono1" type="xs:string"/>
+	<xs:element name="telefono2" type="xs:string"/>
+	<xs:element name="fax" type="xs:string"/>
+	<xs:element name="nombre_comercial" type="xs:string"/>
+	<xs:simpleType name="ImporteIntermedioType">
+		<xs:restriction base="xs:double">
+			<xs:pattern value="[0-9][0-9]*\.[0-9]{2}|-[0-9][0-9]*\.[0-9]{2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="totales">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="base"/>
+				<xs:element ref="impuestos"/>
+				<xs:element ref="total"/>
+				<xs:element ref="entregado"/>
+				<xs:element ref="cambio"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="entregado" type="ImporteIntermedioType"/>
+	<xs:element name="cambio" type="ImporteIntermedioType"/>
+	<xs:element name="lineas">
+		<xs:complexType>
+			<xs:sequence maxOccurs="unbounded">
+				<xs:element ref="linea"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="linea">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="codart"/>
+				<xs:element ref="desglose1"/>
+				<xs:element ref="desglose2"/>
+				<xs:element ref="desart"/>
+				<xs:element ref="cantidad"/>
+				<xs:element ref="precio"/>
+				<xs:element ref="descuento" minOccurs="0"/>
+				<xs:element ref="precio_total_sin_dto" minOccurs="0"/>
+				<xs:element ref="precio_total"/>
+				<xs:element ref="importe"/>
+				<xs:element ref="importe_total"/>
+				<xs:element ref="codImp"/>
+				<xs:element ref="promocion" minOccurs="0"/>
+				<xs:element name="extension" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation xml:lang="es" source="Elemento para extension de formato para terceros"/>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="idlinea" use="required" type="xs:integer"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="codart">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="13"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:simpleType name="DesgloseType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="15"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="desglose1" type="DesgloseType"/>
+	<xs:element name="desglose2" type="DesgloseType"/>
+	<xs:element name="desart">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="45"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="descuento" type="xs:decimal"/>
+	<xs:element name="precio_total_sin_dto" type="ImporteIntermedioType"/>
+	<xs:element name="cantidad" type="xs:decimal"/>
+	<xs:element name="precio" type="xs:decimal"/>
+	<xs:element name="precio_total" type="ImporteIntermedioType"/>
+	<xs:element name="importe_total" type="ImporteIntermedioType"/>
+	<xs:element name="promocion">
+		<xs:complexType>
+			<xs:sequence minOccurs="1" maxOccurs="1">
+				<xs:element ref="texto_promocion"/>
+				<xs:element ref="precio_tarifa"/>
+				<xs:element ref="precio_tarifa_total"/>
+				<xs:element ref="ahorro"/>
+				<xs:element ref="puntos"/>
+			</xs:sequence>
+			<xs:attribute name="idpromocion" use="required" type="xs:integer"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="texto_promocion">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="255"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="precio_tarifa" type="xs:decimal"/>
+	<xs:element name="precio_tarifa_total" type="ImporteIntermedioType"/>
+	<xs:element name="ahorro" type="xs:decimal"/>
+	<xs:element name="puntos" type="xs:integer"/>
+	<xs:element name="pagos">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pago"/>
+				<xs:element ref="operacionTEF" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="pago">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="codmedpag"/>
+				<xs:element ref="desmedpag"/>
+				<xs:element ref="importe"/>
+				<xs:element ref="numero_operacion"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="codmedpag" type="xs:string"/>
+	<xs:element name="desmedpag" type="xs:string"/>
+	<xs:element name="numero_operacion" type="xs:string">
+	</xs:element>
+	<xs:element name="base" type="ImporteIntermedioType"/>
+	<xs:element name="lineasimpuestos">
+		<xs:complexType mixed="true">
+			<xs:sequence>
+				<xs:element minOccurs="0" maxOccurs="unbounded" ref="lineaimpuestos"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="lineaimpuestos">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="codImp"/>
+				<xs:element ref="base"/>
+				<xs:element ref="impuestos"/>
+				<xs:element ref="total"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="impuestos" type="ImporteIntermedioType"/>
+	<xs:element name="total" type="ImporteIntermedioType"/>
+	<xs:element name="importe" type="xs:decimal"/>
+	<xs:element name="codImp">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:length value="1"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+
+	<xs:element name="pos" type="xs:string"/>
+	<xs:element name="codigocentro" type="xs:string"/>
+	<xs:element name="codigotienda" type="xs:string"/>
+	<xs:element name="codigocajera" type="xs:string"/>
+	<xs:element name="tipotransaccion" type="xs:string"/>
+	<xs:element name="tipomoneda" type="xs:string"/>
+	<xs:element name="fuc" type="xs:string"/>
+	<xs:element name="terminal" type="xs:string"/>
+	<xs:element name="nombreentidad" type="xs:string"/>
+	<xs:element name="nombrecliente" type="xs:string"/>
+	<xs:element name="aid" type="xs:string"/>
+	<xs:element name="pan" type="xs:string"/>
+	<xs:element name="p23" type="xs:string"/>
+	<xs:element name="applicationlabel" type="xs:string"/>
+	<xs:element name="fechatransaccion" type="xs:string"/>
+	<xs:element name="numautorizacion" type="xs:string"/>
+	<xs:element name="establecimiento" type="xs:string"/>
+	<xs:element name="direccionestablecimiento" type="xs:string"/>
+	<xs:element name="requestcode" type="xs:string"/>
+	<xs:element name="terminalid" type="xs:string"/>
+	<xs:element name="verificaciontitular" type="xs:string"/>
+	<xs:element name="authmode" type="xs:string"/>
+	<xs:element name="tipolectura" type="xs:string"/>
+
+	<xs:element name="operacionTEF">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pos" minOccurs="0"/>
+				<xs:element ref="codigocentro" minOccurs="0"/>
+				<xs:element ref="codigotienda" minOccurs="0"/>
+				<xs:element ref="codigocajera" minOccurs="0"/>
+				<xs:element ref="tipotransaccion" minOccurs="0"/>
+				<xs:element ref="importe" minOccurs="0"/>
+				<xs:element ref="id_ticket" minOccurs="0"/>
+				<xs:element ref="tipomoneda" minOccurs="0"/>
+				<xs:element ref="fuc" minOccurs="0"/>
+				<xs:element ref="terminal" minOccurs="0"/>
+				<xs:element ref="nombreentidad" minOccurs="0"/>
+				<xs:element ref="nombrecliente" minOccurs="0"/>
+				<xs:element ref="aid" minOccurs="0"/>
+				<xs:element ref="pan" minOccurs="0"/>
+				<xs:element ref="p23" minOccurs="0"/>
+				<xs:element ref="applicationlabel" minOccurs="0"/>
+				<xs:element ref="fechatransaccion" minOccurs="0"/>
+				<xs:element ref="numautorizacion" minOccurs="0"/>
+				<xs:element ref="establecimiento" minOccurs="0"/>
+				<xs:element ref="direccionestablecimiento" minOccurs="0"/>
+				<xs:element ref="requestcode" minOccurs="0"/>
+				<xs:element ref="terminalid" minOccurs="0"/>
+				<xs:element ref="verificaciontitular" minOccurs="0"/>
+				<xs:element ref="authmode" minOccurs="0"/>
+				<xs:element ref="tipolectura" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

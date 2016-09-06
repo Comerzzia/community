@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="comerzzia/deploy/comerzzia-util.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/comerzzia/comerzzia-util.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <javaElement handleIdentifier="=comerzzia-util/src\/main\/java&lt;com.comerzzia.util.base"/>
+        <javaElement handleIdentifier="=comerzzia-util/src\/main\/java&lt;com.comerzzia.util.db"/>
+        <javaElement handleIdentifier="=comerzzia-util/src\/main\/java&lt;com.comerzzia.util.numeros"/>
+        <javaElement handleIdentifier="=comerzzia-util/src\/main\/java&lt;com.comerzzia.util.xml"/>
+        <javaElement handleIdentifier="=comerzzia-util/src\/main\/java&lt;com.comerzzia.util.config"/>
+        <javaElement handleIdentifier="=comerzzia-util/src\/main\/java&lt;com.comerzzia.util.paginacion"/>
+        <javaElement handleIdentifier="=comerzzia-util/src\/main\/java&lt;com.comerzzia.util"/>
+        <javaElement handleIdentifier="=comerzzia-util/src\/main\/java&lt;com.comerzzia.util.xsd"/>
+        <javaElement handleIdentifier="=comerzzia-util/src\/main\/java&lt;com.comerzzia.util.log"/>
+        <javaElement handleIdentifier="=comerzzia-util/src\/main\/java&lt;com.comerzzia.util.fechas"/>
+        <javaElement handleIdentifier="=comerzzia-util/src\/main\/java&lt;com.comerzzia.util.formateo"/>
+    </selectedElements>
+    <fatjar builder="org.eclipse.jdt.ui.plain_jar_builder" launchConfig=""/>
+</jardesc>

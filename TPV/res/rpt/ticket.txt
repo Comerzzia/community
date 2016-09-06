@@ -1,0 +1,149 @@
+procedure cabecera;
+begin
+   informe.imprimelinea(informe.damenodoxml('cabecera/empresa/descripcion'));
+	 informe.imprimelinea(informe.damenodoxml('cabecera/empresa/domicilio'));	
+	 informe.imprimelinea(informe.damenodoxml('cabecera/empresa/poblacion'));	
+	 informe.imprimelinea(informe.damenodoxml('cabecera/empresa/telefono1'));	
+	 informe.imprimelinea(informe.damenodoxml('cabecera/empresa/nombre_comercial'));
+         informe.imprimelinea(informe.damenodoxml('cabecera/empresa/cif'));
+	 informe.imprimelinea('');
+	 informe.imprimelinea('');
+	 informe.imprimelinea(FormateaFechaHoraTef(informe.damenodoxml('cabecera/fecha')) + '  Ticket:' +  informe.damenodoxml('cabecera/id_ticket'));  
+	 informe.imprimelinea('');
+   informe.imprimelinea('CANT DESCRIPCION                 IMPORTE');
+   informe.imprimelinea('----------------------------------------');
+end;
+
+procedure detalle;
+var
+   i: Integer;
+   bTlineas: Integer;
+   Cantidad: Double;
+   nDescuento: Double;
+   nImporteSinDescuento: Currency;
+   sPromocion: string;
+begin
+   bTlineas := informe.dameNumeroHijos('ticket', 'lineas', 'linea');
+   for i := 0 to bTlineas - 1 do
+   begin
+      Cantidad := informe.damedetallenodoxmlCurr('ticket', 'lineas', 'cantidad', i);   
+      nDescuento := informe.damedetallenodoxmlCurr('ticket', 'lineas', 'descuento', i);                               
+      sPromocion := rellenaespacios(' ', 6);    
+         
+      if (Cantidad = 1) or (Cantidad = -1) then
+      begin         
+	      informe.imprimelinea(FormatFloat('#0', Cantidad) + ' ' +         
+	         padr(copy(informe.damedetallenodoxml('ticket', 'lineas', 'desart', i), 0, 22), 22) + ' ' + 
+	         sPromocion + ' ' +
+	         rellenaespacios(copy(informe.damedetallenodoxml('ticket', 'lineas', 'importe_total', i), 0, 8), 8));                 
+      end
+      else
+      begin
+        informe.imprimelinea(padr(copy(informe.damedetallenodoxml('ticket', 'lineas', 'desart', i), 0, 40), 40));
+        informe.imprimelinea(FormatFloat('##0.00', Cantidad) + ' x ' + 
+           padr('(' + copy(informe.damedetallenodoxml('ticket', 'lineas', 'precio_total', i) + ') ', 0, 17), 17) + ' ' +
+           sPromocion + ' ' +
+           rellenaespacios(copy(informe.damedetallenodoxml('ticket', 'lineas', 'importe_total', i), 0, 8), 8));
+      end;   
+   end;         
+   informe.imprimelinea('');  
+end;
+
+
+procedure total;
+begin
+   informe.imprimelinea('');
+   informe.imprimelinea(rellenaespacios('TOTAL A PAGAR:   ', 30) +  rellenaespacios(copy(informe.damenodoxml('cabecera/totales/total'), 0, 10), 10));
+   informe.imprimelinea(rellenaespacios('TOTAL ENTREGADO: ', 30) +  rellenaespacios(copy(informe.damenodoxml('cabecera/totales/entregado'), 0, 10), 10));
+   informe.imprimelinea(rellenaespacios('----------', 40));
+   informe.imprimelinea(rellenaespacios('A DEVOLVER:      ', 30) +  rellenaespacios(copy(informe.damenodoxml('cabecera/totales/cambio'), 0, 10), 10));
+   informe.imprimelinea('');
+end;
+
+procedure pagos;
+var
+   i: Integer;
+   bTlineas: Integer;
+begin
+   informe.imprimelinea('DETALLE DE PAGOS');
+   informe.imprimelinea('----------------------------------------');   
+   bTlineas := informe.dameNumeroHijos('ticket', 'pagos', 'pago');
+   for i := 0 to bTlineas - 1 do
+      if dameCodMedPagPromocion <> informe.damedetallenodoxml('ticket', 'pagos', 'codmedpag', i) then
+         informe.imprimelinea(rellenaespacios(copy(informe.damedetallenodoxml('ticket', 'pagos', 'desmedpag', i), 0, 28), 29) + ' ' + 
+            rellenaespacios(copy(informe.damedetallenodoxml('ticket', 'pagos', 'importe', i), 0, 10), 10));
+   informe.imprimelinea('');
+end;
+
+procedure infoTransaccion;
+begin
+   if informe.damenodoxml('pagos/operacionTEF/numautorizacion') <> '' then
+   begin
+      if informe.damenodoxml('pagos/operacionTEF/tipotransaccion') = 'v' then
+      begin
+         informe.imprimelinea('Operacion: VENTA');
+         if informe.damenodoxml('pagos/operacionTEF/tipolectura') = '2' then
+         begin
+            informe.imprimelinea('Req. ARC: ' + informe.damenodoxml('pagos/operacionTEF/requestcode'));
+         end;
+      end
+      else if informe.damenodoxml('pagos/operacionTEF/tipotransaccion') = 'd' then
+         informe.imprimelinea('Operacion: DEVOLUCION')
+      else 
+         informe.imprimelinea('Operacion: ' + informe.damenodoxml('pagos/operacionTEF/tipotransaccion'));
+ 
+      if informe.damenodoxml('pagos/operacionTEF/tipolectura') = '2' then
+      begin    
+         informe.imprimelinea('Identificacion  AID: ' + informe.damenodoxml('pagos/operacionTEF/aid'));
+         informe.imprimelinea('P23: ' + informe.damenodoxml('pagos/operacionTEF/p23'));  
+         if informe.damenodoxml('pagos/operacionTEF/applicationlabel') <> '' then    
+            informe.imprimelinea('AL:' + informe.damenodoxml('pagos/operacionTEF/applicationlabel'));
+         if informe.damenodoxml('pagos/operacionTEF/nombrecliente') <> '' then 
+            informe.imprimelinea('Titular: ' + informe.damenodoxml('pagos/operacionTEF/nombrecliente'));
+      end;
+   
+      informe.imprimelinea('Tarjeta: ' + informe.damenodoxml('pagos/operacionTEF/pan'));
+      informe.imprimelinea('Fecha: ' + formateafechahoratef(informe.damenodoxml('pagos/operacionTEF/fechatransaccion')));
+      informe.imprimelinea('Importe: ' + informe.damenodoxml('pagos/operacionTEF/importe') + ' EUR') ;
+      informe.imprimelinea('');
+      informe.imprimelinea('Num.Aut.:' + informe.damenodoxml('pagos/operacionTEF/numautorizacion'));
+      informe.imprimelinea('FUC: ' + informe.damenodoxml('pagos/operacionTEF/fuc') + ' Terminal: ' + informe.damenodoxml('pagos/operacionTEF/terminal'));      
+      informe.imprimelinea('PinPad: ' + informe.damenodoxml('pagos/operacionTEF/terminalid'));
+      if informe.damenodoxml('pagos/operacionTEF/nombreentidad') <> '' then
+         informe.imprimelinea(informe.damenodoxml('pagos/operacionTEF/nombreentidad'));      
+      informe.imprimelinea('');
+   end;
+end;
+
+procedure pie;
+begin
+   informe.imprimelinea('----------------------------------------');
+   informe.imprimelinea('IVA INCLUIDO');
+   informe.imprimelinea('----------------------------------------');
+   informe.imprimelinea('');
+   informe.imprimelinea('         GRACIAS POR SU VISITA.'); 
+   informe.imprimelinea('      PARA CUALQUIER RECLAMACION,');
+   informe.imprimelinea('      PRESENTE EL TICKET DE COMPRA');
+   informe.imprimelinea('');
+   informe.imprimelinea('LE ATENDIO..... ' +  copy(informe.damenodoxml('cabecera/cajero/desusuario'), 0, 24));
+   informe.imprimelinea('');
+   informe.imprimelinea('');
+   informe.imprimelinea('');
+   informe.imprimelinea('');
+   informe.imprimelinea('');
+end;
+
+begin
+   //if informe.salidainforme = 'impresora' and informe.tipocopia <> 'COPIA' then
+      abrircajon;
+   cabecera;
+   detalle;
+   
+   total;
+   pagos;
+   infoTransaccion;
+   pie;
+   informe.imprimir;
+   //if informe.salidainforme = 'impresora' then
+      cortarpapel;
+end.

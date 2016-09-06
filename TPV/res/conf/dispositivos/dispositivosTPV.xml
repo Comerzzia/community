@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dispositivos xmlns="http://www.comerzzia.com/xml/ns/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.comerzzia.com/xml/ns/ http://www.comerzzia.com/xml/ns/dispositivosTPV_1_0.xsd">
+	<visores>
+		<visor modelo="GENERICO">
+			<metodosconexion>
+				<metodoconexion nombreconexion="COM1-9600-8-N-1" tipoconexion="puertoSerie">
+					<puertoSerie>
+						<PuertoCOM>1</PuertoCOM>
+						<Baudios>9600</Baudios>
+						<BitsDatos>8</BitsDatos>
+						<BitsParada>1</BitsParada>
+					</puertoSerie>
+				</metodoconexion>
+				<metodoconexion nombreconexion="COM2-9600-8-N-1" tipoconexion="puertoSerie">
+					<puertoSerie>
+						<PuertoCOM>2</PuertoCOM>
+						<Baudios>9600</Baudios>
+						<BitsDatos>8</BitsDatos>
+						<BitsParada>1</BitsParada>
+					</puertoSerie>
+				</metodoconexion>
+				<metodoconexion nombreconexion="COM3-9600-8-N-1" tipoconexion="puertoSerie">
+					<puertoSerie>
+						<PuertoCOM>3</PuertoCOM>
+						<Baudios>9600</Baudios>
+						<BitsDatos>8</BitsDatos>
+						<BitsParada>1</BitsParada>
+					</puertoSerie>
+				</metodoconexion>
+				<metodoconexion nombreconexion="COM4-9600-8-N-1" tipoconexion="puertoSerie">
+					<puertoSerie>
+						<PuertoCOM>4</PuertoCOM>
+						<Baudios>9600</Baudios>
+						<BitsDatos>8</BitsDatos>
+						<BitsParada>1</BitsParada>
+					</puertoSerie>
+				</metodoconexion>
+			</metodosconexion>
+		</visor>
+		<visor modelo="ELSI-P365-FTLDSO">
+			<metodosconexion>
+				<metodoconexion nombreconexion="OPOS-ELSI" tipoconexion="OPOS">
+					<OPOS>
+						<NombreClase>OPOS.LineDisplay</NombreClase>
+						<NombreDispositivo>FTLDSO</NombreDispositivo>
+					</OPOS>
+				</metodoconexion>
+			</metodosconexion>
+		</visor>
+    <visor modelo="IBM PN41J7310">
+			<metodosconexion>
+				<metodoconexion nombreconexion="OPOS-IBM" tipoconexion="OPOS">
+					<OPOS>
+						<NombreClase>OPOS.LineDisplay</NombreClase>
+						<NombreDispositivo>LD</NombreDispositivo>
+					</OPOS>
+				</metodoconexion>
+			</metodosconexion>
+		</visor>
+	</visores>
+	<cajones>
+		<cajon modelo="GENERICO">
+			<metodosconexion>
+				<metodoconexion nombreconexion="Impresora-LPT1" tipoconexion="puertoImpresora">
+					<puertoImpresora>
+					</puertoImpresora>
+				</metodoconexion>
+			</metodosconexion>
+			<operaciones>
+				<secuenciaapertura>027;112;048;055;121;</secuenciaapertura>
+			</operaciones>
+		</cajon>
+		<cajon modelo="ELSI-P365-FTCD11">
+			<metodosconexion>
+				<metodoconexion nombreconexion="OPOS-ELSI" tipoconexion="OPOS">
+					<OPOS>
+						<NombreClase>OPOS.CashDrawer</NombreClase>
+						<NombreDispositivo>FTCD11</NombreDispositivo>
+					</OPOS>
+				</metodoconexion>
+			</metodosconexion>
+		</cajon>
+		<cajon modelo="Posiflex CD">
+			<metodosconexion>
+				<metodoconexion nombreconexion="OPOS-Posiflex" tipoconexion="OPOS">
+					<OPOS>
+						<NombreClase>OPOS.CashDrawer</NombreClase>
+						<NombreDispositivo>Posiflex CD</NombreDispositivo>
+					</OPOS>
+				</metodoconexion>
+			</metodosconexion>
+		</cajon>
+	</cajones>
+	<impresoras>
+		<impresora modelo="GENERICO">
+			<metodosconexion>
+				<metodoconexion nombreconexion="Impresora-LPT1" tipoconexion="puertoImpresora">
+					<puertoImpresora>
+					</puertoImpresora>
+				</metodoconexion>
+			</metodosconexion>
+			<operaciones>
+				<secuenciacorte>027;105;</secuenciacorte>
+			</operaciones>
+		</impresora>
+		<impresora modelo="EPSON TM-T70U">
+			<metodosconexion>
+				<metodoconexion nombreconexion="OPOS-EPSON" tipoconexion="OPOS">
+					<OPOS>
+						<NombreClase>OPOS.POSPrinter</NombreClase>
+						<NombreDispositivo>TM-T70</NombreDispositivo>
+					</OPOS>
+				</metodoconexion>
+			</metodosconexion>
+			<operaciones>
+				<porcentajecorte>80</porcentajecorte>
+			</operaciones>
+		</impresora>
+		<impresora modelo="Posiflex PP6800">
+			<metodosconexion>
+				<metodoconexion nombreconexion="OPOS-POSIFLEX" tipoconexion="OPOS">
+					<OPOS>
+						<NombreClase>OPOS.POSPrinter</NombreClase>
+						<NombreDispositivo>Posiflex PP6800</NombreDispositivo>
+					</OPOS>
+				</metodoconexion>
+			</metodosconexion>
+			<operaciones>
+				<porcentajecorte>80</porcentajecorte>
+			</operaciones>
+		</impresora>
+	</impresoras>
+	<tarjetas>
+		<tarjeta modelo="TEF Wincor Ingenico 3380">
+       <metodosconexion>
+				  <metodoconexion nombreconexion="TEF-WINCOR" tipoconexion="TEF">						
+				  	 <TEF>
+			          <NombreDLL>wincortef.dll</NombreDLL>
+			       </TEF>
+			    </metodoconexion>
+			 </metodosconexion>
+		</tarjeta>
+	</tarjetas>
+</dispositivos>

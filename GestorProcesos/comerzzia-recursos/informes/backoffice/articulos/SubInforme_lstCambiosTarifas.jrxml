@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TIENDAS_ BAJA EN TARIFAS" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<parameter name="CODTAR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     TARIFAS_HIST.CODART AS CODART,
+     T_ARTICULOS.DESART AS DESART,
+     MAX(TARIFAS_HIST.FECHA)AS FECHA,
+     D_TIENDAS_TARIFAS.VERSION_TARIFA AS VERSION_TA,
+     D_TIENDAS_TARIFAS.VERSION_TARIFA_REV AS VERSION_TA_REV,
+     D_TIENDAS_TARIFAS.CODTAR AS CODTAR
+FROM
+     T_ARTICULOS_TBL T_ARTICULOS RIGHT OUTER JOIN D_TARIFAS_DET_HIST_TBL TARIFAS_HIST ON T_ARTICULOS.CODART = TARIFAS_HIST.CODART
+     INNER JOIN D_TIENDAS_TARIFAS_TBL D_TIENDAS_TARIFAS ON TARIFAS_HIST.CODTAR = D_TIENDAS_TARIFAS.CODTAR
+WHERE
+     TARIFAS_HIST.VERSION > D_TIENDAS_TARIFAS.VERSION_TARIFA_REV
+ AND TARIFAS_HIST.VERSION <= D_TIENDAS_TARIFAS.VERSION_TARIFA
+ AND TARIFAS_HIST.CODTAR = D_TIENDAS_TARIFAS.CODTAR
+ AND TARIFAS_HIST.BORRADO = 'S'
+ AND D_TIENDAS_TARIFAS.CODTAR = $P{CODTAR}
+GROUP BY
+     TARIFAS_HIST.CODART,
+     T_ARTICULOS.DESART,
+     D_TIENDAS_TARIFAS.VERSION_TARIFA,
+     D_TIENDAS_TARIFAS.VERSION_TARIFA_REV,
+     D_TIENDAS_TARIFAS.CODTAR]]>
+	</queryString>
+	<field name="CODART" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DESART" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FECHA" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="VERSION_TA" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="VERSION_TA_REV" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CODTAR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="41" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="5" y="36" width="527" height="1"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="5" y="21" width="142" height="10" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CÓDIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="89" y="21" width="359" height="10" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIPCIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="447" y="21" width="85" height="10" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="0" width="258" height="20"/>
+				<textElement>
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ARTÍCULOS ELIMINADOS DE LA TARIFA]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="5" y="0" width="79" height="10"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CODART}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="83" y="0" width="359" height="10"/>
+				<textElement>
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DESART}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="13" width="527" height="1" forecolor="#CCCCCC"/>
+			</line>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="442" y="0" width="85" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{FECHA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

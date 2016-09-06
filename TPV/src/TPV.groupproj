@@ -1,0 +1,86 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{96c95d42-c305-4017-ad9e-fbac14c5b1b2}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="core\core.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="tpv\TPV.dproj">
+				<Dependencies>core\core.dproj</Dependencies>
+			</Projects>
+			<Projects Include="tpvventas\tpvventas.dproj">
+				<Dependencies>core\core.dproj</Dependencies>
+			</Projects>
+			<Projects Include="tpvcaja\tpvcaja.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="mantenimientos\mantenimientos.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<BorlandProject>
+					<Default.Personality/>
+				</BorlandProject>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="core">
+			<MSBuild Projects="core\core.dproj"/>
+		</Target>
+		<Target Name="core:Clean">
+			<MSBuild Targets="Clean" Projects="core\core.dproj"/>
+		</Target>
+		<Target Name="core:Make">
+			<MSBuild Targets="Make" Projects="core\core.dproj"/>
+		</Target>
+		<Target DependsOnTargets="core" Name="TPV">
+			<MSBuild Projects="tpv\TPV.dproj"/>
+		</Target>
+		<Target DependsOnTargets="core:Clean" Name="TPV:Clean">
+			<MSBuild Targets="Clean" Projects="tpv\TPV.dproj"/>
+		</Target>
+		<Target DependsOnTargets="core:Make" Name="TPV:Make">
+			<MSBuild Targets="Make" Projects="tpv\TPV.dproj"/>
+		</Target>
+		<Target DependsOnTargets="core" Name="tpvventas">
+			<MSBuild Projects="tpvventas\tpvventas.dproj"/>
+		</Target>
+		<Target DependsOnTargets="core:Clean" Name="tpvventas:Clean">
+			<MSBuild Targets="Clean" Projects="tpvventas\tpvventas.dproj"/>
+		</Target>
+		<Target DependsOnTargets="core:Make" Name="tpvventas:Make">
+			<MSBuild Targets="Make" Projects="tpvventas\tpvventas.dproj"/>
+		</Target>
+		<Target Name="tpvcaja">
+			<MSBuild Projects="tpvcaja\tpvcaja.dproj"/>
+		</Target>
+		<Target Name="tpvcaja:Clean">
+			<MSBuild Targets="Clean" Projects="tpvcaja\tpvcaja.dproj"/>
+		</Target>
+		<Target Name="tpvcaja:Make">
+			<MSBuild Targets="Make" Projects="tpvcaja\tpvcaja.dproj"/>
+		</Target>
+		<Target Name="mantenimientos">
+			<MSBuild Projects="mantenimientos\mantenimientos.dproj"/>
+		</Target>
+		<Target Name="mantenimientos:Clean">
+			<MSBuild Targets="Clean" Projects="mantenimientos\mantenimientos.dproj"/>
+		</Target>
+		<Target Name="mantenimientos:Make">
+			<MSBuild Targets="Make" Projects="mantenimientos\mantenimientos.dproj"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="core;TPV;tpvventas;tpvcaja;mantenimientos"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="core:Clean;TPV:Clean;tpvventas:Clean;tpvcaja:Clean;mantenimientos:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="core:Make;TPV:Make;tpvventas:Make;tpvcaja:Make;mantenimientos:Make"/>
+		</Target>
+		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+	</Project>

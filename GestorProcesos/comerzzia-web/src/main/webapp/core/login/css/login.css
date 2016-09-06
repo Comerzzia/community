@@ -1,0 +1,210 @@
+@CHARSET "UTF-8";
+
+div#head{
+	background: url(../../comun/images/logos/logo.gif) no-repeat left;
+	height: 96px;
+	}
+div#head span{
+	float:right;
+	font-size:16px;
+	text-align:right;
+	color: #7F0000;
+	font-weight:bold;
+	padding:60px 10px 0 0;
+	}
+div#login-main{
+	margin-top: 20%;
+	}
+	
+div#login-box{
+	width:251px;
+	margin:auto;
+	border:solid 1px;
+    }	
+	
+div#login-cms-title{
+	width: 273px;
+	margin: 0 auto 0 auto;
+	}	
+	
+div#login-cms-title h1{
+	font-size: 22px;
+	}	
+	
+div#login-version{
+	min-height:15px;
+	padding: 2px;
+	margin: 0 auto;
+	text-align:right;
+	font-weight:bold;
+	color:#FFF;
+	}
+		
+div#login-failed{
+	min-height:15px;
+	padding: 0;
+	margin: 0 auto;
+	text-align:center;
+	font-weight:bold;
+	color:#FFF;
+	}
+div#login-title{
+	height: 20px;
+	margin: 0 auto 0 auto;
+	background: transparent url(../../../comun/images//tablas/gradiente_login.gif) repeat scroll 0 0;	
+	}
+		
+div#login-title h2{
+	padding: 0;
+	margin: 0;
+	border: 0;
+	color: #fff;
+	font-size: 16px;
+	}	
+	
+div#login-form{
+	margin: 0 auto 0 auto;
+	color: #0058C1;
+	}
+div#login-form table{
+	background:#EEF2F7;
+	width:100%;
+}
+div#login-logo{}
+
+div#login-form label{
+	width: 100px;
+	font-size:13px;
+	margin-right:2px;
+	}
+
+div#login-form input{
+	width: 150px;
+	margin-bottom: 3px;
+	border: 1px solid #A1B5CE;
+	}
+
+div#login-form .fila{
+float:right;
+margin-top:10px;
+}
+	
+	
+.login-input{
+	background: url(../images/bg_input_01.gif) repeat-x 0 0;
+	background-color: #FFFFFF;
+	}	
+	
+.login-submit{
+	margin: 5px 0 0 0px !important;
+	width: 80px !important;
+	/*float: right !important;*/
+	background-color: #F27906;
+	color:#FFF;
+	font-weight:bold;
+	}	
+	
+div#login-result{
+	border-top:1px solid;
+	margin:0 auto;
+	padding:1px;
+	background-color:#999;
+	clear:both;
+	}
+
+div#login-result a{
+	color:#FFFFFF;
+	text-decoration:none
+	}
+	
+div#login-result span.linkLeft{
+	float:left;
+	border-bottom:1px dotted #ffffff;
+	margin:0 0 0 10px;
+}	
+div#login-result span.linkRight{
+	float:right;
+	border-bottom:1px dotted #ffffff;
+	margin:0 10px 0 0;
+}
+	
+div#login-foot{
+	width: 100%;
+	float: left;
+	text-align: center;
+	padding: 5px 0 0 0;
+	}	
+
+	html{
+	border: 0;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	}
+input[type="button"]{
+-moz-border-radius-bottomleft:2.5px;
+-moz-border-radius-bottomright:2.5px;
+-moz-border-radius-topleft:2.5px;
+-moz-border-radius-topright:2.5px;
+background:url(../../../comun/images/menu/boton_centro.gif) #FFFFFF repeat-x scroll right top;
+border:1px solid #999999 !important;
+cursor:pointer;
+float:right;
+color:#000;
+font-weight:normal;
+}
+
+body{
+	border: 0;
+	margin: 0;
+	padding: 0;
+	background-color: #a1b5ce;
+	font-family: "Trebuchet MS", "Tahoma", verdana, sans-serif;
+	font-size: 11px;
+	color: #444;
+	}
+
+form{
+	border: 0;
+	margin: 0;
+	padding: 0;
+	}
+	
+input, select, textarea, file{
+	font-family: "Trebuchet MS", "Tahoma", verdana, sans-serif;
+	font-size: 11px;
+	color: #0D3C5B;
+	}	
+
+sup{
+	text-transform: uppercase;
+	font-weight: normal;
+	font-size: 11px;
+	color: #10649F;
+	font-family: arial, helvetica, sans-serif;	
+	}
+	
+img{
+	border: 0;
+	}	
+	
+a{
+	color: #1D74B1;
+	}
+
+a:hover{
+	color: #52B3FD;
+	}
+
+i{
+	font-weight: normal;
+	color: #666D73;
+	}	
+
+.hidden{
+	display: none;
+	}	
+	
+.clear{
+	clear:both;
+	}	
